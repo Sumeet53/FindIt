@@ -1,38 +1,10 @@
 // FindIt - Everyday Physical Memory
-// Standard Vanilla PWA Engine
+// Standard Vanilla PWA Engine (User-Friendly & Zero-Build)
 
 const ITEMS_KEY = 'spatialcache_items_v1';
 const ROOMS_KEY = 'spatialcache_rooms_v1';
 
 const INITIAL_ROOMS = [
-  {
-    id: 'hallway-closet',
-    name: 'Hallway Closet',
-    icon: 'archive',
-    description: 'Utility & linen storage near front entryway',
-    commonZones: ['Top Shelf', 'Middle Wire Rack', 'Floor Storage', 'Coat Rack Hooks'],
-  },
-  {
-    id: 'garage-workshop',
-    name: 'Garage & Workshop',
-    icon: 'wrench',
-    description: 'Heavy tools, sports gear, car care, and seasonal bins',
-    commonZones: ['Work Bench Pegboard', 'Metal Rack Shelf 2', 'Overhead Bins', 'Tool Chest Drawer 3'],
-  },
-  {
-    id: 'home-office',
-    name: 'Home Office',
-    icon: 'briefcase',
-    description: 'Work station, filing cabinet, and tech accessories',
-    commonZones: ['Filing Cabinet Top Drawer', 'Desk Right Drawer', 'Cable Organizer Box', 'Bookshelf Row 2'],
-  },
-  {
-    id: 'master-bedroom',
-    name: 'Master Bedroom',
-    icon: 'bed',
-    description: 'Personal storage, nightstands, and walk-in wardrobe',
-    commonZones: ['Nightstand Bottom Drawer', 'Closet High Shelf', 'Dresser Top Valet Tray', 'Underbed Box'],
-  },
   {
     id: 'kitchen-pantry',
     name: 'Kitchen & Pantry',
@@ -41,40 +13,68 @@ const INITIAL_ROOMS = [
     commonZones: ['Pantry Top Shelf', 'Under-Sink Caddy', 'Island Spice Drawer', 'Appliance Cupboard'],
   },
   {
+    id: 'hallway-closet',
+    name: 'Hallway Closet',
+    icon: 'archive',
+    description: 'Utility, linen storage, and household supplies',
+    commonZones: ['Top Shelf', 'Middle Wire Rack', 'Floor Storage', 'Coat Rack Hooks'],
+  },
+  {
+    id: 'garage-workshop',
+    name: 'Garage & Workshop',
+    icon: 'wrench',
+    description: 'Tools, hardware, sports gear, and car care',
+    commonZones: ['Work Bench Pegboard', 'Metal Rack Shelf 2', 'Tool Chest Drawer 3', 'Overhead Bins'],
+  },
+  {
     id: 'living-room',
     name: 'Living Room',
     icon: 'tv',
-    description: 'Entertainment console, side tables, and lounge shelves',
-    commonZones: ['TV Media Console - Center', 'Side Table Drawer', 'Display Credenza', 'Entryway Catchall Bowl'],
+    description: 'Entertainment console, keys catchall, and shelves',
+    commonZones: ['TV Media Console', 'Side Table Drawer', 'Entryway Catchall Bowl'],
+  },
+  {
+    id: 'home-office',
+    name: 'Home Office',
+    icon: 'briefcase',
+    description: 'Work station, filing cabinet, and cables',
+    commonZones: ['Filing Cabinet Top Drawer', 'Desk Right Drawer', 'Cable Organizer Box', 'Bookshelf'],
+  },
+  {
+    id: 'master-bedroom',
+    name: 'Master Bedroom',
+    icon: 'bed',
+    description: 'Personal storage, nightstands, and walk-in wardrobe',
+    commonZones: ['Closet High Shelf', 'Nightstand Drawer', 'Dresser Valet Tray', 'Underbed Box'],
   },
 ];
 
 const INITIAL_ITEMS = [
   {
     id: 'item-1',
-    name: 'Passports & International Immunization Cards',
+    name: 'Passports & Travel Documents',
     category: 'Documents & Valuables',
     location: {
       room: 'Master Bedroom',
       zone: 'Closet High Shelf',
-      container: 'Grey Fireproof Document Box #1',
-      landmark: 'Tucked behind the extra winter duvet, on the far left corner',
+      container: 'Grey Fireproof Document Box',
+      landmark: 'Tucked behind the extra winter blankets on the far left corner',
     },
-    description: 'Blue passports for family and yellow vaccination certificates.',
+    description: 'Blue passports for family and vaccination certificates.',
     tags: ['passport', 'travel', 'id', 'documents', 'identification'],
     lent: { isLent: false },
     isEssentialForGuests: false,
-    lastVerifiedAt: '2026-10-02T10:15:00.000Z',
+    lastVerifiedAt: '2026-10-12T10:15:00.000Z',
     createdAt: '2026-08-10T08:00:00.000Z',
   },
   {
     id: 'item-2',
-    name: 'Rechargeable AA & AAA Batteries (Eneloop)',
+    name: 'Rechargeable AA & AAA Batteries',
     category: 'Electronics & Cables',
     location: {
       room: 'Hallway Closet',
       zone: 'Middle Wire Rack',
-      container: 'Clear Acrylic Divided Bin #3',
+      container: 'Clear Divided Bin #3',
       landmark: 'Next to the lightbulb box, labeled "Batteries & Chargers"',
     },
     description: 'Pre-charged batteries plus 4-slot smart wall charger.',
@@ -82,12 +82,12 @@ const INITIAL_ITEMS = [
     lent: { isLent: false },
     consumable: {
       isConsumable: true,
-      quantity: 3,
+      quantity: 4,
       unit: 'batteries',
       minThreshold: 4,
     },
     isEssentialForGuests: true,
-    lastVerifiedAt: '2026-10-10T14:22:00.000Z',
+    lastVerifiedAt: '2026-10-14T14:22:00.000Z',
     createdAt: '2026-08-12T09:30:00.000Z',
   },
   {
@@ -100,7 +100,7 @@ const INITIAL_ITEMS = [
       container: 'Yellow Hard Shell Case',
       landmark: 'Middle shelf under the main pegboard workbench',
     },
-    description: 'Cordless brushless hammer drill with two 4Ah batteries and rapid charger.',
+    description: 'Brushless hammer drill with two batteries and charger.',
     tags: ['drill', 'dewalt', 'tools', 'screws', 'hardware'],
     lent: {
       isLent: true,
@@ -121,9 +121,9 @@ const INITIAL_ITEMS = [
       room: 'Kitchen & Pantry',
       zone: 'Pantry Top Shelf',
       container: 'Red Cross Zippered Soft Bag',
-      landmark: 'Eye level on the right wall of the pantry, next to the dry cereal boxes',
+      landmark: 'Eye level on the right wall of the pantry, next to cereal boxes',
     },
-    description: 'Sterile bandages, antiseptic spray, burn gel, EpiPen, and allergy medication.',
+    description: 'Sterile bandages, antiseptic spray, burn gel, and allergy medicine.',
     tags: ['first aid', 'bandages', 'medicine', 'emergency', 'allergy'],
     lent: { isLent: false },
     consumable: {
@@ -133,12 +133,12 @@ const INITIAL_ITEMS = [
       minThreshold: 1,
     },
     isEssentialForGuests: true,
-    lastVerifiedAt: '2026-10-12T08:30:00.000Z',
+    lastVerifiedAt: '2026-10-15T08:30:00.000Z',
     createdAt: '2026-06-15T12:00:00.000Z',
   },
   {
     id: 'item-5',
-    name: 'Digital Tire Pressure Gauge & Portable Inflator',
+    name: 'Digital Tire Pressure Gauge & Inflator',
     category: 'Tools & Hardware',
     location: {
       room: 'Garage & Workshop',
@@ -146,16 +146,16 @@ const INITIAL_ITEMS = [
       container: 'Black Padded Zipper Sleeve',
       landmark: 'Third drawer down of the red Craftsman tool chest',
     },
-    description: 'Backlit tire gauge reading up to 150 PSI, with valve stem caps.',
+    description: 'Backlit tire gauge reading up to 150 PSI.',
     tags: ['car', 'tires', 'gauge', 'pressure', 'automotive'],
     lent: { isLent: false },
     isEssentialForGuests: false,
-    lastVerifiedAt: '2026-10-05T17:45:00.000Z',
+    lastVerifiedAt: '2026-10-10T17:45:00.000Z',
     createdAt: '2026-08-01T15:20:00.000Z',
   },
   {
     id: 'item-6',
-    name: 'USB-C to HDMI 4K Display Adapter & Ethernet Dongle',
+    name: 'USB-C to HDMI 4K Display Adapter',
     category: 'Electronics & Cables',
     location: {
       room: 'Home Office',
@@ -163,7 +163,7 @@ const INITIAL_ITEMS = [
       container: 'Mesh Zipper Travel Pouch',
       landmark: 'Top front organizer tray alongside spare flash drives',
     },
-    description: 'Anker multiport hub with 4K HDMI, Gigabit LAN, and 100W PD charging.',
+    description: 'Multiport hub with 4K HDMI, Gigabit LAN, and charging.',
     tags: ['usb-c', 'hdmi', 'adapter', 'dongle', 'cable', 'monitor'],
     lent: { isLent: false },
     isEssentialForGuests: true,
@@ -172,15 +172,15 @@ const INITIAL_ITEMS = [
   },
   {
     id: 'item-7',
-    name: 'Spare Car Key Fob & Garden Shed Padlock Key',
+    name: 'Spare Car Key Fob & Garden Shed Key',
     category: 'Documents & Valuables',
     location: {
       room: 'Living Room',
       zone: 'Entryway Catchall Bowl',
       container: 'Small Leather Key Pouch',
-      landmark: 'Inside the ceramic bowl on the wooden entryway console table',
+      landmark: 'Inside ceramic bowl on the wooden entryway console table',
     },
-    description: 'Secondary electronic fob for Subaru Outback + brass key marked "SHED".',
+    description: 'Secondary electronic key fob + brass key marked "SHED".',
     tags: ['keys', 'car', 'shed', 'lock', 'spare', 'fob'],
     lent: { isLent: false },
     isEssentialForGuests: true,
@@ -189,7 +189,7 @@ const INITIAL_ITEMS = [
   },
   {
     id: 'item-8',
-    name: 'Water Filter Pitcher Replacement Cartridges (Brita)',
+    name: 'Water Filter Pitcher Replacement Cartridges',
     category: 'Household & Cleaning',
     location: {
       room: 'Kitchen & Pantry',
@@ -197,7 +197,7 @@ const INITIAL_ITEMS = [
       container: 'Cardboard Box (Pack of 3)',
       landmark: 'Left side caddy behind the dishwashing pods',
     },
-    description: 'Standard Brita replacement filters for 10-cup pitcher.',
+    description: 'Standard replacement filters for 10-cup pitcher.',
     tags: ['water', 'filter', 'brita', 'kitchen', 'clean'],
     lent: { isLent: false },
     consumable: {
@@ -207,30 +207,24 @@ const INITIAL_ITEMS = [
       minThreshold: 2,
     },
     isEssentialForGuests: false,
-    lastVerifiedAt: '2026-09-15T19:00:00.000Z',
+    lastVerifiedAt: '2026-10-08T19:00:00.000Z',
     createdAt: '2026-07-20T14:00:00.000Z',
   },
   {
     id: 'item-9',
-    name: 'Heavy Duty 50-Foot Outdoor Extension Cord',
+    name: 'Heavy Duty 50-Foot Extension Cord',
     category: 'Tools & Hardware',
     location: {
       room: 'Garage & Workshop',
       zone: 'Overhead Bins',
       container: 'Orange Cable Caddy Wheel',
-      landmark: 'Hanging from the wall hook next to the garden hose reel',
+      landmark: 'Hanging from wall hook next to the garden hose reel',
     },
-    description: '12-gauge 3-prong water resistant orange extension cord.',
+    description: '12-gauge 3-prong water resistant orange outdoor extension cord.',
     tags: ['cable', 'power', 'outdoor', 'extension', 'yard'],
-    lent: {
-      isLent: true,
-      lentTo: 'Carlos (Brother-in-law)',
-      lentDate: '2026-10-01',
-      expectedReturn: '2026-10-20',
-      notes: 'Lent for weekend lawn aeration project.',
-    },
+    lent: { isLent: false },
     isEssentialForGuests: false,
-    lastVerifiedAt: '2026-10-01T11:30:00.000Z',
+    lastVerifiedAt: '2026-10-09T11:30:00.000Z',
     createdAt: '2026-06-10T16:00:00.000Z',
   },
   {
@@ -243,33 +237,33 @@ const INITIAL_ITEMS = [
       container: 'Fabric Storage Cube #1',
       landmark: 'Far left fabric cube marked "Winter Accessories"',
     },
-    description: 'Gore-Tex ski mittens, 2 merino wool beanies, and neck gaiter.',
+    description: 'Ski mittens, 2 merino wool beanies, and neck gaiter.',
     tags: ['gloves', 'winter', 'beanie', 'cold', 'snow', 'clothes'],
     lent: { isLent: false },
     isEssentialForGuests: false,
-    lastVerifiedAt: '2026-09-02T13:00:00.000Z',
+    lastVerifiedAt: '2026-10-01T13:00:00.000Z',
     createdAt: '2026-05-15T10:00:00.000Z',
   },
   {
     id: 'item-11',
-    name: 'Wi-Fi Router Backup Password & Modem Reset Pin',
-    category: 'Office & Stationery',
+    name: 'Wi-Fi Network Backup Password & Info Card',
+    category: 'Office & Tech',
     location: {
       room: 'Living Room',
-      zone: 'TV Media Console - Center',
-      container: 'Back Cable Management Tray',
+      zone: 'TV Media Console',
+      container: 'Cable Management Tray',
       landmark: 'Laminated card taped to the underside of the main router shelf',
     },
-    description: 'Guest SSID: "HavenHome_Guest", Password: "WelcomeQuietStay26!" plus needle pin for hardware reset.',
+    description: 'SSID: "HavenHome_Guest" · Password: "WelcomeQuietStay26!"',
     tags: ['wifi', 'internet', 'router', 'password', 'tech', 'network'],
     lent: { isLent: false },
     isEssentialForGuests: true,
-    lastVerifiedAt: '2026-10-11T12:00:00.000Z',
+    lastVerifiedAt: '2026-10-15T12:00:00.000Z',
     createdAt: '2026-08-05T09:00:00.000Z',
   },
   {
     id: 'item-12',
-    name: 'Telescopic Aluminum Step Ladder (12.5 ft)',
+    name: 'Compact Telescopic Aluminum Ladder (12 ft)',
     category: 'Tools & Hardware',
     location: {
       room: 'Garage & Workshop',
@@ -277,11 +271,11 @@ const INITIAL_ITEMS = [
       container: 'Folded upright against wall',
       landmark: 'Secured with black bungee cord to the side of the metal rack',
     },
-    description: 'ANSI certified compact collapsible ladder.',
+    description: 'Compact collapsible ladder for painting and ceiling fixtures.',
     tags: ['ladder', 'tools', 'climbing', 'painting', 'garage'],
     lent: { isLent: false },
     isEssentialForGuests: false,
-    lastVerifiedAt: '2026-09-30T10:00:00.000Z',
+    lastVerifiedAt: '2026-10-05T10:00:00.000Z',
     createdAt: '2026-07-15T14:00:00.000Z',
   },
 ];
@@ -292,11 +286,10 @@ const CATEGORIES = [
   'Electronics & Cables',
   'Documents & Valuables',
   'Health & Medication',
-  'Kitchen & Pantry',
   'Household & Cleaning',
   'Seasonal & Apparel',
-  'Office & Stationery',
-  'Miscellaneous',
+  'Office & Tech',
+  'Other',
 ];
 
 // App State
@@ -305,7 +298,6 @@ const state = {
   rooms: [],
   searchQuery: '',
   selectedCategory: 'All',
-  filterLentOnly: false,
   filterLowStockOnly: false,
   filterGuestOnly: false,
   viewMode: 'grid', // 'grid' | 'rooms' | 'lending'
@@ -319,42 +311,34 @@ const state = {
 function loadData() {
   try {
     const rawItems = localStorage.getItem(ITEMS_KEY);
-    state.items = rawItems ? JSON.parse(rawItems) : INITIAL_ITEMS;
-    if (!rawItems) localStorage.setItem(ITEMS_KEY, JSON.stringify(INITIAL_ITEMS));
-
     const rawRooms = localStorage.getItem(ROOMS_KEY);
+
+    state.items = rawItems ? JSON.parse(rawItems) : INITIAL_ITEMS;
     state.rooms = rawRooms ? JSON.parse(rawRooms) : INITIAL_ROOMS;
-    if (!rawRooms) localStorage.setItem(ROOMS_KEY, JSON.stringify(INITIAL_ROOMS));
-  } catch (err) {
-    console.error('Failed to load from storage:', err);
+  } catch (e) {
+    console.error('Error reading localStorage:', e);
     state.items = INITIAL_ITEMS;
     state.rooms = INITIAL_ROOMS;
   }
 }
 
 function saveItems() {
-  localStorage.setItem(ITEMS_KEY, JSON.stringify(state.items));
+  try {
+    localStorage.setItem(ITEMS_KEY, JSON.stringify(state.items));
+  } catch (e) {
+    console.error('Error saving items:', e);
+  }
 }
 
 function saveRooms() {
-  localStorage.setItem(ROOMS_KEY, JSON.stringify(state.rooms));
+  try {
+    localStorage.setItem(ROOMS_KEY, JSON.stringify(state.rooms));
+  } catch (e) {
+    console.error('Error saving rooms:', e);
+  }
 }
 
-// Toast helper
-function showToast(message) {
-  const container = document.getElementById('toast-container');
-  if (!container) return;
-  const toast = document.createElement('div');
-  toast.className = 'bg-stone-900 text-white px-4 py-2.5 rounded-xl shadow-lg text-xs font-medium flex items-center gap-2 border border-stone-800 transition-all transform duration-200';
-  toast.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i><span>${escapeHtml(message)}</span>`;
-  container.appendChild(toast);
-  lucide.createIcons();
-  setTimeout(() => {
-    toast.classList.add('opacity-0', 'translate-y-2');
-    setTimeout(() => toast.remove(), 250);
-  }, 2800);
-}
-
+// Utility: HTML escape
 function escapeHtml(str) {
   if (!str) return '';
   return String(str)
@@ -362,21 +346,33 @@ function escapeHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+    .replace(/'/g, '&#39;');
 }
 
-// Compute Freshness Stats
-function getAccuracyStats() {
-  if (state.items.length === 0) return { pct: 100, fresh: 0, stale: 0 };
-  const now = Date.now();
-  let fresh = 0;
-  state.items.forEach((item) => {
-    const days = Math.floor((now - new Date(item.lastVerifiedAt).getTime()) / (1000 * 60 * 60 * 24));
-    if (days <= 30) fresh++;
+// Utility: Toast notification
+function showToast(message) {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+
+  const toast = document.createElement('div');
+  toast.className =
+    'bg-stone-900 text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-elevated flex items-center gap-2 pointer-events-auto transform transition-all duration-200 translate-y-2 opacity-0';
+  toast.innerHTML = `
+    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+    <span>${escapeHtml(message)}</span>
+  `;
+
+  container.appendChild(toast);
+  lucide.createIcons();
+
+  requestAnimationFrame(() => {
+    toast.classList.remove('translate-y-2', 'opacity-0');
   });
-  const stale = state.items.length - fresh;
-  const pct = Math.round((fresh / state.items.length) * 100);
-  return { pct, fresh, stale };
+
+  setTimeout(() => {
+    toast.classList.add('opacity-0', 'translate-y-2');
+    setTimeout(() => toast.remove(), 250);
+  }, 2600);
 }
 
 // Filtering items
@@ -390,11 +386,10 @@ function getFilteredItems() {
     if (state.selectedCategory !== 'All' && item.category !== state.selectedCategory) {
       return false;
     }
-    if (state.filterLentOnly && !item.lent.isLent) {
-      return false;
-    }
     if (state.filterLowStockOnly) {
-      const isLow = item.consumable?.isConsumable && (item.consumable.quantity ?? 0) <= (item.consumable.minThreshold ?? 0);
+      const isLow =
+        item.consumable?.isConsumable &&
+        (item.consumable.quantity ?? 0) <= (item.consumable.minThreshold ?? 0);
       if (!isLow) return false;
     }
     if (state.filterGuestOnly && !item.isEssentialForGuests) {
@@ -410,14 +405,17 @@ function getFilteredItems() {
         item.location.zone,
         item.location.container || '',
         item.location.landmark || '',
-        item.lent.lentTo || '',
+        item.lent?.lentTo || '',
         ...(item.tags || []),
       ]
         .join(' ')
         .toLowerCase();
 
       const words = normalizedQuery.split(/\s+/);
-      return words.every((w) => fullSearchHaystack.includes(w)) || fullSearchHaystack.includes(normalizedQuery);
+      return (
+        words.every((w) => fullSearchHaystack.includes(w)) ||
+        fullSearchHaystack.includes(normalizedQuery)
+      );
     }
     return true;
   });
@@ -425,23 +423,45 @@ function getFilteredItems() {
 
 // Render Functions
 function renderApp() {
-  renderHealthBanner();
+  renderSummaryStats();
   renderCategoryPills();
   renderCounters();
   renderMainView();
   lucide.createIcons();
 }
 
-function renderHealthBanner() {
-  const { pct, fresh, stale } = getAccuracyStats();
-  const bannerPct = document.getElementById('stat-confidence-pct');
-  const bannerCounts = document.getElementById('stat-counts');
-  const bannerIcon = document.getElementById('stat-icon');
+function renderSummaryStats() {
+  const totalItems = state.items.length;
+  const uniqueRooms = new Set(state.items.map((i) => i.location.room)).size;
+  const lentItems = state.items.filter((i) => i.lent && i.lent.isLent).length;
 
-  if (bannerPct) bannerPct.textContent = `${pct}% Physical Accuracy Confidence`;
-  if (bannerCounts) bannerCounts.textContent = `${fresh} fresh, ${stale} stale`;
-  if (bannerIcon) {
-    bannerIcon.className = `w-5 h-5 ${pct >= 80 ? 'text-emerald-600' : 'text-amber-600'}`;
+  const totalItemsEl = document.getElementById('stat-total-items');
+  const totalRoomsEl = document.getElementById('stat-total-rooms');
+  const lentLinkEl = document.getElementById('stat-lent-link');
+  const lentCountEl = document.getElementById('stat-lent-count');
+
+  if (totalItemsEl) totalItemsEl.textContent = `${totalItems} items`;
+  if (totalRoomsEl) totalRoomsEl.textContent = `${uniqueRooms} rooms`;
+
+  if (lentLinkEl && lentCountEl) {
+    if (lentItems > 0) {
+      lentLinkEl.classList.remove('hidden');
+      lentCountEl.textContent = `${lentItems} lent out`;
+    } else {
+      lentLinkEl.classList.add('hidden');
+    }
+  }
+
+  // Clear search button visibility
+  const clearSearchBtn = document.getElementById('btn-clear-search');
+  if (clearSearchBtn) {
+    clearSearchBtn.style.display = state.searchQuery ? 'block' : 'none';
+  }
+
+  // Filter controls row (only show in 'grid' view)
+  const filterRow = document.getElementById('filter-controls-row');
+  if (filterRow) {
+    filterRow.style.display = state.viewMode === 'grid' ? 'flex' : 'none';
   }
 }
 
@@ -454,10 +474,10 @@ function renderCategoryPills() {
     return `
       <button
         onclick="selectCategory('${cat}')"
-        class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
+        class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
           isSelected
-            ? 'bg-stone-900 text-white shadow-2xs'
-            : 'bg-white text-stone-600 border border-stone-200 hover:bg-stone-50'
+            ? 'bg-stone-900 text-white shadow-soft'
+            : 'bg-stone-50 text-stone-600 hover:bg-stone-100 hover:text-stone-900 border border-stone-200/80'
         }"
       >
         ${cat}
@@ -469,39 +489,39 @@ function renderCategoryPills() {
 function renderCounters() {
   const lentCount = state.items.filter((i) => i.lent && i.lent.isLent).length;
   const lowCount = state.items.filter(
-    (i) => i.consumable?.isConsumable && (i.consumable.quantity ?? 0) <= (i.consumable.minThreshold ?? 0)
+    (i) =>
+      i.consumable?.isConsumable &&
+      (i.consumable.quantity ?? 0) <= (i.consumable.minThreshold ?? 0)
   ).length;
 
-  const lentBadge = document.getElementById('badge-lent-count');
+  const lentTabBadge = document.getElementById('badge-lent-tab');
   const lowBadge = document.getElementById('badge-low-count');
+  const guestBtn = document.getElementById('filter-btn-guest');
+  const lowBtn = document.getElementById('filter-btn-low');
 
-  if (lentBadge) {
-    lentBadge.textContent = lentCount;
-    lentBadge.style.display = lentCount > 0 ? 'inline-flex' : 'none';
+  if (lentTabBadge) {
+    lentTabBadge.textContent = lentCount;
+    lentTabBadge.style.display = lentCount > 0 ? 'inline-block' : 'none';
   }
+
   if (lowBadge) {
     lowBadge.textContent = lowCount;
-    lowBadge.style.display = lowCount > 0 ? 'inline-flex' : 'none';
+    lowBadge.style.display = lowCount > 0 ? 'inline-block' : 'none';
   }
 
-  // Update button active state classes
-  const btnLent = document.getElementById('filter-btn-lent');
-  const btnLow = document.getElementById('filter-btn-low');
-  const btnGuest = document.getElementById('filter-btn-guest');
+  if (guestBtn) {
+    guestBtn.className = `inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border transition-all cursor-pointer ${
+      state.filterGuestOnly
+        ? 'bg-emerald-50 border-emerald-300 text-emerald-900 shadow-soft'
+        : 'bg-white border-stone-200 text-stone-600 hover:bg-stone-50'
+    }`;
+  }
 
-  if (btnLent) {
-    btnLent.className = `inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors cursor-pointer ${
-      state.filterLentOnly ? 'bg-amber-100 border-amber-300 text-amber-900' : 'bg-white border-stone-200 text-stone-600 hover:bg-stone-50'
-    }`;
-  }
-  if (btnLow) {
-    btnLow.className = `inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors cursor-pointer ${
-      state.filterLowStockOnly ? 'bg-red-100 border-red-300 text-red-900' : 'bg-white border-stone-200 text-stone-600 hover:bg-stone-50'
-    }`;
-  }
-  if (btnGuest) {
-    btnGuest.className = `inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors cursor-pointer ${
-      state.filterGuestOnly ? 'bg-emerald-100 border-emerald-300 text-emerald-900' : 'bg-white border-stone-200 text-stone-600 hover:bg-stone-50'
+  if (lowBtn) {
+    lowBtn.className = `inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border transition-all cursor-pointer ${
+      state.filterLowStockOnly
+        ? 'bg-red-50 border-red-300 text-red-900 shadow-soft'
+        : 'bg-white border-stone-200 text-stone-600 hover:bg-stone-50'
     }`;
   }
 }
@@ -515,9 +535,24 @@ function renderMainView() {
   const btnRooms = document.getElementById('view-tab-rooms');
   const btnLending = document.getElementById('view-tab-lending');
 
-  if (btnGrid) btnGrid.className = `px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${state.viewMode === 'grid' ? 'bg-white text-stone-900 shadow-2xs' : 'text-stone-500 hover:text-stone-900'}`;
-  if (btnRooms) btnRooms.className = `px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${state.viewMode === 'rooms' ? 'bg-white text-stone-900 shadow-2xs' : 'text-stone-500 hover:text-stone-900'}`;
-  if (btnLending) btnLending.className = `px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${state.viewMode === 'lending' ? 'bg-white text-stone-900 shadow-2xs' : 'text-stone-500 hover:text-stone-900'}`;
+  if (btnGrid)
+    btnGrid.className = `px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+      state.viewMode === 'grid'
+        ? 'bg-white text-stone-900 shadow-soft'
+        : 'text-stone-600 hover:text-stone-900'
+    }`;
+  if (btnRooms)
+    btnRooms.className = `px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+      state.viewMode === 'rooms'
+        ? 'bg-white text-stone-900 shadow-soft'
+        : 'text-stone-600 hover:text-stone-900'
+    }`;
+  if (btnLending)
+    btnLending.className = `px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+      state.viewMode === 'lending'
+        ? 'bg-white text-stone-900 shadow-soft'
+        : 'text-stone-600 hover:text-stone-900'
+    }`;
 
   if (state.viewMode === 'grid') {
     renderGridView(container);
@@ -533,19 +568,32 @@ function renderGridView(container) {
 
   if (filtered.length === 0) {
     container.innerHTML = `
-      <div class="p-12 text-center bg-white rounded-xl border border-stone-200 space-y-3">
-        <i data-lucide="search" class="w-8 h-8 text-stone-400 mx-auto"></i>
-        <h3 class="text-sm font-semibold text-stone-900">No matching items found</h3>
+      <div class="p-12 text-center bg-white rounded-2xl border border-stone-200 space-y-3 shadow-soft">
+        <div class="w-12 h-12 rounded-2xl bg-stone-100 flex items-center justify-center text-stone-400 mx-auto">
+          <i data-lucide="search" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-sm font-semibold text-stone-900">No items found</h3>
         <p class="text-xs text-stone-500 max-w-sm mx-auto">
-          We couldn't locate anything matching "${escapeHtml(state.searchQuery)}". Try searching by container, room name, or index it now!
+          ${
+            state.searchQuery
+              ? `No matches for "${escapeHtml(state.searchQuery)}". Check your spelling or add it now.`
+              : 'No items match your active filters.'
+          }
         </p>
-        <button
-          onclick="openQuickAddModal()"
-          class="inline-flex items-center gap-1.5 px-4 py-2 bg-stone-900 text-white rounded-lg text-xs font-semibold hover:bg-stone-800 transition-colors cursor-pointer"
-        >
-          <i data-lucide="plus" class="w-4 h-4 text-amber-400"></i>
-          <span>Index this item</span>
-        </button>
+        <div class="flex items-center justify-center gap-2 pt-2">
+          ${
+            state.searchQuery || state.selectedCategory !== 'All' || state.filterGuestOnly || state.filterLowStockOnly
+              ? `<button onclick="clearAllFilters()" class="px-3 py-1.5 text-xs border border-stone-200 rounded-lg text-stone-600 hover:bg-stone-50 cursor-pointer">Clear filters</button>`
+              : ''
+          }
+          <button
+            onclick="openQuickAddModal()"
+            class="inline-flex items-center gap-1.5 px-4 py-2 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft"
+          >
+            <i data-lucide="plus" class="w-4 h-4 text-amber-400"></i>
+            <span>Add this item</span>
+          </button>
+        </div>
       </div>
     `;
     return;
@@ -557,12 +605,12 @@ function renderGridView(container) {
     <div class="space-y-4">
       <div class="flex items-center justify-between text-xs text-stone-500 px-1">
         <span>
-          Showing <strong>${filtered.length}</strong> of ${state.items.length} items
+          Showing <strong>${filtered.length}</strong> ${filtered.length === 1 ? 'item' : 'items'}
           ${state.searchQuery ? ` matching "${escapeHtml(state.searchQuery)}"` : ''}
         </span>
         ${
-          state.searchQuery || state.selectedCategory !== 'All' || state.filterLentOnly || state.filterLowStockOnly || state.filterGuestOnly
-            ? `<button onclick="clearAllFilters()" class="text-stone-700 hover:underline cursor-pointer">Clear all filters</button>`
+          state.searchQuery || state.selectedCategory !== 'All' || state.filterLowStockOnly || state.filterGuestOnly
+            ? `<button onclick="clearAllFilters()" class="text-stone-700 hover:text-stone-950 font-medium underline cursor-pointer">Clear filters</button>`
             : ''
         }
       </div>
@@ -573,127 +621,129 @@ function renderGridView(container) {
   `;
 }
 
+// Clean, User-Friendly Item Card
 function renderItemCardHtml(item) {
-  const now = Date.now();
-  const daysSince = Math.floor((now - new Date(item.lastVerifiedAt).getTime()) / (1000 * 60 * 60 * 24));
-  const isStale = daysSince > 30;
-
+  const isLent = item.lent && item.lent.isLent;
   const isLowConsumable =
     item.consumable?.isConsumable &&
     (item.consumable.quantity ?? 0) <= (item.consumable.minThreshold ?? 0);
 
   return `
-    <div class="bg-white rounded-xl border border-stone-200 p-4 flex flex-col justify-between card-hover relative">
+    <div class="bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 flex flex-col justify-between card-hover shadow-soft relative group">
+      
+      <!-- Card Top Content -->
       <div class="space-y-3">
-        <!-- Top Metadata Row -->
-        <div class="flex items-start justify-between gap-2">
-          <div>
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="text-[11px] font-semibold text-stone-600 bg-stone-100 px-2 py-0.5 rounded">
-                ${escapeHtml(item.category)}
-              </span>
-              ${
-                item.isEssentialForGuests
-                  ? `<span class="text-[11px] font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded flex items-center gap-1">
-                      <i data-lucide="key" class="w-3 h-3"></i> Guest Safe
-                    </span>`
-                  : ''
-              }
-            </div>
-            <h4 class="text-sm font-semibold text-stone-900 mt-1">${escapeHtml(item.name)}</h4>
-          </div>
+        
+        <!-- Header Pill Row -->
+        <div class="flex items-center justify-between gap-2">
+          <span class="inline-flex items-center gap-1 text-[11px] font-medium text-stone-600 bg-stone-100/90 px-2.5 py-0.5 rounded-lg">
+            <i data-lucide="map-pin" class="w-3 h-3 text-stone-400"></i>
+            <span>${escapeHtml(item.location.room)}</span>
+          </span>
 
-          <!-- Stale/Fresh Indicator Badge -->
-          <button
-            onclick="verifyLocation('${item.id}')"
-            title="Click to confirm physical location"
-            class="shrink-0 flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium cursor-pointer transition-colors ${
-              isStale
-                ? 'bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100'
-                : 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100'
-            }"
-          >
-            <i data-lucide="${isStale ? 'alert-triangle' : 'check-circle'}" class="w-3.5 h-3.5"></i>
-            <span>${isStale ? `${daysSince}d stale` : 'Verified'}</span>
-          </button>
+          <div class="flex items-center gap-1">
+            ${
+              item.isEssentialForGuests
+                ? `<span class="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-md flex items-center gap-1" title="Included in House Guide">
+                    <i data-lucide="home" class="w-2.5 h-2.5 text-emerald-600"></i>
+                    <span>Guest Guide</span>
+                  </span>`
+                : ''
+            }
+          </div>
         </div>
 
-        <!-- Spatial Coordinates -->
-        <div class="bg-stone-50 rounded-lg p-2.5 border border-stone-100 space-y-1.5 text-xs">
-          <div class="flex items-center gap-1.5 text-stone-800 font-semibold">
-            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-500 shrink-0"></i>
-            <span>${escapeHtml(item.location.room)}</span>
-            <span class="text-stone-300">/</span>
-            <span class="text-stone-700 font-normal">${escapeHtml(item.location.zone)}</span>
+        <!-- Title -->
+        <div>
+          <h4 class="text-sm font-semibold text-stone-900 tracking-tight leading-snug">
+            ${escapeHtml(item.name)}
+          </h4>
+          <span class="text-[11px] text-stone-400 font-medium">
+            ${escapeHtml(item.category)}
+          </span>
+        </div>
+
+        <!-- Spot & Location Details (Clean & Readable) -->
+        <div class="bg-stone-50/80 rounded-xl p-3 border border-stone-200/60 space-y-1.5 text-xs">
+          <!-- Spot / Shelf -->
+          <div class="flex items-start gap-1.5 text-stone-800 font-medium">
+            <span class="text-stone-400 font-normal shrink-0">Spot:</span>
+            <span>${escapeHtml(item.location.zone)}</span>
           </div>
 
+          <!-- Container -->
           ${
             item.location.container
-              ? `<div class="flex items-center gap-1.5 text-stone-600 pl-5">
-                  <i data-lucide="box" class="w-3 h-3 text-stone-400 shrink-0"></i>
+              ? `<div class="flex items-start gap-1.5 text-stone-600">
+                  <span class="text-stone-400 font-normal shrink-0">In:</span>
                   <span>${escapeHtml(item.location.container)}</span>
                 </div>`
               : ''
           }
 
+          <!-- Visual Clue -->
           ${
             item.location.landmark
-              ? `<div class="text-[11px] text-stone-500 italic pl-5">
-                  &ldquo;${escapeHtml(item.location.landmark)}&rdquo;
+              ? `<div class="flex items-start gap-1.5 text-stone-500 text-[11px] pt-0.5">
+                  <span class="text-stone-400 font-normal shrink-0">💡</span>
+                  <span class="italic">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</span>
                 </div>`
               : ''
           }
         </div>
 
+        <!-- Notes if provided -->
         ${
           item.description
             ? `<p class="text-xs text-stone-600 line-clamp-2">${escapeHtml(item.description)}</p>`
             : ''
         }
 
-        <!-- Lent Status Banner if lent -->
+        <!-- Lent Banner if currently borrowed -->
         ${
-          item.lent.isLent
-            ? `<div class="bg-amber-50 border border-amber-200 rounded-lg p-2 text-xs flex items-center justify-between text-amber-900">
+          isLent
+            ? `<div class="bg-amber-50 border border-amber-200/80 rounded-xl p-2.5 text-xs flex items-center justify-between text-amber-900">
                 <div class="flex items-center gap-1.5">
-                  <i data-lucide="share-2" class="w-3.5 h-3.5 text-amber-600"></i>
+                  <i data-lucide="share-2" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
                   <span>Lent to <strong>${escapeHtml(item.lent.lentTo || 'Someone')}</strong></span>
                 </div>
                 <button
-                  onclick="toggleLentStatus('${item.id}')"
-                  class="text-[11px] underline hover:text-amber-950 font-semibold cursor-pointer"
+                  onclick="returnLentItem('${item.id}')"
+                  class="text-[11px] bg-white border border-amber-300 px-2 py-0.5 rounded-md font-semibold text-amber-900 hover:bg-amber-100 transition-colors cursor-pointer"
                 >
-                  Return
+                  Returned
                 </button>
               </div>`
             : ''
         }
 
-        <!-- Consumable quantity tracker if applicable -->
+        <!-- Stock tracker if consumable -->
         ${
           item.consumable?.isConsumable
-            ? `<div class="flex items-center justify-between bg-stone-50 rounded-lg p-2 border border-stone-100 text-xs">
+            ? `<div class="flex items-center justify-between bg-stone-50 rounded-xl px-3 py-1.5 border border-stone-200/60 text-xs">
                 <div class="flex items-center gap-1.5">
-                  <span class="text-stone-600">Stock:</span>
+                  <span class="text-stone-500">Stock:</span>
                   <strong class="${isLowConsumable ? 'text-red-600' : 'text-stone-800'}">
-                    ${item.consumable.quantity} ${escapeHtml(item.consumable.unit || 'units')}
+                    ${item.consumable.quantity} ${escapeHtml(item.consumable.unit || 'items')}
                   </strong>
                   ${
                     isLowConsumable
-                      ? `<span class="bg-red-100 text-red-700 text-[10px] font-bold px-1.5 py-0.5 rounded">Low</span>`
+                      ? `<span class="bg-red-100 text-red-700 text-[10px] font-bold px-1.5 py-0.2 rounded">Low</span>`
                       : ''
                   }
                 </div>
                 <div class="flex items-center gap-1">
                   <button
                     onclick="changeItemQuantity('${item.id}', -1)"
-                    class="w-6 h-6 rounded bg-white border border-stone-200 hover:bg-stone-100 flex items-center justify-center text-xs font-bold cursor-pointer"
+                    class="w-6 h-6 rounded-md bg-white border border-stone-200 hover:bg-stone-100 flex items-center justify-center text-xs font-bold text-stone-700 cursor-pointer"
+                    title="Decrease count"
                   >
                     -
                   </button>
                   <button
                     onclick="changeItemQuantity('${item.id}', 1)"
-                    class="w-6 h-6 rounded bg-white border border-stone-200 hover:bg-stone-100 flex items-center justify-center text-xs font-bold cursor-pointer"
+                    class="w-6 h-6 rounded-md bg-white border border-stone-200 hover:bg-stone-100 flex items-center justify-center text-xs font-bold text-stone-700 cursor-pointer"
+                    title="Increase count"
                   >
                     +
                   </button>
@@ -703,30 +753,41 @@ function renderItemCardHtml(item) {
         }
       </div>
 
-      <!-- Action Footer -->
+      <!-- Card Bottom Actions -->
       <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
+        
+        <!-- Left: Quick Lend / Return -->
+        <button
+          onclick="toggleLentStatus('${item.id}')"
+          class="hover:text-stone-900 cursor-pointer flex items-center gap-1 text-[11px] font-medium text-stone-600"
+        >
+          <i data-lucide="${isLent ? 'corner-down-left' : 'share-2'}" class="w-3.5 h-3.5"></i>
+          <span>${isLent ? 'Mark Returned' : 'Lend'}</span>
+        </button>
+
+        <!-- Right: Edit & Delete -->
         <div class="flex items-center gap-2">
           <button
-            onclick="toggleLentStatus('${item.id}')"
-            class="hover:text-stone-800 cursor-pointer flex items-center gap-1 text-[11px]"
-            title="${item.lent.isLent ? 'Mark item as returned' : 'Record lending this item'}"
+            onclick="verifyLocation('${item.id}')"
+            class="text-[11px] text-stone-500 hover:text-emerald-700 cursor-pointer p-1 rounded-md transition-colors flex items-center gap-1"
+            title="Confirm item is still in this spot"
           >
-            <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
-            <span>${item.lent.isLent ? 'Return' : 'Lend'}</span>
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>Still here</span>
           </button>
-        </div>
-
-        <div class="flex items-center gap-3">
+          
           <button
             onclick="editItem('${item.id}')"
-            class="hover:text-stone-800 cursor-pointer flex items-center gap-1 text-[11px]"
+            class="text-stone-400 hover:text-stone-800 cursor-pointer p-1 rounded-md transition-colors"
+            title="Edit Item"
           >
-            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-            <span>Edit</span>
+            <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
           </button>
+
           <button
             onclick="deleteItem('${item.id}')"
-            class="hover:text-red-600 cursor-pointer flex items-center gap-1 text-[11px]"
+            class="text-stone-400 hover:text-red-600 cursor-pointer p-1 rounded-md transition-colors"
+            title="Delete Item"
           >
             <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
           </button>
@@ -736,63 +797,48 @@ function renderItemCardHtml(item) {
   `;
 }
 
+// Rooms Explorer View
 function renderRoomsView(container) {
   const roomsHtml = state.rooms.map((room) => {
     const roomItems = state.items.filter((i) => i.location.room === room.name);
     return `
-      <div class="bg-white rounded-xl border border-stone-200 p-5 space-y-4">
+      <div class="bg-white rounded-2xl border border-stone-200/90 p-5 space-y-4 shadow-soft">
         <div class="flex items-start justify-between">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-stone-100 flex items-center justify-center text-stone-700">
-              <i data-lucide="${escapeHtml(room.icon || 'archive')}" class="w-5 h-5"></i>
+            <div class="w-10 h-10 rounded-xl bg-stone-100 flex items-center justify-center text-stone-800">
+              <i data-lucide="${escapeHtml(room.icon || 'archive')}" class="w-5 h-5 text-amber-600"></i>
             </div>
             <div>
               <h3 class="text-sm font-bold text-stone-900">${escapeHtml(room.name)}</h3>
               <p class="text-xs text-stone-500">${escapeHtml(room.description || '')}</p>
             </div>
           </div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-stone-100 text-stone-700">
-            ${roomItems.length} items
+          <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700">
+            ${roomItems.length}
           </span>
         </div>
 
-        <!-- Common Zones -->
-        <div class="space-y-1">
-          <span class="text-[11px] font-semibold text-stone-400 uppercase tracking-wider">Storage Zones:</span>
-          <div class="flex flex-wrap gap-1.5">
-            ${(room.commonZones || [])
-              .map(
-                (zone) => `
-                <span class="text-xs bg-stone-50 border border-stone-200 px-2 py-0.5 rounded text-stone-600">
-                  ${escapeHtml(zone)}
-                </span>
-              `
-              )
-              .join('')}
-          </div>
-        </div>
-
-        <!-- Items located inside -->
+        <!-- Items located inside this room -->
         <div class="border-t border-stone-100 pt-3 space-y-2">
-          <span class="text-[11px] font-semibold text-stone-400 uppercase tracking-wider">Cataloged Items:</span>
+          <span class="text-[11px] font-semibold text-stone-400 uppercase tracking-wider">Items in this room:</span>
           ${
             roomItems.length === 0
-              ? `<p class="text-xs text-stone-400 italic">No items indexed in this space yet.</p>`
-              : `<div class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+              ? `<p class="text-xs text-stone-400 italic py-2">No items listed in this room yet.</p>`
+              : `<div class="space-y-1.5 max-h-52 overflow-y-auto pr-1">
                   ${roomItems
                     .map(
                       (item) => `
-                    <div class="flex items-center justify-between text-xs bg-stone-50 p-2 rounded hover:bg-stone-100">
-                      <div>
+                    <div class="flex items-center justify-between text-xs bg-stone-50/80 p-2.5 rounded-xl border border-stone-100 hover:bg-stone-100/70 transition-colors">
+                      <div class="pr-2">
                         <span class="font-medium text-stone-800">${escapeHtml(item.name)}</span>
-                        <div class="text-[11px] text-stone-500">${escapeHtml(item.location.zone)} · ${escapeHtml(item.location.container || 'Loose')}</div>
+                        <div class="text-[11px] text-stone-500">${escapeHtml(item.location.zone)} ${item.location.container ? `· ${escapeHtml(item.location.container)}` : ''}</div>
                       </div>
                       <button
                         onclick="editItem('${item.id}')"
                         class="text-stone-400 hover:text-stone-800 cursor-pointer p-1"
                         title="Edit Item"
                       >
-                        <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                        <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
                       </button>
                     </div>
                   `
@@ -804,9 +850,9 @@ function renderRoomsView(container) {
 
         <button
           onclick="openQuickAddModalWithRoom('${escapeHtml(room.name)}')"
-          class="w-full py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-700 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+          class="w-full py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-700 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
         >
-          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          <i data-lucide="plus" class="w-3.5 h-3.5 text-amber-500"></i>
           <span>Add item to ${escapeHtml(room.name)}</span>
         </button>
       </div>
@@ -816,7 +862,7 @@ function renderRoomsView(container) {
   container.innerHTML = `
     <div class="space-y-4">
       <div class="flex items-center justify-between text-xs text-stone-500 px-1">
-        <span>Organized across <strong>${state.rooms.length}</strong> designated household spaces</span>
+        <span>Organized across <strong>${state.rooms.length}</strong> rooms &amp; household spaces</span>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         ${roomsHtml}
@@ -825,52 +871,55 @@ function renderRoomsView(container) {
   `;
 }
 
+// Lending View (Clear & Friendly)
 function renderLendingView(container) {
   const lentItems = state.items.filter((i) => i.lent && i.lent.isLent);
 
-  const availableItems = state.items.filter((i) => !i.lent?.isLent);
-
   container.innerHTML = `
     <div class="space-y-5">
-      <div class="bg-white border border-stone-200 rounded-xl p-5 space-y-4">
+      <div class="bg-white border border-stone-200 rounded-2xl p-5 sm:p-6 space-y-4 shadow-soft">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h3 class="text-sm font-bold text-stone-900">Lending & Borrowing Ledger</h3>
-            <p class="text-xs text-stone-500">Track tools, books, and gear lent to neighbors, family, and colleagues.</p>
+            <h3 class="text-sm font-bold text-stone-900">Lent Out Items</h3>
+            <p class="text-xs text-stone-500">Know where your tools, gear, and books are when people borrow them.</p>
           </div>
           <button
             onclick="openRecordLoanModal()"
-            class="px-3.5 py-2 bg-stone-900 text-white rounded-lg text-xs font-semibold hover:bg-stone-800 transition-colors flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+            class="px-4 py-2 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-stone-800 transition-colors flex items-center gap-1.5 self-start sm:self-auto cursor-pointer shadow-soft"
           >
             <i data-lucide="plus" class="w-4 h-4 text-amber-400"></i>
-            <span>Record New Loan</span>
+            <span>Lend an Item</span>
           </button>
         </div>
 
         ${
           lentItems.length === 0
-            ? `<div class="p-8 text-center bg-stone-50 rounded-lg border border-stone-200">
-                <i data-lucide="shield-check" class="w-7 h-7 text-emerald-500 mx-auto mb-2"></i>
-                <h4 class="text-xs font-bold text-stone-800">All Belongings Accounted For</h4>
-                <p class="text-xs text-stone-500 max-w-xs mx-auto mt-1">Nothing is currently checked out or borrowed. All household items are on site.</p>
+            ? `<div class="p-8 text-center bg-stone-50 rounded-xl border border-stone-200/80 space-y-2">
+                <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mx-auto">
+                  <i data-lucide="check" class="w-5 h-5"></i>
+                </div>
+                <h4 class="text-xs font-bold text-stone-800">Everything is at Home</h4>
+                <p class="text-xs text-stone-500 max-w-xs mx-auto">You haven't marked any items as borrowed. When you lend something to a friend, log it here!</p>
               </div>`
-            : `<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            : `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 ${lentItems
                   .map(
                     (item) => `
-                  <div class="bg-stone-50 border border-stone-200 rounded-xl p-4 flex flex-col justify-between space-y-3">
-                    <div class="space-y-1.5">
+                  <div class="bg-stone-50 border border-stone-200/90 rounded-2xl p-4 flex flex-col justify-between space-y-3">
+                    <div class="space-y-2">
                       <div class="flex items-center justify-between">
                         <span class="text-xs font-bold text-stone-900">${escapeHtml(item.name)}</span>
-                        <span class="text-[10px] font-semibold bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Checked Out</span>
+                        <span class="text-[10px] font-semibold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">Borrowed</span>
                       </div>
-                      <div class="text-xs text-stone-600 flex items-center gap-1.5">
+                      
+                      <div class="text-xs text-stone-700 flex items-center gap-1.5">
                         <i data-lucide="user" class="w-3.5 h-3.5 text-stone-400"></i>
-                        <span>Borrower: <strong>${escapeHtml(item.lent.lentTo || 'Unknown')}</strong></span>
+                        <span>Borrower: <strong>${escapeHtml(item.lent.lentTo || 'Someone')}</strong></span>
                       </div>
+
                       ${
                         item.lent.lentDate
-                          ? `<div class="text-[11px] text-stone-500">Lent on: ${escapeHtml(item.lent.lentDate)}</div>`
+                          ? `<div class="text-[11px] text-stone-500">Borrowed on: ${escapeHtml(item.lent.lentDate)}</div>`
                           : ''
                       }
                       ${
@@ -880,18 +929,18 @@ function renderLendingView(container) {
                       }
                       ${
                         item.lent.notes
-                          ? `<div class="text-xs text-stone-600 italic bg-white p-2 rounded border border-stone-200 mt-2">
+                          ? `<div class="text-xs text-stone-600 italic bg-white p-2.5 rounded-xl border border-stone-200/70">
                               &ldquo;${escapeHtml(item.lent.notes)}&rdquo;
                             </div>`
                           : ''
                       }
                     </div>
 
-                    <div class="pt-2 border-t border-stone-200 flex items-center justify-between text-xs">
-                      <span class="text-stone-400">Home: ${escapeHtml(item.location.room)}</span>
+                    <div class="pt-3 border-t border-stone-200/80 flex items-center justify-between text-xs">
+                      <span class="text-stone-400">Home spot: ${escapeHtml(item.location.room)}</span>
                       <button
-                        onclick="toggleLentStatus('${item.id}')"
-                        class="px-3 py-1 bg-white hover:bg-stone-100 border border-stone-300 rounded font-semibold text-stone-800 transition-colors cursor-pointer"
+                        onclick="returnLentItem('${item.id}')"
+                        class="px-3.5 py-1.5 bg-white hover:bg-stone-100 border border-stone-300 rounded-xl font-semibold text-stone-800 transition-colors cursor-pointer shadow-soft"
                       >
                         Mark as Returned
                       </button>
@@ -918,19 +967,23 @@ window.setViewMode = function (mode) {
   renderApp();
 };
 
+window.clearSearchInput = function () {
+  state.searchQuery = '';
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) {
+    searchInput.value = '';
+    searchInput.focus();
+  }
+  renderApp();
+};
+
 window.clearAllFilters = function () {
   state.searchQuery = '';
   const searchInput = document.getElementById('search-input');
   if (searchInput) searchInput.value = '';
   state.selectedCategory = 'All';
-  state.filterLentOnly = false;
   state.filterLowStockOnly = false;
   state.filterGuestOnly = false;
-  renderApp();
-};
-
-window.toggleLentFilter = function () {
-  state.filterLentOnly = !state.filterLentOnly;
   renderApp();
 };
 
@@ -951,7 +1004,7 @@ window.verifyLocation = function (id) {
   );
   saveItems();
   renderApp();
-  showToast('Physical location verified! Updated timestamp.');
+  showToast('Spot confirmed! Location updated.');
 };
 
 window.changeItemQuantity = function (id, delta) {
@@ -969,17 +1022,26 @@ window.changeItemQuantity = function (id, delta) {
   renderApp();
 };
 
+window.returnLentItem = function (id) {
+  const item = state.items.find((i) => i.id === id);
+  if (!item) return;
+
+  state.items = state.items.map((i) =>
+    i.id === id
+      ? { ...i, lent: { isLent: false }, lastVerifiedAt: new Date().toISOString() }
+      : i
+  );
+  saveItems();
+  renderApp();
+  showToast(`"${item.name}" returned home to ${item.location.room}`);
+};
+
 window.toggleLentStatus = function (id) {
   const item = state.items.find((i) => i.id === id);
   if (!item) return;
 
-  if (item.lent.isLent) {
-    state.items = state.items.map((i) =>
-      i.id === id ? { ...i, lent: { isLent: false }, lastVerifiedAt: new Date().toISOString() } : i
-    );
-    saveItems();
-    renderApp();
-    showToast(`"${item.name}" returned to ${item.location.room}`);
+  if (item.lent && item.lent.isLent) {
+    returnLentItem(id);
   } else {
     const borrower = window.prompt(`Who is borrowing "${item.name}"?`);
     if (borrower && borrower.trim()) {
@@ -997,7 +1059,7 @@ window.toggleLentStatus = function (id) {
       );
       saveItems();
       renderApp();
-      showToast(`Recorded loan to ${borrower.trim()}`);
+      showToast(`Marked "${item.name}" as lent to ${borrower.trim()}`);
     }
   }
 };
@@ -1018,12 +1080,20 @@ window.openQuickAddModal = function () {
   state.editingItemId = null;
   populateQuickAddModal();
   document.getElementById('modal-quick-add').classList.remove('hidden');
+  setTimeout(() => {
+    const nameInput = document.getElementById('add-item-name');
+    if (nameInput) nameInput.focus();
+  }, 100);
 };
 
 window.openQuickAddModalWithRoom = function (roomName) {
   state.editingItemId = null;
   populateQuickAddModal(roomName);
   document.getElementById('modal-quick-add').classList.remove('hidden');
+  setTimeout(() => {
+    const nameInput = document.getElementById('add-item-name');
+    if (nameInput) nameInput.focus();
+  }, 100);
 };
 
 window.editItem = function (id) {
@@ -1074,11 +1144,11 @@ function populateQuickAddModal(defaultRoom, editingItem) {
     document.getElementById('consumable-fields').style.display = isConsumable ? 'grid' : 'none';
     if (isConsumable) {
       document.getElementById('add-item-quantity').value = editingItem.consumable.quantity || 1;
-      document.getElementById('add-item-unit').value = editingItem.consumable.unit || 'units';
+      document.getElementById('add-item-unit').value = editingItem.consumable.unit || 'items';
       document.getElementById('add-item-threshold').value = editingItem.consumable.minThreshold || 1;
     }
   } else {
-    modalTitle.textContent = 'Index New Belonging';
+    modalTitle.textContent = 'Add an Item';
     form.reset();
     if (defaultRoom && roomSelect) {
       roomSelect.value = defaultRoom;
@@ -1113,7 +1183,7 @@ window.handleSaveItemSubmit = function (e) {
   let consumableData = undefined;
   if (isConsumable) {
     const qty = parseInt(document.getElementById('add-item-quantity').value, 10) || 1;
-    const unit = document.getElementById('add-item-unit').value.trim() || 'units';
+    const unit = document.getElementById('add-item-unit').value.trim() || 'items';
     const thresh = parseInt(document.getElementById('add-item-threshold').value, 10) || 1;
     consumableData = {
       isConsumable: true,
@@ -1158,7 +1228,7 @@ window.handleSaveItemSubmit = function (e) {
       createdAt: now,
     };
     state.items = [newItem, ...state.items];
-    showToast(`Indexed "${name}" to ${room}`);
+    showToast(`Saved "${name}" in ${room}`);
   }
 
   saveItems();
@@ -1166,9 +1236,8 @@ window.handleSaveItemSubmit = function (e) {
   renderApp();
 };
 
-// 30s Spot Check Modal
+// Friendly Spot Check Modal (Quick 3-item check)
 window.openSpotCheckModal = function () {
-  // Sort by staleness
   const itemsSortedByAge = [...state.items].sort(
     (a, b) => new Date(a.lastVerifiedAt).getTime() - new Date(b.lastVerifiedAt).getTime()
   );
@@ -1190,14 +1259,16 @@ function renderSpotCheckStep() {
   if (state.spotCheckCurrentIndex >= state.spotCheckItems.length) {
     container.innerHTML = `
       <div class="text-center py-6 space-y-3">
-        <i data-lucide="check-circle" class="w-12 h-12 text-emerald-500 mx-auto"></i>
-        <h3 class="text-base font-bold text-stone-900">Audit Completed!</h3>
+        <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mx-auto">
+          <i data-lucide="check" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-base font-bold text-stone-900">All Checked!</h3>
         <p class="text-xs text-stone-600 max-w-sm mx-auto">
-          You've refreshed your household audit log. Your confidence rating has increased!
+          You confirmed your items are right where they belong. Nice job keeping home organized!
         </p>
         <button
           onclick="closeSpotCheckModal()"
-          class="px-4 py-2 bg-stone-900 text-white rounded-lg text-xs font-semibold hover:bg-stone-800 transition-colors cursor-pointer"
+          class="px-5 py-2.5 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft"
         >
           Done
         </button>
@@ -1208,26 +1279,23 @@ function renderSpotCheckStep() {
   }
 
   const item = state.spotCheckItems[state.spotCheckCurrentIndex];
-  const daysAgo = Math.floor(
-    (Date.now() - new Date(item.lastVerifiedAt).getTime()) / (1000 * 60 * 60 * 24)
-  );
 
   container.innerHTML = `
     <div class="space-y-4">
       <div class="flex items-center justify-between text-xs text-stone-500">
         <span>Item ${state.spotCheckCurrentIndex + 1} of ${state.spotCheckItems.length}</span>
-        <span class="text-amber-600 font-medium">Last confirmed ${daysAgo} days ago</span>
+        <span class="text-stone-400 font-medium">Quick check</span>
       </div>
 
-      <div class="bg-stone-50 border border-stone-200 rounded-xl p-4 space-y-2">
+      <div class="bg-stone-50 border border-stone-200/80 rounded-2xl p-4 space-y-2">
         <h4 class="text-sm font-bold text-stone-900">${escapeHtml(item.name)}</h4>
         <div class="text-xs text-stone-700 flex items-center gap-1.5">
-          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-500"></i>
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-400"></i>
           <span><strong>${escapeHtml(item.location.room)}</strong> &rsaquo; ${escapeHtml(item.location.zone)}</span>
         </div>
         ${
           item.location.container
-            ? `<div class="text-xs text-stone-600 pl-5">Container: <strong>${escapeHtml(item.location.container)}</strong></div>`
+            ? `<div class="text-xs text-stone-600 pl-5">In: <strong>${escapeHtml(item.location.container)}</strong></div>`
             : ''
         }
         ${
@@ -1237,22 +1305,22 @@ function renderSpotCheckStep() {
         }
       </div>
 
-      <p class="text-xs text-stone-600 font-medium text-center">Is this item physically still there?</p>
+      <p class="text-xs text-stone-600 font-medium text-center">Is this still in this spot?</p>
 
-      <div class="grid grid-cols-2 gap-2 pt-2">
+      <div class="grid grid-cols-2 gap-2.5 pt-1">
         <button
-          onclick="confirmSpotCheckItem('${item.id}', true)"
-          class="py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+          onclick="confirmSpotCheckItem('${item.id}')"
+          class="py-2.5 px-3 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-soft"
         >
-          <i data-lucide="check" class="w-4 h-4"></i>
-          <span>Yes, Confirmed</span>
+          <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+          <span>Yes, still there</span>
         </button>
         <button
           onclick="relocateSpotCheckItem('${item.id}')"
-          class="py-2.5 px-3 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+          class="py-2.5 px-3 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
         >
-          <i data-lucide="shuffle" class="w-4 h-4"></i>
-          <span>Moved / Relocate</span>
+          <i data-lucide="pencil" class="w-3.5 h-3.5 text-stone-500"></i>
+          <span>Change spot</span>
         </button>
       </div>
     </div>
@@ -1279,26 +1347,28 @@ window.openGuestGuideModal = function () {
     container.innerHTML = guestItems
       .map(
         (item) => `
-      <div class="bg-stone-50 border border-stone-200 rounded-xl p-3.5 space-y-1.5">
+      <div class="bg-stone-50 border border-stone-200/80 rounded-2xl p-4 space-y-2">
         <div class="flex items-start justify-between">
           <span class="text-xs font-bold text-stone-900">${escapeHtml(item.name)}</span>
-          <span class="text-[10px] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Guest Accessible</span>
+          <span class="text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/60 px-2 py-0.5 rounded-md">Guest Accessible</span>
         </div>
-        <div class="text-xs text-stone-600 flex items-center gap-1.5">
-          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-500"></i>
+        <div class="text-xs text-stone-700 flex items-center gap-1.5 font-medium">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-400"></i>
           <span>${escapeHtml(item.location.room)} &rsaquo; ${escapeHtml(item.location.zone)}</span>
         </div>
+        ${
+          item.location.container
+            ? `<div class="text-xs text-stone-500 pl-5">In: ${escapeHtml(item.location.container)}</div>`
+            : ''
+        }
         ${
           item.location.landmark
             ? `<div class="text-[11px] text-stone-500 italic pl-5">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</div>`
             : ''
         }
         ${
-          item.name.toLowerCase().includes('wi-fi') || item.name.toLowerCase().includes('wifi')
-            ? `<button onclick="copyWifiPassword()" class="mt-2 text-xs bg-white border border-stone-300 hover:bg-stone-100 text-stone-800 px-3 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer">
-                <i data-lucide="copy" class="w-3.5 h-3.5 text-stone-500"></i>
-                <span>Copy Wi-Fi Password</span>
-              </button>`
+          item.description
+            ? `<div class="text-xs text-stone-600 bg-white p-2 rounded-lg border border-stone-200/60 mt-1">${escapeHtml(item.description)}</div>`
             : ''
         }
       </div>
@@ -1314,19 +1384,16 @@ window.closeGuestGuideModal = function () {
   document.getElementById('modal-guest-guide').classList.add('hidden');
 };
 
-window.copyWifiPassword = function () {
-  navigator.clipboard.writeText('WelcomeQuietStay26!').then(() => {
-    showToast('Copied Wi-Fi password to clipboard!');
-  });
-};
-
 // Record Loan Modal
 window.openRecordLoanModal = function () {
   const select = document.getElementById('loan-item-select');
   if (select) {
     const unlent = state.items.filter((i) => !i.lent?.isLent);
     select.innerHTML = unlent
-      .map((i) => `<option value="${i.id}">${escapeHtml(i.name)} (${escapeHtml(i.location.room)})</option>`)
+      .map(
+        (i) =>
+          `<option value="${i.id}">${escapeHtml(i.name)} (${escapeHtml(i.location.room)})</option>`
+      )
       .join('');
   }
   document.getElementById('modal-record-loan').classList.remove('hidden');
@@ -1365,43 +1432,41 @@ window.handleRecordLoanSubmit = function (e) {
   showToast(`Recorded loan to ${borrower}`);
 };
 
-// Other modals
-window.openConceptModal = function () {
-  document.getElementById('modal-concept').classList.remove('hidden');
+// Help Modal
+window.openHelpModal = function () {
+  document.getElementById('modal-help').classList.remove('hidden');
   lucide.createIcons();
-};
-window.closeConceptModal = function () {
-  document.getElementById('modal-concept').classList.add('hidden');
 };
 
-window.openResponsibilityModal = function () {
-  document.getElementById('modal-responsibility').classList.remove('hidden');
-  lucide.createIcons();
-};
-window.closeResponsibilityModal = function () {
-  document.getElementById('modal-responsibility').classList.add('hidden');
+window.closeHelpModal = function () {
+  document.getElementById('modal-help').classList.add('hidden');
 };
 
 // Data Backup & Reset
 window.exportData = function () {
-  const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(state.items, null, 2));
+  const dataStr =
+    'data:text/json;charset=utf-8,' +
+    encodeURIComponent(JSON.stringify(state.items, null, 2));
   const downloadAnchor = document.createElement('a');
   downloadAnchor.setAttribute('href', dataStr);
-  downloadAnchor.setAttribute('download', `findit-backup-${new Date().toISOString().slice(0, 10)}.json`);
+  downloadAnchor.setAttribute(
+    'download',
+    `findit-backup-${new Date().toISOString().slice(0, 10)}.json`
+  );
   document.body.appendChild(downloadAnchor);
   downloadAnchor.click();
   downloadAnchor.remove();
-  showToast('Exported JSON backup to your device');
+  showToast('Exported backup to your device');
 };
 
 window.resetData = function () {
-  if (confirm('Reset all items and rooms to starter household demo data?')) {
+  if (confirm('Reset items and rooms back to starter demo data?')) {
     state.items = INITIAL_ITEMS;
     state.rooms = INITIAL_ROOMS;
     saveItems();
     saveRooms();
     renderApp();
-    showToast('Reset to starter household items');
+    showToast('Reset to starter items');
   }
 };
 
@@ -1447,6 +1512,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       state.searchQuery = e.target.value;
+      renderSummaryStats();
       renderMainView();
       lucide.createIcons();
     });

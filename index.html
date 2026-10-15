@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="overflow-x-hidden">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -40,57 +40,57 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body class="min-h-screen bg-stone-50 text-stone-800 flex flex-col font-sans selection:bg-amber-100 selection:text-amber-900">
+  <body class="min-h-screen bg-stone-50 text-stone-800 flex flex-col font-sans selection:bg-amber-100 selection:text-amber-900 overflow-x-hidden w-full max-w-full">
     
     <!-- Top Navigation Bar -->
-    <header class="bg-white border-b border-stone-200 sticky top-0 z-40">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6">
-        <div class="flex items-center justify-between h-16 gap-3">
+    <header class="bg-white border-b border-stone-200 sticky top-0 z-40 w-full">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 w-full">
+        <div class="flex flex-wrap sm:flex-nowrap items-center justify-between min-h-[4rem] py-2.5 gap-2.5 max-w-full">
           
           <!-- Logo & Title -->
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-stone-900 flex items-center justify-center text-white shadow-soft">
+          <div class="flex items-center gap-2.5 min-w-0 shrink-0">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-stone-900 flex items-center justify-center text-white shadow-soft shrink-0">
               <i data-lucide="compass" class="w-5 h-5 text-amber-400"></i>
             </div>
-            <div>
+            <div class="min-w-0">
               <div class="flex items-center gap-2">
-                <span class="text-lg font-bold text-stone-900 tracking-tight leading-none">FindIt</span>
+                <span class="text-base sm:text-lg font-bold text-stone-900 tracking-tight leading-none">FindIt</span>
                 <span class="text-[10px] font-semibold bg-amber-50 text-amber-800 px-2 py-0.5 rounded-full border border-amber-200 uppercase tracking-wide">
-                  Home Finder
+                  Home
                 </span>
               </div>
-              <p class="text-xs text-stone-500 font-normal mt-0.5">Where did I put that?</p>
+              <p class="text-[11px] text-stone-500 font-normal hidden xs:block mt-0.5 truncate">Where did I put that?</p>
             </div>
           </div>
 
           <!-- Header Actions -->
-          <div class="flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 justify-end max-w-full shrink-0">
             <!-- PWA Install Button (Revealed on supported browsers) -->
             <button
               id="btn-pwa-install"
               onclick="installPWA()"
-              class="hidden px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-stone-900 text-xs font-semibold rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 shadow-soft"
+              class="hidden px-2.5 sm:px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-stone-900 text-xs font-semibold rounded-xl transition-colors cursor-pointer flex items-center gap-1 shadow-soft whitespace-normal break-words"
               title="Install app to your home screen or desktop"
             >
-              <i data-lucide="download" class="w-3.5 h-3.5"></i>
-              <span class="hidden sm:inline">Install App</span>
+              <i data-lucide="download" class="w-3.5 h-3.5 shrink-0"></i>
+              <span class="hidden sm:inline">Install</span>
             </button>
 
             <!-- House Guide for Guests & Sitters -->
             <button
               onclick="openGuestGuideModal()"
-              class="px-3 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-medium rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer"
+              class="px-2.5 sm:px-3 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-medium rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer whitespace-normal break-words"
               title="Emergency & guest essentials guide"
             >
-              <i data-lucide="home" class="w-4 h-4 text-emerald-600"></i>
+              <i data-lucide="home" class="w-4 h-4 text-emerald-600 shrink-0"></i>
               <span class="hidden md:inline">House Guide</span>
             </button>
 
             <!-- Quick Walkthrough / Spot Check -->
             <button
               onclick="openSpotCheckModal()"
-              class="p-2 text-stone-500 hover:text-stone-800 hover:bg-stone-100 rounded-xl transition-colors cursor-pointer"
-              title="Casual 30s location check"
+              class="p-2 text-stone-500 hover:text-stone-800 hover:bg-stone-100 rounded-xl transition-colors cursor-pointer shrink-0"
+              title="Casual spot check (30s)"
             >
               <i data-lucide="check-circle-2" class="w-4 h-4 text-stone-600"></i>
             </button>
@@ -98,7 +98,7 @@
             <!-- Help & Tips Button -->
             <button
               onclick="openHelpModal()"
-              class="p-2 text-stone-500 hover:text-stone-800 hover:bg-stone-100 rounded-xl transition-colors cursor-pointer"
+              class="p-2 text-stone-500 hover:text-stone-800 hover:bg-stone-100 rounded-xl transition-colors cursor-pointer shrink-0"
               title="Tips & Help"
             >
               <i data-lucide="help-circle" class="w-4 h-4"></i>
@@ -107,9 +107,9 @@
             <!-- Primary Add Item Button -->
             <button
               onclick="openQuickAddModal()"
-              class="px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold rounded-xl shadow-soft transition-all flex items-center gap-1.5 cursor-pointer hover:shadow-elevated"
+              class="px-3.5 sm:px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold rounded-xl shadow-soft transition-all flex items-center gap-1.5 cursor-pointer hover:shadow-elevated shrink-0 whitespace-nowrap"
             >
-              <i data-lucide="plus" class="w-4 h-4 text-amber-400"></i>
+              <i data-lucide="plus" class="w-4 h-4 text-amber-400 shrink-0"></i>
               <span>Add Item</span>
             </button>
           </div>
@@ -118,18 +118,18 @@
     </header>
 
     <!-- Main Container -->
-    <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 space-y-5 overflow-x-hidden">
       
       <!-- Friendly Search & Quick Summary Card -->
-      <div class="bg-white border border-stone-200 rounded-2xl p-4 sm:p-5 shadow-soft space-y-4">
+      <div class="bg-white border border-stone-200 rounded-2xl p-4 sm:p-5 shadow-soft space-y-4 max-w-full">
         
         <!-- Big Friendly Search Box -->
-        <div class="relative">
-          <i data-lucide="search" class="w-5 h-5 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <div class="relative w-full">
+          <i data-lucide="search" class="w-5 h-5 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
           <input
             type="text"
             id="search-input"
-            placeholder="Search anything... e.g. passport, drill, winter gloves, batteries"
+            placeholder="Search anything... e.g. passport, drill, gloves, batteries"
             class="w-full pl-11 pr-10 py-3 bg-stone-50 hover:bg-stone-100/60 focus:bg-white border border-stone-200 rounded-xl text-sm font-medium text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900/10 focus:border-stone-900 transition-all"
             autofocus
           />
@@ -144,28 +144,28 @@
         </div>
 
         <!-- View Switcher Tabs & Quick Stats -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1 max-w-full">
           
-          <!-- View Tabs (All Items, By Room, Lent Out) -->
-          <div class="bg-stone-100 p-1 rounded-xl flex items-center self-start sm:self-auto shrink-0 gap-0.5">
+          <!-- View Tabs (All Items, By Room, Lent Out) - Fits properly on all screen widths -->
+          <div class="bg-stone-100 p-1 rounded-xl flex flex-wrap sm:flex-nowrap items-center w-full sm:w-auto gap-1">
             <button
               id="view-tab-grid"
               onclick="setViewMode('grid')"
-              class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer bg-white text-stone-900 shadow-soft"
+              class="flex-1 sm:flex-none text-center px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer bg-white text-stone-900 shadow-soft whitespace-nowrap"
             >
               All Items
             </button>
             <button
               id="view-tab-rooms"
               onclick="setViewMode('rooms')"
-              class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer text-stone-600 hover:text-stone-900"
+              class="flex-1 sm:flex-none text-center px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer text-stone-600 hover:text-stone-900 whitespace-nowrap"
             >
               By Room
             </button>
             <button
               id="view-tab-lending"
               onclick="setViewMode('lending')"
-              class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5"
+              class="flex-1 sm:flex-none text-center px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 whitespace-nowrap"
             >
               <span>Lent Out</span>
               <span id="badge-lent-tab" class="hidden text-[10px] bg-amber-200 text-amber-900 px-1.5 py-0.2 rounded-full font-bold">0</span>
@@ -173,8 +173,8 @@
           </div>
 
           <!-- Quick Stats / Friendly Home Summary -->
-          <div class="flex items-center gap-3 text-xs text-stone-500">
-            <div id="stat-summary-pill" class="flex items-center gap-1.5 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-200/60">
+          <div class="flex flex-wrap items-center gap-2.5 text-xs text-stone-500">
+            <div id="stat-summary-pill" class="flex items-center gap-1.5 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-200/60 shrink-0">
               <span id="stat-total-items" class="font-semibold text-stone-700">12 items</span>
               <span class="text-stone-300">&bull;</span>
               <span id="stat-total-rooms" class="text-stone-600">6 rooms</span>
@@ -183,40 +183,40 @@
             <button
               id="stat-lent-link"
               onclick="setViewMode('lending')"
-              class="hidden hover:underline text-amber-800 font-medium cursor-pointer"
+              class="hidden hover:underline text-amber-800 font-medium cursor-pointer shrink-0"
             >
               <span id="stat-lent-count">1 lent</span>
             </button>
           </div>
         </div>
 
-        <!-- Filter Row: Category Dropdown & Quick Filter Chips (Only shown in 'All Items' view) -->
-        <div id="filter-controls-row" class="pt-3 border-t border-stone-100 flex flex-wrap items-center justify-between gap-2.5">
+        <!-- Filter Row: Category Pills & Quick Filter Chips (Wrapped with ZERO horizontal scroll) -->
+        <div id="filter-controls-row" class="pt-3 border-t border-stone-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 max-w-full">
           
-          <!-- Category Filter Pills -->
-          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full" id="category-pills">
-            <!-- Populated by app.js -->
+          <!-- Category Filter Pills (wrap naturally without horizontal overflow) -->
+          <div class="flex flex-wrap items-center gap-1.5 max-w-full" id="category-pills">
+            <!-- Populated dynamically by app.js -->
           </div>
 
           <!-- Optional Quick Toggles: Guest Essentials & Low Consumables -->
-          <div class="flex items-center gap-1.5 shrink-0 ml-auto">
+          <div class="flex flex-wrap items-center gap-1.5 shrink-0 pt-1 sm:pt-0">
             <button
               id="filter-btn-guest"
               onclick="toggleGuestFilter()"
-              class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border transition-colors cursor-pointer bg-white border-stone-200 text-stone-600 hover:bg-stone-50"
+              class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg border transition-colors cursor-pointer bg-white border-stone-200 text-stone-600 hover:bg-stone-50 whitespace-normal break-words"
               title="Show only guest & babysitter essential items"
             >
-              <i data-lucide="home" class="w-3.5 h-3.5 text-emerald-600"></i>
+              <i data-lucide="home" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
               <span>Guest Essentials</span>
             </button>
 
             <button
               id="filter-btn-low"
               onclick="toggleLowStockFilter()"
-              class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border transition-colors cursor-pointer bg-white border-stone-200 text-stone-600 hover:bg-stone-50"
+              class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg border transition-colors cursor-pointer bg-white border-stone-200 text-stone-600 hover:bg-stone-50 whitespace-normal break-words"
               title="Show low stock consumables (batteries, filters...)"
             >
-              <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-stone-400"></i>
+              <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-stone-400 shrink-0"></i>
               <span>Running Low</span>
               <span id="badge-low-count" class="hidden text-[10px] bg-red-100 text-red-700 px-1.5 py-0.2 rounded-full font-bold">0</span>
             </button>
@@ -224,24 +224,59 @@
         </div>
       </div>
 
+      <!-- Prominent Friendly Cue: Tell User to Scroll Down to View All Items -->
+      <div
+        id="scroll-to-items-hint"
+        onclick="scrollToItemsView()"
+        class="w-full bg-gradient-to-r from-amber-50 to-amber-100/60 hover:from-amber-100/80 hover:to-amber-100 border border-amber-200/90 rounded-2xl p-3 sm:p-3.5 flex items-center justify-between gap-3 text-stone-800 shadow-soft cursor-pointer transition-all select-none group"
+        title="Click to jump down to items below"
+      >
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-7 h-7 rounded-xl bg-amber-400 text-stone-900 flex items-center justify-center shrink-0 shadow-xs group-hover:translate-y-0.5 transition-transform">
+            <i data-lucide="arrow-down" class="w-4 h-4 animate-bounce"></i>
+          </div>
+          <div class="min-w-0">
+            <p class="text-xs sm:text-sm font-bold text-stone-900 leading-tight">
+              Scroll down to view all items
+            </p>
+            <p class="text-[11px] text-stone-600 font-normal mt-0.5 truncate">
+              Explore your organized home below, tap any card to edit or spot-check
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-1.5 shrink-0 bg-white/95 px-3 py-1.5 rounded-xl border border-amber-300/80 text-amber-950 text-xs font-bold shadow-xs">
+          <span id="scroll-count-pill">12 items</span>
+          <i data-lucide="chevron-down" class="w-4 h-4 text-amber-700"></i>
+        </div>
+      </div>
+
       <!-- Main Dynamic Content Area -->
-      <section id="main-content-view" class="min-h-[300px]">
+      <section id="main-content-view" class="min-h-[300px] w-full max-w-full">
         <!-- Rendered by app.js -->
       </section>
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-stone-200 bg-white mt-12 py-6 text-xs text-stone-500">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
+    <footer class="border-t border-stone-200 bg-white mt-12 py-6 text-xs text-stone-500 w-full">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 max-w-full">
+        <div class="flex flex-wrap items-center justify-center gap-2 text-center sm:text-left">
           <span class="font-semibold text-stone-700">FindIt</span>
           <span>&middot;</span>
           <span>Your personal physical home organizer</span>
         </div>
-        <div class="flex items-center gap-4">
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <button
+            onclick="scrollToTopView()"
+            class="hover:text-stone-900 cursor-pointer flex items-center gap-1 text-stone-500"
+            title="Scroll back to top"
+          >
+            <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+            <span>Back to top</span>
+          </button>
+          <span>&middot;</span>
           <button
             onclick="exportData()"
-            class="hover:text-stone-900 cursor-pointer flex items-center gap-1.5"
+            class="hover:text-stone-900 cursor-pointer flex items-center gap-1 text-stone-500"
             title="Download backup file"
           >
             <i data-lucide="download" class="w-3.5 h-3.5 text-stone-400"></i>
@@ -250,7 +285,7 @@
           <span>&middot;</span>
           <button
             onclick="resetData()"
-            class="hover:text-stone-900 cursor-pointer flex items-center gap-1.5 text-stone-400 hover:text-stone-600"
+            class="hover:text-stone-900 cursor-pointer flex items-center gap-1 text-stone-400 hover:text-stone-600"
             title="Reset to starter demo items"
           >
             <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
@@ -261,16 +296,16 @@
     </footer>
 
     <!-- MODAL: Add / Edit Item (Clean, User-Friendly & Non-Overwhelming) -->
-    <div id="modal-quick-add" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
-      <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-stone-200 shadow-elevated modal-content p-6 space-y-5">
+    <div id="modal-quick-add" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
+      <div class="bg-white rounded-2xl max-w-lg w-full max-h-[92vh] overflow-y-auto border border-stone-200 shadow-elevated modal-content p-5 sm:p-6 space-y-4 max-w-full">
         
         <!-- Modal Header -->
         <div class="flex items-center justify-between border-b border-stone-100 pb-3">
-          <div>
-            <h3 id="modal-add-title" class="text-base font-bold text-stone-900">Add an Item</h3>
-            <p class="text-xs text-stone-500 mt-0.5">Remember where you stored this item</p>
+          <div class="min-w-0">
+            <h3 id="modal-add-title" class="text-base font-bold text-stone-900 truncate">Add an Item</h3>
+            <p class="text-xs text-stone-500 mt-0.5 truncate">Remember where you stored this item</p>
           </div>
-          <button onclick="closeQuickAddModal()" class="text-stone-400 hover:text-stone-700 p-1 rounded-lg cursor-pointer">
+          <button onclick="closeQuickAddModal()" class="text-stone-400 hover:text-stone-700 p-1.5 rounded-lg cursor-pointer shrink-0">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
@@ -301,7 +336,7 @@
           <!-- 2. Where is it kept? -->
           <div class="p-3.5 bg-stone-50/70 border border-stone-200/70 rounded-xl space-y-3">
             <div class="font-semibold text-stone-800 text-xs flex items-center gap-1.5">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-500"></i>
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-500 shrink-0"></i>
               <span>Where is it stored?</span>
             </div>
 
@@ -361,16 +396,16 @@
           <!-- Collapsible Extras: Guest Safe, Consumables, Tags -->
           <details class="text-xs group border border-stone-200 rounded-xl p-3 bg-stone-50/40">
             <summary class="font-medium text-stone-600 cursor-pointer list-none flex items-center justify-between">
-              <span class="flex items-center gap-1.5">
-                <i data-lucide="sliders" class="w-3.5 h-3.5 text-stone-400"></i>
-                <span>More options (Guest access, stock count, search tags)</span>
+              <span class="flex items-center gap-1.5 min-w-0">
+                <i data-lucide="sliders" class="w-3.5 h-3.5 text-stone-400 shrink-0"></i>
+                <span class="truncate">More options (Guest access, stock count, search tags)</span>
               </span>
-              <i data-lucide="chevron-down" class="w-4 h-4 text-stone-400 transition-transform group-open:rotate-180"></i>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-stone-400 transition-transform group-open:rotate-180 shrink-0"></i>
             </summary>
 
             <div class="pt-3 mt-2 border-t border-stone-100 space-y-3">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="add-item-guest" class="rounded border-stone-300 text-stone-900 focus:ring-stone-900" />
+                <input type="checkbox" id="add-item-guest" class="rounded border-stone-300 text-stone-900 focus:ring-stone-900 shrink-0" />
                 <span class="text-stone-700">Include in House Guide (for babysitters and guests)</span>
               </label>
 
@@ -391,12 +426,12 @@
                     type="checkbox"
                     id="add-item-consumable-toggle"
                     onchange="toggleConsumableInputs()"
-                    class="rounded border-stone-300 text-stone-900 focus:ring-stone-900"
+                    class="rounded border-stone-300 text-stone-900 focus:ring-stone-900 shrink-0"
                   />
                   <span class="text-stone-700">Track item quantity (e.g. batteries, water filters)</span>
                 </label>
 
-                <div id="consumable-fields" class="hidden grid-cols-3 gap-2 bg-white p-2.5 rounded-lg border border-stone-200">
+                <div id="consumable-fields" class="hidden grid-cols-1 sm:grid-cols-3 gap-2 bg-white p-2.5 rounded-lg border border-stone-200">
                   <div>
                     <label class="block text-[11px] text-stone-500 mb-0.5">Quantity</label>
                     <input type="number" id="add-item-quantity" min="0" value="1" class="w-full px-2 py-1.5 border border-stone-300 rounded text-xs" />
@@ -414,18 +449,18 @@
             </div>
           </details>
 
-          <!-- Form Buttons -->
-          <div class="flex items-center justify-end gap-2 pt-3 border-t border-stone-100">
+          <!-- Form Buttons (Adaptive width & wrapping) -->
+          <div class="flex flex-wrap items-center justify-end gap-2 pt-3 border-t border-stone-100">
             <button
               type="button"
               onclick="closeQuickAddModal()"
-              class="px-4 py-2 hover:bg-stone-100 rounded-xl font-medium text-stone-600 cursor-pointer"
+              class="flex-1 sm:flex-initial px-4 py-2.5 hover:bg-stone-100 rounded-xl font-medium text-stone-600 cursor-pointer text-center whitespace-normal break-words"
             >
               Cancel
             </button>
             <button
               type="submit"
-              class="px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl font-semibold cursor-pointer shadow-soft"
+              class="flex-1 sm:flex-initial px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl font-semibold cursor-pointer shadow-soft text-center whitespace-normal break-words"
             >
               Save Item
             </button>
@@ -435,14 +470,14 @@
     </div>
 
     <!-- MODAL: Quick Walkthrough / Spot Check (Casual, Non-Stressful) -->
-    <div id="modal-spot-check" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
-      <div class="bg-white rounded-2xl max-w-md w-full border border-stone-200 shadow-elevated modal-content p-6 space-y-4">
+    <div id="modal-spot-check" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
+      <div class="bg-white rounded-2xl max-w-md w-full border border-stone-200 shadow-elevated modal-content p-5 sm:p-6 space-y-4 max-w-full">
         <div class="flex items-center justify-between border-b border-stone-100 pb-3">
-          <div class="flex items-center gap-2">
-            <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
-            <h3 class="text-sm font-bold text-stone-900">Quick Spot Check</h3>
+          <div class="flex items-center gap-2 min-w-0">
+            <i data-lucide="sparkles" class="w-4 h-4 text-amber-500 shrink-0"></i>
+            <h3 class="text-sm font-bold text-stone-900 truncate">Quick Spot Check</h3>
           </div>
-          <button onclick="closeSpotCheckModal()" class="text-stone-400 hover:text-stone-700 cursor-pointer">
+          <button onclick="closeSpotCheckModal()" class="text-stone-400 hover:text-stone-700 cursor-pointer p-1 shrink-0">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
@@ -451,43 +486,43 @@
           A quick check to confirm a few items are right where you expect them.
         </p>
 
-        <div id="spot-check-body">
+        <div id="spot-check-body" class="max-w-full">
           <!-- Populated by app.js -->
         </div>
       </div>
     </div>
 
     <!-- MODAL: House Guide for Guests & Sitters -->
-    <div id="modal-guest-guide" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
-      <div class="bg-white rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto border border-stone-200 shadow-elevated modal-content p-6 space-y-4">
+    <div id="modal-guest-guide" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
+      <div class="bg-white rounded-2xl max-w-lg w-full max-h-[88vh] overflow-y-auto border border-stone-200 shadow-elevated modal-content p-5 sm:p-6 space-y-4 max-w-full">
         <div class="flex items-center justify-between border-b border-stone-100 pb-3">
-          <div class="flex items-center gap-2">
-            <i data-lucide="home" class="w-5 h-5 text-emerald-600"></i>
-            <div>
-              <h3 class="text-sm font-bold text-stone-900">House &amp; Guest Guide</h3>
-              <p class="text-[11px] text-stone-500">Important essentials for family, sitters, and houseguests</p>
+          <div class="flex items-center gap-2 min-w-0">
+            <i data-lucide="home" class="w-5 h-5 text-emerald-600 shrink-0"></i>
+            <div class="min-w-0">
+              <h3 class="text-sm font-bold text-stone-900 truncate">House &amp; Guest Guide</h3>
+              <p class="text-[11px] text-stone-500 truncate">Important essentials for family, sitters, and houseguests</p>
             </div>
           </div>
-          <button onclick="closeGuestGuideModal()" class="text-stone-400 hover:text-stone-700 cursor-pointer">
+          <button onclick="closeGuestGuideModal()" class="text-stone-400 hover:text-stone-700 cursor-pointer p-1 shrink-0">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
 
-        <div id="guest-guide-list" class="space-y-3">
+        <div id="guest-guide-list" class="space-y-3 max-w-full">
           <!-- Populated dynamically -->
         </div>
 
-        <div class="pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
+        <div class="pt-3 border-t border-stone-100 flex flex-wrap items-center justify-between gap-2 text-xs">
           <button
             onclick="window.print()"
-            class="px-3 py-1.5 border border-stone-200 hover:bg-stone-50 text-stone-700 rounded-lg font-medium flex items-center gap-1.5 cursor-pointer"
+            class="flex-1 sm:flex-initial px-3.5 py-2 border border-stone-200 hover:bg-stone-50 text-stone-700 rounded-xl font-medium flex items-center justify-center gap-1.5 cursor-pointer whitespace-normal break-words"
           >
-            <i data-lucide="printer" class="w-3.5 h-3.5 text-stone-500"></i>
+            <i data-lucide="printer" class="w-3.5 h-3.5 text-stone-500 shrink-0"></i>
             <span>Print Guide</span>
           </button>
           <button
             onclick="closeGuestGuideModal()"
-            class="px-4 py-2 bg-stone-900 text-white rounded-xl font-semibold cursor-pointer"
+            class="flex-1 sm:flex-initial px-4 py-2 bg-stone-900 text-white rounded-xl font-semibold cursor-pointer text-center whitespace-normal break-words"
           >
             Close
           </button>
@@ -496,14 +531,14 @@
     </div>
 
     <!-- MODAL: Record New Loan -->
-    <div id="modal-record-loan" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
-      <div class="bg-white rounded-2xl max-w-md w-full border border-stone-200 shadow-elevated modal-content p-6 space-y-4">
+    <div id="modal-record-loan" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
+      <div class="bg-white rounded-2xl max-w-md w-full border border-stone-200 shadow-elevated modal-content p-5 sm:p-6 space-y-4 max-w-full">
         <div class="flex items-center justify-between border-b border-stone-100 pb-3">
-          <div>
-            <h3 class="text-sm font-bold text-stone-900">Lend an Item</h3>
-            <p class="text-[11px] text-stone-500">Keep track of who borrowed what</p>
+          <div class="min-w-0">
+            <h3 class="text-sm font-bold text-stone-900 truncate">Lend an Item</h3>
+            <p class="text-[11px] text-stone-500 truncate">Keep track of who borrowed what</p>
           </div>
-          <button onclick="closeRecordLoanModal()" class="text-stone-400 hover:text-stone-700 cursor-pointer">
+          <button onclick="closeRecordLoanModal()" class="text-stone-400 hover:text-stone-700 cursor-pointer p-1 shrink-0">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
@@ -544,17 +579,17 @@
             />
           </div>
 
-          <div class="flex justify-end gap-2 pt-3 border-t border-stone-100">
+          <div class="flex flex-wrap items-center justify-end gap-2 pt-3 border-t border-stone-100">
             <button
               type="button"
               onclick="closeRecordLoanModal()"
-              class="px-3.5 py-2 hover:bg-stone-100 rounded-xl font-medium text-stone-600 cursor-pointer"
+              class="flex-1 sm:flex-initial px-3.5 py-2 hover:bg-stone-100 rounded-xl font-medium text-stone-600 cursor-pointer text-center whitespace-normal break-words"
             >
               Cancel
             </button>
             <button
               type="submit"
-              class="px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white rounded-xl font-semibold cursor-pointer shadow-soft"
+              class="flex-1 sm:flex-initial px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white rounded-xl font-semibold cursor-pointer shadow-soft text-center whitespace-normal break-words"
             >
               Save Loan
             </button>
@@ -564,36 +599,36 @@
     </div>
 
     <!-- MODAL: Friendly Help & Tips -->
-    <div id="modal-help" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
-      <div class="bg-white rounded-2xl max-w-md w-full border border-stone-200 shadow-elevated modal-content p-6 space-y-4">
+    <div id="modal-help" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
+      <div class="bg-white rounded-2xl max-w-md w-full border border-stone-200 shadow-elevated modal-content p-5 sm:p-6 space-y-4 max-w-full">
         <div class="flex items-center justify-between border-b border-stone-100 pb-3">
-          <div class="flex items-center gap-2">
-            <i data-lucide="info" class="w-4 h-4 text-amber-500"></i>
-            <h3 class="text-sm font-bold text-stone-900">Tips for using FindIt</h3>
+          <div class="flex items-center gap-2 min-w-0">
+            <i data-lucide="info" class="w-4 h-4 text-amber-500 shrink-0"></i>
+            <h3 class="text-sm font-bold text-stone-900 truncate">Tips for using FindIt</h3>
           </div>
-          <button onclick="closeHelpModal()" class="text-stone-400 hover:text-stone-700 cursor-pointer">
+          <button onclick="closeHelpModal()" class="text-stone-400 hover:text-stone-700 cursor-pointer p-1 shrink-0">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
 
-        <div class="space-y-3 text-xs text-stone-600 leading-relaxed">
+        <div class="space-y-3 text-xs text-stone-600 leading-relaxed max-w-full">
           <div class="flex items-start gap-2.5">
-            <span class="text-base">📍</span>
-            <div>
+            <span class="text-base shrink-0">📍</span>
+            <div class="break-words">
               <strong class="text-stone-900">Be specific with spots:</strong>
               Write "Top shelf of pantry, in blue bin" rather than just "Kitchen". You'll find it 10x faster.
             </div>
           </div>
           <div class="flex items-start gap-2.5">
-            <span class="text-base">🤝</span>
-            <div>
+            <span class="text-base shrink-0">🤝</span>
+            <div class="break-words">
               <strong class="text-stone-900">Never lose lent tools:</strong>
               When a friend borrows your drill or ladder, tap "Lend" so you always remember who has it.
             </div>
           </div>
           <div class="flex items-start gap-2.5">
-            <span class="text-base">🔒</span>
-            <div>
+            <span class="text-base shrink-0">🔒</span>
+            <div class="break-words">
               <strong class="text-stone-900">Private &amp; Offline:</strong>
               All your belongings are saved directly to this device in your browser. Nothing is sent to external servers.
             </div>
@@ -601,7 +636,7 @@
         </div>
 
         <div class="pt-3 border-t border-stone-100 flex justify-end">
-          <button onclick="closeHelpModal()" class="px-4 py-2 bg-stone-900 text-white rounded-xl text-xs font-semibold cursor-pointer">
+          <button onclick="closeHelpModal()" class="w-full sm:w-auto px-4 py-2 bg-stone-900 text-white rounded-xl text-xs font-semibold cursor-pointer text-center">
             Got it
           </button>
         </div>
@@ -609,7 +644,7 @@
     </div>
 
     <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none max-w-[90vw]"></div>
 
     <!-- Application Script -->
     <script src="./app.js"></script>

@@ -439,9 +439,11 @@ function renderSummaryStats() {
   const totalRoomsEl = document.getElementById('stat-total-rooms');
   const lentLinkEl = document.getElementById('stat-lent-link');
   const lentCountEl = document.getElementById('stat-lent-count');
+  const scrollPill = document.getElementById('scroll-count-pill');
 
   if (totalItemsEl) totalItemsEl.textContent = `${totalItems} items`;
   if (totalRoomsEl) totalRoomsEl.textContent = `${uniqueRooms} rooms`;
+  if (scrollPill) scrollPill.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
 
   if (lentLinkEl && lentCountEl) {
     if (lentItems > 0) {
@@ -474,13 +476,13 @@ function renderCategoryPills() {
     return `
       <button
         onclick="selectCategory('${cat}')"
-        class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
+        class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-normal break-words max-w-full text-center transition-all cursor-pointer ${
           isSelected
             ? 'bg-stone-900 text-white shadow-soft'
             : 'bg-stone-50 text-stone-600 hover:bg-stone-100 hover:text-stone-900 border border-stone-200/80'
         }"
       >
-        ${cat}
+        ${escapeHtml(cat)}
       </button>
     `;
   }).join('');
@@ -603,11 +605,12 @@ function renderGridView(container) {
 
   container.innerHTML = `
     <div class="space-y-4">
-      <div class="flex items-center justify-between text-xs text-stone-500 px-1">
-        <span>
-          Showing <strong>${filtered.length}</strong> ${filtered.length === 1 ? 'item' : 'items'}
-          ${state.searchQuery ? ` matching "${escapeHtml(state.searchQuery)}"` : ''}
-        </span>
+      <div class="flex flex-wrap items-center justify-between text-xs text-stone-500 px-1 gap-2">
+        <div class="flex items-center gap-1.5 font-medium text-stone-700">
+          <i data-lucide="arrow-down" class="w-3.5 h-3.5 text-amber-600 shrink-0 animate-bounce"></i>
+          <span>Scroll down to view all <strong>${filtered.length}</strong> ${filtered.length === 1 ? 'item' : 'items'} below</span>
+          ${state.searchQuery ? `<span class="text-stone-400 font-normal">matching "${escapeHtml(state.searchQuery)}"</span>` : ''}
+        </div>
         ${
           state.searchQuery || state.selectedCategory !== 'All' || state.filterLowStockOnly || state.filterGuestOnly
             ? `<button onclick="clearAllFilters()" class="text-stone-700 hover:text-stone-950 font-medium underline cursor-pointer">Clear filters</button>`
@@ -629,23 +632,23 @@ function renderItemCardHtml(item) {
     (item.consumable.quantity ?? 0) <= (item.consumable.minThreshold ?? 0);
 
   return `
-    <div class="bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 flex flex-col justify-between card-hover shadow-soft relative group">
+    <div class="bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 flex flex-col justify-between card-hover shadow-soft relative group max-w-full">
       
       <!-- Card Top Content -->
       <div class="space-y-3">
         
         <!-- Header Pill Row -->
         <div class="flex items-center justify-between gap-2">
-          <span class="inline-flex items-center gap-1 text-[11px] font-medium text-stone-600 bg-stone-100/90 px-2.5 py-0.5 rounded-lg">
-            <i data-lucide="map-pin" class="w-3 h-3 text-stone-400"></i>
-            <span>${escapeHtml(item.location.room)}</span>
+          <span class="inline-flex items-center gap-1 text-[11px] font-medium text-stone-600 bg-stone-100/90 px-2.5 py-0.5 rounded-lg max-w-[70%] truncate">
+            <i data-lucide="map-pin" class="w-3 h-3 text-stone-400 shrink-0"></i>
+            <span class="truncate">${escapeHtml(item.location.room)}</span>
           </span>
 
-          <div class="flex items-center gap-1">
+          <div class="flex items-center gap-1 shrink-0">
             ${
               item.isEssentialForGuests
-                ? `<span class="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-md flex items-center gap-1" title="Included in House Guide">
-                    <i data-lucide="home" class="w-2.5 h-2.5 text-emerald-600"></i>
+                ? `<span class="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-md flex items-center gap-1 shrink-0" title="Included in House Guide">
+                    <i data-lucide="home" class="w-2.5 h-2.5 text-emerald-600 shrink-0"></i>
                     <span>Guest Guide</span>
                   </span>`
                 : ''
@@ -655,20 +658,20 @@ function renderItemCardHtml(item) {
 
         <!-- Title -->
         <div>
-          <h4 class="text-sm font-semibold text-stone-900 tracking-tight leading-snug">
+          <h4 class="text-sm font-semibold text-stone-900 tracking-tight leading-snug break-words">
             ${escapeHtml(item.name)}
           </h4>
-          <span class="text-[11px] text-stone-400 font-medium">
+          <span class="text-[11px] text-stone-400 font-medium break-words">
             ${escapeHtml(item.category)}
           </span>
         </div>
 
         <!-- Spot & Location Details (Clean & Readable) -->
-        <div class="bg-stone-50/80 rounded-xl p-3 border border-stone-200/60 space-y-1.5 text-xs">
+        <div class="bg-stone-50/80 rounded-xl p-3 border border-stone-200/60 space-y-1.5 text-xs max-w-full">
           <!-- Spot / Shelf -->
           <div class="flex items-start gap-1.5 text-stone-800 font-medium">
             <span class="text-stone-400 font-normal shrink-0">Spot:</span>
-            <span>${escapeHtml(item.location.zone)}</span>
+            <span class="break-words min-w-0">${escapeHtml(item.location.zone)}</span>
           </div>
 
           <!-- Container -->
@@ -676,7 +679,7 @@ function renderItemCardHtml(item) {
             item.location.container
               ? `<div class="flex items-start gap-1.5 text-stone-600">
                   <span class="text-stone-400 font-normal shrink-0">In:</span>
-                  <span>${escapeHtml(item.location.container)}</span>
+                  <span class="break-words min-w-0">${escapeHtml(item.location.container)}</span>
                 </div>`
               : ''
           }
@@ -686,7 +689,7 @@ function renderItemCardHtml(item) {
             item.location.landmark
               ? `<div class="flex items-start gap-1.5 text-stone-500 text-[11px] pt-0.5">
                   <span class="text-stone-400 font-normal shrink-0">💡</span>
-                  <span class="italic">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</span>
+                  <span class="italic break-words min-w-0">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</span>
                 </div>`
               : ''
           }
@@ -695,21 +698,21 @@ function renderItemCardHtml(item) {
         <!-- Notes if provided -->
         ${
           item.description
-            ? `<p class="text-xs text-stone-600 line-clamp-2">${escapeHtml(item.description)}</p>`
+            ? `<p class="text-xs text-stone-600 line-clamp-2 break-words">${escapeHtml(item.description)}</p>`
             : ''
         }
 
         <!-- Lent Banner if currently borrowed -->
         ${
           isLent
-            ? `<div class="bg-amber-50 border border-amber-200/80 rounded-xl p-2.5 text-xs flex items-center justify-between text-amber-900">
-                <div class="flex items-center gap-1.5">
+            ? `<div class="bg-amber-50 border border-amber-200/80 rounded-xl p-2.5 text-xs flex flex-wrap items-center justify-between gap-2 text-amber-900">
+                <div class="flex items-center gap-1.5 min-w-0">
                   <i data-lucide="share-2" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
-                  <span>Lent to <strong>${escapeHtml(item.lent.lentTo || 'Someone')}</strong></span>
+                  <span class="break-words">Lent to <strong>${escapeHtml(item.lent.lentTo || 'Someone')}</strong></span>
                 </div>
                 <button
                   onclick="returnLentItem('${item.id}')"
-                  class="text-[11px] bg-white border border-amber-300 px-2 py-0.5 rounded-md font-semibold text-amber-900 hover:bg-amber-100 transition-colors cursor-pointer"
+                  class="text-[11px] bg-white border border-amber-300 px-2.5 py-0.5 rounded-md font-semibold text-amber-900 hover:bg-amber-100 transition-colors cursor-pointer shrink-0 ml-auto whitespace-normal break-words"
                 >
                   Returned
                 </button>
@@ -721,18 +724,18 @@ function renderItemCardHtml(item) {
         ${
           item.consumable?.isConsumable
             ? `<div class="flex items-center justify-between bg-stone-50 rounded-xl px-3 py-1.5 border border-stone-200/60 text-xs">
-                <div class="flex items-center gap-1.5">
-                  <span class="text-stone-500">Stock:</span>
-                  <strong class="${isLowConsumable ? 'text-red-600' : 'text-stone-800'}">
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <span class="text-stone-500 shrink-0">Stock:</span>
+                  <strong class="${isLowConsumable ? 'text-red-600' : 'text-stone-800'} truncate">
                     ${item.consumable.quantity} ${escapeHtml(item.consumable.unit || 'items')}
                   </strong>
                   ${
                     isLowConsumable
-                      ? `<span class="bg-red-100 text-red-700 text-[10px] font-bold px-1.5 py-0.2 rounded">Low</span>`
+                      ? `<span class="bg-red-100 text-red-700 text-[10px] font-bold px-1.5 py-0.2 rounded shrink-0">Low</span>`
                       : ''
                   }
                 </div>
-                <div class="flex items-center gap-1">
+                <div class="flex items-center gap-1 shrink-0 ml-2">
                   <button
                     onclick="changeItemQuantity('${item.id}', -1)"
                     class="w-6 h-6 rounded-md bg-white border border-stone-200 hover:bg-stone-100 flex items-center justify-center text-xs font-bold text-stone-700 cursor-pointer"
@@ -753,32 +756,32 @@ function renderItemCardHtml(item) {
         }
       </div>
 
-      <!-- Card Bottom Actions -->
-      <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
+      <!-- Card Bottom Actions (Fits nicely on all screen widths) -->
+      <div class="mt-4 pt-3 border-t border-stone-100 flex flex-wrap items-center justify-between gap-2 text-xs text-stone-500">
         
         <!-- Left: Quick Lend / Return -->
         <button
           onclick="toggleLentStatus('${item.id}')"
-          class="hover:text-stone-900 cursor-pointer flex items-center gap-1 text-[11px] font-medium text-stone-600"
+          class="hover:text-stone-900 cursor-pointer flex items-center gap-1 text-[11px] font-medium text-stone-600 px-2 py-1 rounded-lg hover:bg-stone-50 border border-stone-200/70 max-w-full break-words whitespace-normal text-left"
         >
-          <i data-lucide="${isLent ? 'corner-down-left' : 'share-2'}" class="w-3.5 h-3.5"></i>
-          <span>${isLent ? 'Mark Returned' : 'Lend'}</span>
+          <i data-lucide="${isLent ? 'corner-down-left' : 'share-2'}" class="w-3.5 h-3.5 shrink-0"></i>
+          <span class="break-words">${isLent ? 'Mark Returned' : 'Lend'}</span>
         </button>
 
         <!-- Right: Edit & Delete -->
-        <div class="flex items-center gap-2">
+        <div class="flex flex-wrap items-center gap-1.5 ml-auto">
           <button
             onclick="verifyLocation('${item.id}')"
-            class="text-[11px] text-stone-500 hover:text-emerald-700 cursor-pointer p-1 rounded-md transition-colors flex items-center gap-1"
+            class="text-[11px] text-stone-600 hover:text-emerald-800 bg-stone-50 hover:bg-emerald-50 border border-stone-200/70 hover:border-emerald-300 cursor-pointer px-2 py-1 rounded-lg transition-colors flex items-center gap-1 max-w-full break-words whitespace-normal"
             title="Confirm item is still in this spot"
           >
-            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
             <span>Still here</span>
           </button>
           
           <button
             onclick="editItem('${item.id}')"
-            class="text-stone-400 hover:text-stone-800 cursor-pointer p-1 rounded-md transition-colors"
+            class="text-stone-500 hover:text-stone-900 bg-stone-50 hover:bg-stone-100 border border-stone-200/70 cursor-pointer p-1.5 rounded-lg transition-colors"
             title="Edit Item"
           >
             <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
@@ -786,7 +789,7 @@ function renderItemCardHtml(item) {
 
           <button
             onclick="deleteItem('${item.id}')"
-            class="text-stone-400 hover:text-red-600 cursor-pointer p-1 rounded-md transition-colors"
+            class="text-stone-400 hover:text-red-600 bg-stone-50 hover:bg-red-50 border border-stone-200/70 hover:border-red-200 cursor-pointer p-1.5 rounded-lg transition-colors"
             title="Delete Item"
           >
             <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
@@ -850,9 +853,9 @@ function renderRoomsView(container) {
 
         <button
           onclick="openQuickAddModalWithRoom('${escapeHtml(room.name)}')"
-          class="w-full py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-700 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+          class="w-full py-2 px-3 bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-700 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer whitespace-normal break-words text-center"
         >
-          <i data-lucide="plus" class="w-3.5 h-3.5 text-amber-500"></i>
+          <i data-lucide="plus" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
           <span>Add item to ${escapeHtml(room.name)}</span>
         </button>
       </div>
@@ -1468,6 +1471,18 @@ window.resetData = function () {
     renderApp();
     showToast('Reset to starter items');
   }
+};
+
+// Smooth Scrolling Navigation Helpers
+window.scrollToItemsView = function () {
+  const target = document.getElementById('main-content-view');
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+window.scrollToTopView = function () {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 // PWA Installation & Service Worker

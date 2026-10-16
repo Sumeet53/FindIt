@@ -1606,6 +1606,106 @@ window.returnLentItem = function (id) {
   showToast(`"${item.name}" returned home to ${item.location.room}`);
 };
 
+// Generic In-App Dialog Helpers (Replaces blocking window.alert/confirm/prompt for iframe & mobile safety)
+function showConfirmDialog({ title, message, confirmText = 'Confirm', confirmClass = 'bg-rose-600 hover:bg-rose-700 text-white', onConfirm }) {
+  const modal = document.getElementById('app-dialog-modal');
+  if (!modal) {
+    if (onConfirm) onConfirm();
+    return;
+  }
+  const titleEl = document.getElementById('dialog-title');
+  const msgEl = document.getElementById('dialog-message');
+  const inputContainer = document.getElementById('dialog-input-container');
+  const btnCancel = document.getElementById('dialog-btn-cancel');
+  const btnConfirm = document.getElementById('dialog-btn-confirm');
+
+  if (titleEl) titleEl.textContent = title;
+  if (msgEl) msgEl.textContent = message;
+  if (inputContainer) inputContainer.classList.add('hidden');
+
+  if (btnConfirm) {
+    btnConfirm.textContent = confirmText;
+    btnConfirm.className = `py-2.5 px-4 font-bold text-xs rounded-xl shadow-soft transition-colors cursor-pointer touch-manipulation ${confirmClass}`;
+  }
+
+  modal.classList.remove('hidden');
+
+  const cleanup = () => {
+    modal.classList.add('hidden');
+    if (btnCancel) btnCancel.onclick = null;
+    if (btnConfirm) btnConfirm.onclick = null;
+  };
+
+  if (btnCancel) {
+    btnCancel.onclick = () => {
+      cleanup();
+    };
+  }
+
+  if (btnConfirm) {
+    btnConfirm.onclick = () => {
+      cleanup();
+      if (onConfirm) onConfirm();
+    };
+  }
+}
+
+function showPromptDialog({ title, message, defaultValue = '', placeholder = '', confirmText = 'Save', onConfirm }) {
+  const modal = document.getElementById('app-dialog-modal');
+  if (!modal) {
+    if (onConfirm) onConfirm(defaultValue);
+    return;
+  }
+  const titleEl = document.getElementById('dialog-title');
+  const msgEl = document.getElementById('dialog-message');
+  const inputContainer = document.getElementById('dialog-input-container');
+  const inputEl = document.getElementById('dialog-input');
+  const btnCancel = document.getElementById('dialog-btn-cancel');
+  const btnConfirm = document.getElementById('dialog-btn-confirm');
+
+  if (titleEl) titleEl.textContent = title;
+  if (msgEl) msgEl.textContent = message;
+  if (inputContainer) inputContainer.classList.remove('hidden');
+  if (inputEl) {
+    inputEl.value = defaultValue;
+    inputEl.placeholder = placeholder;
+  }
+
+  if (btnConfirm) {
+    btnConfirm.textContent = confirmText;
+    btnConfirm.className = 'py-2.5 px-4 bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs rounded-xl shadow-soft transition-colors cursor-pointer touch-manipulation';
+  }
+
+  modal.classList.remove('hidden');
+  if (inputEl) {
+    setTimeout(() => {
+      inputEl.focus();
+      inputEl.select();
+    }, 60);
+  }
+
+  const cleanup = () => {
+    modal.classList.add('hidden');
+    if (inputContainer) inputContainer.classList.add('hidden');
+    if (btnCancel) btnCancel.onclick = null;
+    if (btnConfirm) btnConfirm.onclick = null;
+  };
+
+  if (btnCancel) {
+    btnCancel.onclick = () => {
+      cleanup();
+    };
+  }
+
+  if (btnConfirm) {
+    btnConfirm.onclick = () => {
+      const val = inputEl ? inputEl.value.trim() : '';
+      cleanup();
+      if (onConfirm) onConfirm(val || defaultValue);
+    };
+  }
+}
+
 window.toggleLentStatus = function (id) {
   const item = state.items.find((i) => i.id === id);
   if (!item) return;
@@ -1613,49 +1713,50 @@ window.toggleLentStatus = function (id) {
   if (item.lent && item.lent.isLent) {
     returnLentItem(id);
   } else {
-    let borrower = null;
-    try {
-      borrower = window.prompt(`Who is borrowing "${item.name}"?`, 'Neighbor / Friend');
-    } catch (e) {
-      console.warn('Prompt blocked or not supported in this frame:', e);
-      borrower = 'Neighbor / Friend';
-    }
-    if (borrower !== null) {
-      const lenderName = borrower.trim() || 'Neighbor / Friend';
-      state.items = state.items.map((i) =>
-        i.id === id
-          ? {
-              ...i,
-              lent: {
-                isLent: true,
-                lentTo: lenderName,
-                lentDate: new Date().toISOString().slice(0, 10),
-              },
-            }
-          : i
-      );
-      saveItems();
-      renderApp();
-      showToast(`Marked "${item.name}" as lent to ${lenderName}`);
-    }
+    showPromptDialog({
+      title: 'Lend Item',
+      message: `Who is borrowing "${item.name}"?`,
+      defaultValue: 'Neighbor / Friend',
+      placeholder: 'Enter borrower name...',
+      confirmText: 'Record Loan',
+      onConfirm: (borrower) => {
+        const lenderName = borrower.trim() || 'Neighbor / Friend';
+        state.items = state.items.map((i) =>
+          i.id === id
+            ? {
+                ...i,
+                lent: {
+                  isLent: true,
+                  lentTo: lenderName,
+                  lentDate: new Date().toISOString().slice(0, 10),
+                },
+              }
+            : i
+        );
+        saveItems();
+        renderApp();
+        showToast(`Marked "${item.name}" as lent to ${lenderName}`);
+      },
+    });
   }
 };
 
 window.deleteItem = function (id) {
   const item = state.items.find((i) => i.id === id);
   if (!item) return;
-  let confirmed = true;
-  try {
-    confirmed = window.confirm(`Remove "${item.name}" from FindIt?`);
-  } catch (e) {
-    confirmed = true;
-  }
-  if (confirmed) {
-    state.items = state.items.filter((i) => i.id !== id);
-    saveItems();
-    renderApp();
-    showToast(`Removed "${item.name}"`);
-  }
+
+  showConfirmDialog({
+    title: 'Delete Item',
+    message: `Remove "${item.name}" from FindIt? This action cannot be undone.`,
+    confirmText: 'Delete',
+    confirmClass: 'bg-rose-600 hover:bg-rose-700 text-white',
+    onConfirm: () => {
+      state.items = state.items.filter((i) => i.id !== id);
+      saveItems();
+      renderApp();
+      showToast(`Removed "${item.name}"`);
+    },
+  });
 };
 
 // =========================================================================
@@ -1885,6 +1986,15 @@ function parseSentence(raw) {
 }
 
 window.handleNlpInputChange = function (val) {
+  const clearBtn = document.getElementById('btn-voice-input-clear');
+  if (clearBtn) {
+    if (val && val.trim().length > 0) {
+      clearBtn.classList.remove('hidden');
+    } else {
+      clearBtn.classList.add('hidden');
+    }
+  }
+
   const preview = document.getElementById('nlp-parse-preview');
   if (!val || val.trim().length < 2) {
     if (preview) preview.classList.add('hidden');
@@ -1905,6 +2015,29 @@ window.handleNlpInputChange = function (val) {
     if (pRoom) pRoom.textContent = parsed.room;
     if (pZone) pZone.textContent = parsed.zone;
   }
+};
+
+window.discardVoiceEntry = function () {
+  const input = document.getElementById('voice-nlp-input');
+  if (input) input.value = '';
+  const clearBtn = document.getElementById('btn-voice-input-clear');
+  if (clearBtn) clearBtn.classList.add('hidden');
+  const preview = document.getElementById('nlp-parse-preview');
+  if (preview) preview.classList.add('hidden');
+  currentParsedNlp = null;
+
+  if (state.isRecordingVoice && voiceRecognitionInstance) {
+    try {
+      voiceRecognitionInstance.stop();
+    } catch (e) {}
+    state.isRecordingVoice = false;
+    const btn = document.getElementById('btn-voice-record');
+    if (btn) btn.classList.remove('recording-pulse');
+    const label = document.getElementById('voice-record-label');
+    if (label) label.textContent = 'Tap microphone to speak';
+  }
+
+  showToast('Entry discarded');
 };
 
 window.confirmNlpCapture = function () {
@@ -1945,6 +2078,8 @@ window.confirmNlpCapture = function () {
   // Reset inputs
   const nlpInput = document.getElementById('voice-nlp-input');
   if (nlpInput) nlpInput.value = '';
+  const clearBtn = document.getElementById('btn-voice-input-clear');
+  if (clearBtn) clearBtn.classList.add('hidden');
   document.getElementById('nlp-parse-preview')?.classList.add('hidden');
   currentParsedNlp = null;
 
@@ -2016,6 +2151,13 @@ window.clearPhotoPreview = function () {
   if (previewContainer) previewContainer.classList.add('hidden');
   const fileInput = document.getElementById('photo-file-input');
   if (fileInput) fileInput.value = '';
+};
+
+window.discardPhotoEntry = function () {
+  clearPhotoPreview();
+  const nameInput = document.getElementById('photo-item-name');
+  if (nameInput) nameInput.value = '';
+  showToast('Photo entry discarded');
 };
 
 window.savePhotoClueItem = function () {
@@ -2211,6 +2353,31 @@ window.saveBulkTourItems = function () {
 
   showToast(`🎉 Bulk Tour Complete! Added ${newItems.length} items to ${room}!`);
   switchPage('home');
+};
+
+window.discardTourEntry = function () {
+  const textarea = document.getElementById('tour-items-input');
+  if (textarea) textarea.value = '';
+  const zoneInput = document.getElementById('tour-zone-input');
+  if (zoneInput) zoneInput.value = '';
+  const badges = document.getElementById('tour-preview-badges');
+  if (badges) badges.innerHTML = '';
+  state.activeTourItems = [];
+  const labelBtn = document.getElementById('btn-save-tour-label');
+  if (labelBtn) labelBtn.textContent = 'Add Items in Tour';
+
+  if (state.isRecordingTour && tourRecognitionInstance) {
+    try {
+      tourRecognitionInstance.stop();
+    } catch (e) {}
+    state.isRecordingTour = false;
+    const btn = document.getElementById('btn-tour-voice');
+    if (btn) btn.classList.remove('recording-pulse');
+    const label = document.getElementById('tour-voice-label');
+    if (label) label.textContent = 'Speak items';
+  }
+
+  showToast('Tour entry discarded');
 };
 
 function inferCategoryFromName(name) {
@@ -2414,6 +2581,89 @@ window.handleSaveItemSubmit = function (e) {
   switchPage('home');
 };
 
+window.discardDetailedFormEntry = function () {
+  const form = document.getElementById('full-add-form');
+  if (form) form.reset();
+  state.editingItemId = null;
+  const consFields = document.getElementById('consumable-fields');
+  if (consFields) {
+    consFields.style.display = 'none';
+    consFields.classList.add('hidden');
+  }
+  const lentFields = document.getElementById('lent-fields');
+  if (lentFields) {
+    lentFields.style.display = 'none';
+    lentFields.classList.add('hidden');
+  }
+  showToast('Entry discarded');
+  switchPage('home');
+};
+
+window.discardAllAddEntries = function () {
+  // Clear voice
+  const voiceInput = document.getElementById('voice-nlp-input');
+  if (voiceInput) voiceInput.value = '';
+  const clearBtn = document.getElementById('btn-voice-input-clear');
+  if (clearBtn) clearBtn.classList.add('hidden');
+  const preview = document.getElementById('nlp-parse-preview');
+  if (preview) preview.classList.add('hidden');
+  currentParsedNlp = null;
+  if (state.isRecordingVoice && voiceRecognitionInstance) {
+    try {
+      voiceRecognitionInstance.stop();
+    } catch (e) {}
+    state.isRecordingVoice = false;
+    const btn = document.getElementById('btn-voice-record');
+    if (btn) btn.classList.remove('recording-pulse');
+    const label = document.getElementById('voice-record-label');
+    if (label) label.textContent = 'Tap microphone to speak';
+  }
+
+  // Clear photo
+  clearPhotoPreview();
+  const photoName = document.getElementById('photo-item-name');
+  if (photoName) photoName.value = '';
+
+  // Clear tour
+  const tourInput = document.getElementById('tour-items-input');
+  if (tourInput) tourInput.value = '';
+  const zoneInput = document.getElementById('tour-zone-input');
+  if (zoneInput) zoneInput.value = '';
+  const badges = document.getElementById('tour-preview-badges');
+  if (badges) badges.innerHTML = '';
+  state.activeTourItems = [];
+  const tourLabelBtn = document.getElementById('btn-save-tour-label');
+  if (tourLabelBtn) tourLabelBtn.textContent = 'Add Items in Tour';
+  if (state.isRecordingTour && tourRecognitionInstance) {
+    try {
+      tourRecognitionInstance.stop();
+    } catch (e) {}
+    state.isRecordingTour = false;
+    const tourBtn = document.getElementById('btn-tour-voice');
+    if (tourBtn) tourBtn.classList.remove('recording-pulse');
+    const tourLabel = document.getElementById('tour-voice-label');
+    if (tourLabel) tourLabel.textContent = 'Speak items';
+  }
+
+  // Clear detailed form
+  const form = document.getElementById('full-add-form');
+  if (form) form.reset();
+  state.editingItemId = null;
+  const consFields = document.getElementById('consumable-fields');
+  if (consFields) {
+    consFields.style.display = 'none';
+    consFields.classList.add('hidden');
+  }
+  const lentFields = document.getElementById('lent-fields');
+  if (lentFields) {
+    lentFields.style.display = 'none';
+    lentFields.classList.add('hidden');
+  }
+
+  showToast('Entry discarded');
+  switchPage('home');
+};
+
 // =========================================================================
 // SPOT CHECK VIEW (IN-PAGE 15-SECOND MEMORY FLASHCARD)
 // =========================================================================
@@ -2583,24 +2833,30 @@ window.startQuickVoiceFromHeader = function () {
   }, 250);
 };
 
-// Reset Demo Data (NO EXPORT BACKUP OPTION AS REQUESTED)
+// Reset Demo Data (Safe In-App Dialog, no blocking modal)
 window.resetData = function () {
-  if (confirm('Reset items and rooms back to starter demo data?')) {
-    state.items = INITIAL_ITEMS;
-    state.rooms = INITIAL_ROOMS;
-    state.engagement = {
-      streak: 3,
-      lastCheckInDate: '',
-      totalCheckIns: 5,
-      notificationsEnabled: false,
-      lastNotificationTimestamp: 0,
-    };
-    saveItems();
-    saveRooms();
-    saveEngagement();
-    renderApp();
-    showToast('Reset to starter items');
-  }
+  showConfirmDialog({
+    title: 'Reset Demo Data',
+    message: 'Reset all items, rooms, and organizing habits back to the starter demo data?',
+    confirmText: 'Reset All',
+    confirmClass: 'bg-rose-600 hover:bg-rose-700 text-white',
+    onConfirm: () => {
+      state.items = INITIAL_ITEMS;
+      state.rooms = INITIAL_ROOMS;
+      state.engagement = {
+        streak: 3,
+        lastCheckInDate: '',
+        totalCheckIns: 5,
+        notificationsEnabled: false,
+        lastNotificationTimestamp: 0,
+      };
+      saveItems();
+      saveRooms();
+      saveEngagement();
+      renderApp();
+      showToast('Reset to starter items');
+    },
+  });
 };
 
 // Smooth Scrolling Navigation Helpers

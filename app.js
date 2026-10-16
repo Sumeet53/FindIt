@@ -452,6 +452,17 @@ function saveEngagement() {
   }
 }
 
+// Safe Icon Creator (guarantees no uncaught errors on slow mobile networks or latency)
+function safeCreateIcons() {
+  if (typeof lucide !== 'undefined' && lucide && typeof lucide.createIcons === 'function') {
+    try {
+      lucide.createIcons();
+    } catch (e) {
+      console.warn('Icon rendering notice:', e);
+    }
+  }
+}
+
 // Utility: HTML escape
 function escapeHtml(str) {
   if (!str) return '';
@@ -463,24 +474,24 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
-// Utility: Toast notification (Centered at bottom)
+// Utility: Toast notification (Centered at top)
 function showToast(message) {
   const container = document.getElementById('toast-container');
   if (!container) return;
 
   const toast = document.createElement('div');
   toast.className =
-    'bg-stone-900 text-white text-xs sm:text-sm font-semibold px-5 py-3 rounded-2xl shadow-elevated flex items-center justify-center gap-2 pointer-events-auto transform transition-all duration-200 translate-y-3 opacity-0 text-center';
+    'bg-stone-900 text-white text-xs sm:text-sm font-semibold px-5 py-3 rounded-2xl shadow-elevated flex items-center justify-center gap-2 pointer-events-auto transform transition-all duration-200 -translate-y-3 opacity-0 text-center';
   toast.innerHTML = `
     <i data-lucide="sparkles" class="w-4 h-4 text-amber-400 shrink-0"></i>
     <span>${escapeHtml(message)}</span>
   `;
 
   container.appendChild(toast);
-  lucide.createIcons();
+  safeCreateIcons();
 
   requestAnimationFrame(() => {
-    toast.classList.remove('translate-y-3', 'opacity-0');
+    toast.classList.remove('-translate-y-3', 'opacity-0');
   });
 
   setTimeout(() => {
@@ -633,7 +644,7 @@ function renderApp() {
   renderSortFilterCard();
   renderEngagementStatus();
   renderMainView();
-  lucide.createIcons();
+  safeCreateIcons();
 }
 
 // Render Sort & Filter Card (Dynamic as per user entered data)
@@ -997,14 +1008,20 @@ window.switchPage = function (pageId) {
     const navBtn = document.getElementById(`nav-btn-${p}`);
     if (navBtn) {
       if (p === 'add') {
-        // Add button preserves its colorful elevated pill design
+        if (pageId === 'add') {
+          navBtn.className =
+            'nav-tab-btn active flex-1 min-w-0 flex flex-col items-center justify-center gap-0.5 px-0.5 py-0.5 cursor-pointer transform scale-105 transition-all min-h-[48px] select-none touch-manipulation';
+        } else {
+          navBtn.className =
+            'nav-tab-btn flex-1 min-w-0 flex flex-col items-center justify-center gap-0.5 px-0.5 py-0.5 cursor-pointer transform hover:scale-105 active:scale-95 transition-all min-h-[48px] select-none touch-manipulation';
+        }
       } else {
         if (p === pageId) {
           navBtn.className =
-            'nav-tab-btn active flex flex-col items-center justify-center gap-1 px-3 py-1 rounded-xl transition-all cursor-pointer text-amber-600 font-extrabold bg-amber-50/80 shadow-xs ring-1 ring-amber-300';
+            'nav-tab-btn active flex-1 min-w-0 flex flex-col items-center justify-center gap-0.5 py-1 px-0.5 rounded-xl transition-all cursor-pointer text-amber-600 font-extrabold bg-amber-50/90 shadow-xs ring-1 ring-amber-300 min-h-[48px] select-none touch-manipulation';
         } else {
           navBtn.className =
-            'nav-tab-btn flex flex-col items-center justify-center gap-1 px-3 py-1 rounded-xl transition-all cursor-pointer text-stone-500 hover:text-stone-900 font-medium';
+            'nav-tab-btn flex-1 min-w-0 flex flex-col items-center justify-center gap-0.5 py-1 px-0.5 rounded-xl transition-all cursor-pointer text-stone-500 hover:text-stone-900 font-medium min-h-[48px] select-none touch-manipulation';
         }
       }
     }
@@ -1023,8 +1040,8 @@ window.switchPage = function (pageId) {
     initGuidePage();
   }
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  lucide.createIcons();
+  window.scrollTo(0, 0);
+  safeCreateIcons();
 };
 
 window.handleNavItemsClick = function () {
@@ -1596,15 +1613,22 @@ window.toggleLentStatus = function (id) {
   if (item.lent && item.lent.isLent) {
     returnLentItem(id);
   } else {
-    const borrower = window.prompt(`Who is borrowing "${item.name}"?`);
-    if (borrower && borrower.trim()) {
+    let borrower = null;
+    try {
+      borrower = window.prompt(`Who is borrowing "${item.name}"?`, 'Neighbor / Friend');
+    } catch (e) {
+      console.warn('Prompt blocked or not supported in this frame:', e);
+      borrower = 'Neighbor / Friend';
+    }
+    if (borrower !== null) {
+      const lenderName = borrower.trim() || 'Neighbor / Friend';
       state.items = state.items.map((i) =>
         i.id === id
           ? {
               ...i,
               lent: {
                 isLent: true,
-                lentTo: borrower.trim(),
+                lentTo: lenderName,
                 lentDate: new Date().toISOString().slice(0, 10),
               },
             }
@@ -1612,7 +1636,7 @@ window.toggleLentStatus = function (id) {
       );
       saveItems();
       renderApp();
-      showToast(`Marked "${item.name}" as lent to ${borrower.trim()}`);
+      showToast(`Marked "${item.name}" as lent to ${lenderName}`);
     }
   }
 };
@@ -1620,7 +1644,13 @@ window.toggleLentStatus = function (id) {
 window.deleteItem = function (id) {
   const item = state.items.find((i) => i.id === id);
   if (!item) return;
-  if (confirm(`Remove "${item.name}" from FindIt?`)) {
+  let confirmed = true;
+  try {
+    confirmed = window.confirm(`Remove "${item.name}" from FindIt?`);
+  } catch (e) {
+    confirmed = true;
+  }
+  if (confirmed) {
     state.items = state.items.filter((i) => i.id !== id);
     saveItems();
     renderApp();
@@ -1629,7 +1659,7 @@ window.deleteItem = function (id) {
 };
 
 // =========================================================================
-// EFFORTLESS 3-SECOND CAPTURE & ADD VIEW CONTROLLERS
+// EFFORTLESS QUICK CAPTURE & ADD VIEW CONTROLLERS
 // =========================================================================
 
 window.openQuickAddModal = function () {
@@ -1687,14 +1717,7 @@ window.setAddCaptureMode = function (mode) {
     }
   });
 
-  if (mode === 'voice') {
-    setTimeout(() => {
-      const input = document.getElementById('voice-nlp-input');
-      if (input) input.focus();
-    }, 150);
-  }
-
-  lucide.createIcons();
+  safeCreateIcons();
 };
 
 // -------------------------------------------------------------------------
@@ -2273,15 +2296,33 @@ function populateDetailedAddForm(editingItem) {
 }
 
 window.toggleConsumableInputs = function () {
-  const isChecked = document.getElementById('add-item-consumable-toggle').checked;
+  const toggle = document.getElementById('add-item-consumable-toggle');
+  const isChecked = toggle ? toggle.checked : false;
   const el = document.getElementById('consumable-fields');
-  if (el) el.style.display = isChecked ? 'grid' : 'none';
+  if (el) {
+    if (isChecked) {
+      el.classList.remove('hidden');
+      el.style.display = 'grid';
+    } else {
+      el.classList.add('hidden');
+      el.style.display = 'none';
+    }
+  }
 };
 
 window.toggleLentInputs = function () {
-  const isChecked = document.getElementById('add-item-lent-toggle').checked;
+  const toggle = document.getElementById('add-item-lent-toggle');
+  const isChecked = toggle ? toggle.checked : false;
   const el = document.getElementById('lent-fields');
-  if (el) el.style.display = isChecked ? 'grid' : 'none';
+  if (el) {
+    if (isChecked) {
+      el.classList.remove('hidden');
+      el.style.display = 'grid';
+    } else {
+      el.classList.add('hidden');
+      el.style.display = 'none';
+    }
+  }
 };
 
 window.handleSaveItemSubmit = function (e) {
@@ -2418,7 +2459,7 @@ function renderSpotCheckStep() {
         </button>
       </div>
     `;
-    lucide.createIcons();
+    safeCreateIcons();
     return;
   }
 
@@ -2468,7 +2509,7 @@ function renderSpotCheckStep() {
       </div>
     </div>
   `;
-  lucide.createIcons();
+  safeCreateIcons();
 }
 
 window.confirmSpotCheckItem = function (id) {
@@ -2530,7 +2571,7 @@ function initGuidePage() {
   `
     )
     .join('');
-  lucide.createIcons();
+  safeCreateIcons();
 }
 
 // Quick trigger from top header
@@ -2619,6 +2660,20 @@ document.addEventListener('DOMContentLoaded', () => {
       renderApp();
     });
   }
+
+  // Universal Mobile Tap & Click Resilience for iOS Safari & Android WebViews
+  document.addEventListener(
+    'touchend',
+    (e) => {
+      const btn = e.target.closest('button, [role="button"], .nav-tab-btn, label[for]');
+      if (!btn) return;
+      btn.style.opacity = '0.75';
+      setTimeout(() => {
+        btn.style.opacity = '';
+      }, 120);
+    },
+    { passive: true }
+  );
 
   // Set initial page to home
   switchPage('home');

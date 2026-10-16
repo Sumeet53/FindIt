@@ -46,7 +46,7 @@ input[type="button"],
 input[type="submit"] {
   cursor: pointer !important;
   touch-action: manipulation;
-  -webkit-tap-highlight-color: rgba(245, 158, 11, 0.2);
+  -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
@@ -55,14 +55,18 @@ input[type="submit"] {
 button:active,
 [role="button"]:active,
 .nav-tab-btn:active {
-  transform: scale(0.97);
+  opacity: 0.82;
 }
 
-/* Ensure ALL inner children in buttons never intercept or swallow clicks on mobile WebKit */
+/* Ensure ALL inner children, icons, and SVGs in buttons never intercept or swallow clicks on mobile WebKit */
 button *:not(input):not(textarea):not(select),
 [role="button"] *:not(input):not(textarea):not(select),
 .nav-tab-btn *,
-.pointer-events-none-children * {
+.pointer-events-none-children *,
+svg,
+svg *,
+i[data-lucide],
+i[data-lucide] * {
   pointer-events: none !important;
 }
 

@@ -392,6 +392,9 @@ const state = {
   },
   searchQuery: '',
   selectedCategory: 'All',
+  selectedRoom: 'All',
+  sortBy: 'recent', // 'recent' | 'name-asc' | 'name-desc' | 'room-asc' | 'category' | 'verified'
+  filterLentOnly: false,
   filterLowStockOnly: false,
   filterGuestOnly: false,
   viewMode: 'grid', // 'grid' | 'rooms' | 'lending'
@@ -481,23 +484,75 @@ function showToast(message) {
   }, 2800);
 }
 
-// Filtering items
+// DYNAMIC TYPES (Categories) derived dynamically from user entered items
+function getDynamicTypes() {
+  const counts = {};
+  state.items.forEach((item) => {
+    const cat = item.category || 'Other';
+    counts[cat] = (counts[cat] || 0) + 1;
+  });
+
+  const list = Object.keys(counts).map((cat) => ({
+    name: cat,
+    count: counts[cat],
+  }));
+
+  list.sort((a, b) => a.name.localeCompare(b.name));
+  return list;
+}
+
+// DYNAMIC LOCATIONS (Rooms) derived dynamically from user entered items & rooms
+function getDynamicLocations() {
+  const counts = {};
+  state.items.forEach((item) => {
+    const rm = item.location?.room || 'Unassigned';
+    counts[rm] = (counts[rm] || 0) + 1;
+  });
+
+  // Also include rooms from state.rooms if not already present
+  state.rooms.forEach((r) => {
+    if (!counts[r.name]) {
+      counts[r.name] = 0;
+    }
+  });
+
+  const list = Object.keys(counts).map((rm) => ({
+    name: rm,
+    count: counts[rm],
+  }));
+
+  list.sort((a, b) => a.name.localeCompare(b.name));
+  return list;
+}
+
+// Filtering & Dynamic Sorting items
 function getFilteredItems() {
   const q = state.searchQuery.toLowerCase().trim();
   const normalizedQuery = q
     .replace(/^(where\s+(?:is|are|did\s+i\s+put|can\s+i\s+find)\s+(?:the|my|a|an)?\s*)/i, '')
     .trim();
 
-  return state.items.filter((item) => {
+  let results = state.items.filter((item) => {
+    // Dynamic Type filter
     if (state.selectedCategory !== 'All' && item.category !== state.selectedCategory) {
       return false;
     }
+    // Dynamic Location filter
+    if (state.selectedRoom !== 'All' && item.location.room !== state.selectedRoom) {
+      return false;
+    }
+    // Lent out filter
+    if (state.filterLentOnly && (!item.lent || !item.lent.isLent)) {
+      return false;
+    }
+    // Low stock filter
     if (state.filterLowStockOnly) {
       const isLow =
         item.consumable?.isConsumable &&
         (item.consumable.quantity ?? 0) <= (item.consumable.minThreshold ?? 0);
       if (!isLow) return false;
     }
+    // Guest essentials filter
     if (state.filterGuestOnly && !item.isEssentialForGuests) {
       return false;
     }
@@ -525,52 +580,185 @@ function getFilteredItems() {
     }
     return true;
   });
+
+  // Sort items according to active sort order
+  switch (state.sortBy) {
+    case 'name-asc':
+      results.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case 'name-desc':
+      results.sort((a, b) => b.name.localeCompare(a.name));
+      break;
+    case 'room-asc':
+      results.sort(
+        (a, b) =>
+          (a.location.room || '').localeCompare(b.location.room || '') ||
+          a.name.localeCompare(b.name)
+      );
+      break;
+    case 'category':
+      results.sort(
+        (a, b) =>
+          (a.category || '').localeCompare(b.category || '') ||
+          a.name.localeCompare(b.name)
+      );
+      break;
+    case 'verified':
+      results.sort(
+        (a, b) =>
+          new Date(a.lastVerifiedAt || '1970-01-01').getTime() -
+          new Date(b.lastVerifiedAt || '1970-01-01').getTime()
+      );
+      break;
+    case 'recent':
+    default:
+      results.sort((a, b) => {
+        const timeB = new Date(b.createdAt || 0).getTime();
+        const timeA = new Date(a.createdAt || 0).getTime();
+        return timeB - timeA;
+      });
+      break;
+  }
+
+  return results;
 }
 
 // Render Functions
 function renderApp() {
-  renderSummaryStats();
+  renderSortFilterCard();
   renderEngagementStatus();
-  renderCategoryPills();
-  renderCounters();
   renderMainView();
   lucide.createIcons();
 }
 
-function renderSummaryStats() {
-  const totalItems = state.items.length;
-  const uniqueRooms = new Set(state.items.map((i) => i.location.room)).size;
-  const lentItems = state.items.filter((i) => i.lent && i.lent.isLent).length;
+// Render Sort & Filter Card (Dynamic as per user entered data)
+function renderSortFilterCard() {
+  const dynamicTypes = getDynamicTypes();
+  const dynamicLocations = getDynamicLocations();
 
+  // Populate dynamic types select
+  const typeSelect = document.getElementById('filter-type-select');
+  if (typeSelect) {
+    const totalCount = state.items.length;
+    let typeOptions = `<option value="All">All Types (${totalCount} items)</option>`;
+    dynamicTypes.forEach((t) => {
+      const isSel = state.selectedCategory === t.name ? 'selected' : '';
+      typeOptions += `<option value="${escapeHtml(t.name)}" ${isSel}>${escapeHtml(t.name)} (${t.count})</option>`;
+    });
+    typeSelect.innerHTML = typeOptions;
+    typeSelect.value = state.selectedCategory;
+  }
+
+  // Populate dynamic locations select
+  const locSelect = document.getElementById('filter-location-select');
+  if (locSelect) {
+    const uniqueRoomsCount = dynamicLocations.length;
+    let locOptions = `<option value="All">All Locations (${uniqueRoomsCount} rooms)</option>`;
+    dynamicLocations.forEach((l) => {
+      const isSel = state.selectedRoom === l.name ? 'selected' : '';
+      locOptions += `<option value="${escapeHtml(l.name)}" ${isSel}>${escapeHtml(l.name)} (${l.count})</option>`;
+    });
+    locSelect.innerHTML = locOptions;
+    locSelect.value = state.selectedRoom;
+  }
+
+  // Set sort order select
+  const sortSelect = document.getElementById('sort-order-select');
+  if (sortSelect) {
+    sortSelect.value = state.sortBy || 'recent';
+  }
+
+  // Total items in pill
   const totalItemsEl = document.getElementById('stat-total-items');
-  const totalRoomsEl = document.getElementById('stat-total-rooms');
-  const lentLinkEl = document.getElementById('stat-lent-link');
-  const lentCountEl = document.getElementById('stat-lent-count');
-  const scrollPill = document.getElementById('scroll-count-pill');
+  if (totalItemsEl) totalItemsEl.textContent = state.items.length;
 
-  if (totalItemsEl) totalItemsEl.textContent = `${totalItems} items`;
-  if (totalRoomsEl) totalRoomsEl.textContent = `${uniqueRooms} rooms`;
-  if (scrollPill) scrollPill.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
+  // Header streak pill
+  const headerStreak = document.getElementById('header-streak-badge');
+  if (headerStreak) headerStreak.textContent = `${state.engagement.streak || 1} Days`;
 
-  if (lentLinkEl && lentCountEl) {
-    if (lentItems > 0) {
-      lentLinkEl.classList.remove('hidden');
-      lentCountEl.textContent = `${lentItems} lent out`;
+  // Quick filter buttons active status
+  const filterAllBtn = document.getElementById('filter-btn-all');
+  const filterLentBtn = document.getElementById('filter-btn-lent');
+  const filterLowBtn = document.getElementById('filter-btn-low');
+  const filterGuestBtn = document.getElementById('filter-btn-guest');
+  const btnActiveReset = document.getElementById('btn-active-reset');
+
+  const hasActiveFilters =
+    state.selectedCategory !== 'All' ||
+    state.selectedRoom !== 'All' ||
+    state.filterLentOnly ||
+    state.filterLowStockOnly ||
+    state.filterGuestOnly ||
+    Boolean(state.searchQuery.trim());
+
+  if (filterAllBtn) {
+    if (!hasActiveFilters) {
+      filterAllBtn.className =
+        'px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-900 text-white shadow-xs';
     } else {
-      lentLinkEl.classList.add('hidden');
+      filterAllBtn.className =
+        'px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-stone-50';
     }
   }
 
-  // Clear search button visibility
+  if (filterLentBtn) {
+    const lentCount = state.items.filter((i) => i.lent && i.lent.isLent).length;
+    const lentBadge = document.getElementById('badge-lent-count');
+    if (lentBadge) {
+      lentBadge.textContent = lentCount;
+      lentBadge.style.display = lentCount > 0 ? 'inline-block' : 'none';
+    }
+    if (state.filterLentOnly) {
+      filterLentBtn.className =
+        'px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer bg-rose-500 text-white border border-rose-600 shadow-xs flex items-center gap-1';
+    } else {
+      filterLentBtn.className =
+        'px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-rose-50 flex items-center gap-1';
+    }
+  }
+
+  if (filterLowBtn) {
+    const lowCount = state.items.filter(
+      (i) =>
+        i.consumable?.isConsumable &&
+        (i.consumable.quantity ?? 0) <= (i.consumable.minThreshold ?? 0)
+    ).length;
+    const lowBadge = document.getElementById('badge-low-count');
+    if (lowBadge) {
+      lowBadge.textContent = lowCount;
+      lowBadge.style.display = lowCount > 0 ? 'inline-block' : 'none';
+    }
+    if (state.filterLowStockOnly) {
+      filterLowBtn.className =
+        'px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer bg-amber-500 text-stone-950 border border-amber-600 shadow-xs flex items-center gap-1';
+    } else {
+      filterLowBtn.className =
+        'px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-amber-50 flex items-center gap-1';
+    }
+  }
+
+  if (filterGuestBtn) {
+    if (state.filterGuestOnly) {
+      filterGuestBtn.className =
+        'px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer bg-emerald-600 text-white border border-emerald-700 shadow-xs flex items-center gap-1';
+    } else {
+      filterGuestBtn.className =
+        'px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-emerald-50 flex items-center gap-1';
+    }
+  }
+
+  if (btnActiveReset) {
+    if (hasActiveFilters) {
+      btnActiveReset.classList.remove('hidden');
+    } else {
+      btnActiveReset.classList.add('hidden');
+    }
+  }
+
+  // Clear search input 'x' button
   const clearSearchBtn = document.getElementById('btn-clear-search');
   if (clearSearchBtn) {
     clearSearchBtn.style.display = state.searchQuery ? 'block' : 'none';
-  }
-
-  // Filter controls row (only show in 'grid' view)
-  const filterRow = document.getElementById('filter-controls-row');
-  if (filterRow) {
-    filterRow.style.display = state.viewMode === 'grid' ? 'flex' : 'none';
   }
 }
 
@@ -729,80 +917,95 @@ window.sendTestNotification = function () {
   }
 };
 
-// Category Filter Pills (Soft Light Pastel Colors & Centered)
-function renderCategoryPills() {
-  const container = document.getElementById('category-pills');
-  if (!container) return;
+// Dynamic Filter & Sort Event Handlers
+window.handleTypeFilterChange = function (val) {
+  state.selectedCategory = val;
+  renderApp();
+};
 
-  container.innerHTML = CATEGORIES.map((cat) => {
-    const isSelected = state.selectedCategory === cat;
-    const theme = CATEGORY_THEMES[cat];
+window.handleLocationFilterChange = function (val) {
+  state.selectedRoom = val;
+  renderApp();
+};
 
-    let pillClasses = '';
-    if (cat === 'All') {
-      pillClasses = isSelected
-        ? 'bg-stone-900 text-white shadow-soft font-bold'
-        : 'bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200 font-semibold';
-    } else if (theme) {
-      pillClasses = isSelected
-        ? `${theme.pillActive} font-bold`
-        : `${theme.pillInactive} font-semibold`;
-    } else {
-      pillClasses = isSelected
-        ? 'bg-stone-900 text-white shadow-soft font-bold'
-        : 'bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200 font-semibold';
-    }
+window.handleSortOrderChange = function (val) {
+  state.sortBy = val;
+  renderApp();
+};
 
-    return `
-      <button
-        onclick="selectCategory('${cat}')"
-        class="px-4 py-1.5 rounded-xl text-xs sm:text-sm whitespace-normal break-words max-w-full text-center transition-all cursor-pointer flex items-center justify-center gap-1.5 ${pillClasses}"
-      >
-        <span>${escapeHtml(cat)}</span>
-      </button>
-    `;
-  }).join('');
-}
+window.toggleLentFilter = function () {
+  state.filterLentOnly = !state.filterLentOnly;
+  renderApp();
+};
 
-function renderCounters() {
-  const lentCount = state.items.filter((i) => i.lent && i.lent.isLent).length;
-  const lowCount = state.items.filter(
-    (i) =>
-      i.consumable?.isConsumable &&
-      (i.consumable.quantity ?? 0) <= (itemQuantity(i) <= (i.consumable.minThreshold ?? 0))
-  ).length;
+window.toggleLowStockFilter = function () {
+  state.filterLowStockOnly = !state.filterLowStockOnly;
+  renderApp();
+};
 
-  const lentTabBadge = document.getElementById('badge-lent-tab');
-  const lowBadge = document.getElementById('badge-low-count');
-  const guestBtn = document.getElementById('filter-btn-guest');
-  const lowBtn = document.getElementById('filter-btn-low');
+window.toggleGuestFilter = function () {
+  state.filterGuestOnly = !state.filterGuestOnly;
+  renderApp();
+};
 
-  if (lentTabBadge) {
-    lentTabBadge.textContent = lentCount;
-    lentTabBadge.style.display = lentCount > 0 ? 'inline-block' : 'none';
-  }
+window.resetAllFilters = function () {
+  state.selectedCategory = 'All';
+  state.selectedRoom = 'All';
+  state.filterLentOnly = false;
+  state.filterLowStockOnly = false;
+  state.filterGuestOnly = false;
+  state.searchQuery = '';
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) searchInput.value = '';
+  renderApp();
+  showToast('Filters reset • Showing all items');
+};
 
-  if (lowBadge) {
-    lowBadge.textContent = lowCount;
-    lowBadge.style.display = lowCount > 0 ? 'inline-block' : 'none';
-  }
+window.clearAllFilters = function () {
+  resetAllFilters();
+};
 
-  if (guestBtn) {
-    guestBtn.className = `inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-xl border transition-all cursor-pointer text-center ${
-      state.filterGuestOnly
-        ? 'bg-emerald-100 border-emerald-400 text-emerald-950 shadow-soft'
-        : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
-    }`;
-  }
+window.clearSearchInput = function () {
+  state.searchQuery = '';
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) searchInput.value = '';
+  renderApp();
+};
 
-  if (lowBtn) {
-    lowBtn.className = `inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-xl border transition-all cursor-pointer text-center ${
-      state.filterLowStockOnly
-        ? 'bg-red-100 border-red-400 text-red-950 shadow-soft'
-        : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
-    }`;
-  }
-}
+window.handleNavItemsClick = function () {
+  state.viewMode = 'grid';
+  state.selectedCategory = 'All';
+  state.selectedRoom = 'All';
+  state.filterLentOnly = false;
+  state.filterLowStockOnly = false;
+  state.filterGuestOnly = false;
+  state.searchQuery = '';
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) searchInput.value = '';
+  renderApp();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+// Modal controls for About Us (Opal Luna Labs & Liability Waiver) - Far Right in Bottom Bar
+window.openAboutModal = function () {
+  document.getElementById('modal-about').classList.remove('hidden');
+  lucide.createIcons();
+};
+
+window.closeAboutModal = function () {
+  document.getElementById('modal-about').classList.add('hidden');
+};
+
+// Modal controls for Habits, Streak & Push Notifications
+window.openHabitsModal = function () {
+  renderEngagementStatus();
+  document.getElementById('modal-habits').classList.remove('hidden');
+  lucide.createIcons();
+};
+
+window.closeHabitsModal = function () {
+  document.getElementById('modal-habits').classList.add('hidden');
+};
 
 function itemQuantity(item) {
   return item.consumable?.quantity ?? 0;
@@ -1861,9 +2064,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       state.searchQuery = e.target.value;
-      renderSummaryStats();
-      renderMainView();
-      lucide.createIcons();
+      renderApp();
     });
   }
 

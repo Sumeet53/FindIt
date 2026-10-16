@@ -398,6 +398,11 @@ const state = {
   filterLowStockOnly: false,
   filterGuestOnly: false,
   viewMode: 'grid', // 'grid' | 'rooms' | 'lending'
+  activePage: 'home', // 'home' | 'add' | 'streak' | 'spotcheck' | 'guide' | 'about'
+  addCaptureMode: 'voice', // 'voice' | 'photo' | 'tour' | 'form'
+  activeTourItems: [],
+  isRecordingVoice: false,
+  isRecordingTour: false,
   editingItemId: null,
   spotCheckItems: [],
   spotCheckCurrentIndex: 0,
@@ -972,39 +977,66 @@ window.clearSearchInput = function () {
   renderApp();
 };
 
-window.handleNavItemsClick = function () {
-  state.viewMode = 'grid';
-  state.selectedCategory = 'All';
-  state.selectedRoom = 'All';
-  state.filterLentOnly = false;
-  state.filterLowStockOnly = false;
-  state.filterGuestOnly = false;
-  state.searchQuery = '';
-  const searchInput = document.getElementById('search-input');
-  if (searchInput) searchInput.value = '';
-  renderApp();
+// Persistent Bottom Bar Page Navigation Router
+window.switchPage = function (pageId) {
+  state.activePage = pageId;
+  const pageList = ['home', 'add', 'streak', 'spotcheck', 'guide', 'about'];
+
+  pageList.forEach((p) => {
+    const pageEl = document.getElementById(`view-${p}`);
+    if (pageEl) {
+      if (p === pageId) {
+        pageEl.classList.remove('hidden');
+        pageEl.classList.add('page-enter');
+      } else {
+        pageEl.classList.add('hidden');
+        pageEl.classList.remove('page-enter');
+      }
+    }
+
+    const navBtn = document.getElementById(`nav-btn-${p}`);
+    if (navBtn) {
+      if (p === 'add') {
+        // Add button preserves its colorful elevated pill design
+      } else {
+        if (p === pageId) {
+          navBtn.className =
+            'nav-tab-btn active flex flex-col items-center justify-center gap-1 px-3 py-1 rounded-xl transition-all cursor-pointer text-amber-600 font-extrabold bg-amber-50/80 shadow-xs ring-1 ring-amber-300';
+        } else {
+          navBtn.className =
+            'nav-tab-btn flex flex-col items-center justify-center gap-1 px-3 py-1 rounded-xl transition-all cursor-pointer text-stone-500 hover:text-stone-900 font-medium';
+        }
+      }
+    }
+  });
+
+  // Page-specific initializers
+  if (pageId === 'home') {
+    renderApp();
+  } else if (pageId === 'add') {
+    initAddView();
+  } else if (pageId === 'streak') {
+    renderEngagementStatus();
+  } else if (pageId === 'spotcheck') {
+    initSpotCheckPage();
+  } else if (pageId === 'guide') {
+    initGuidePage();
+  }
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  lucide.createIcons();
 };
 
-// Modal controls for About Us (Opal Luna Labs & Liability Waiver) - Far Right in Bottom Bar
+window.handleNavItemsClick = function () {
+  switchPage('home');
+};
+
 window.openAboutModal = function () {
-  document.getElementById('modal-about').classList.remove('hidden');
-  lucide.createIcons();
+  switchPage('about');
 };
 
-window.closeAboutModal = function () {
-  document.getElementById('modal-about').classList.add('hidden');
-};
-
-// Modal controls for Habits, Streak & Push Notifications
 window.openHabitsModal = function () {
-  renderEngagementStatus();
-  document.getElementById('modal-habits').classList.remove('hidden');
-  lucide.createIcons();
-};
-
-window.closeHabitsModal = function () {
-  document.getElementById('modal-habits').classList.add('hidden');
+  switchPage('streak');
 };
 
 function itemQuantity(item) {
@@ -1175,6 +1207,14 @@ function renderItemCardHtml(item) {
             ${escapeHtml(item.name)}
           </h4>
         </div>
+
+        ${
+          item.photoUrl
+            ? `<div class="w-full max-w-sm mx-auto rounded-2xl overflow-hidden border-2 border-white/80 shadow-soft">
+                <img src="${item.photoUrl}" alt="Photo Memory Clue for ${escapeHtml(item.name)}" class="w-full h-44 object-cover" />
+              </div>`
+            : ''
+        }
 
         <!-- Spot & Exact Location Box - Translucent so Whole Card Pastel Radiates Through -->
         <div class="w-full ${theme.innerBox || 'bg-white/75 border-amber-200/90'} backdrop-blur-xs rounded-2xl p-4 border shadow-xs flex flex-col items-center justify-center text-center space-y-2">
@@ -1588,48 +1628,596 @@ window.deleteItem = function (id) {
   }
 };
 
-// Modals Handling (ALL OPTIONS VISIBLE AT ONE GO, NO ACCORDIONS)
+// =========================================================================
+// EFFORTLESS 3-SECOND CAPTURE & ADD VIEW CONTROLLERS
+// =========================================================================
+
 window.openQuickAddModal = function () {
   state.editingItemId = null;
-  populateQuickAddModal();
-  document.getElementById('modal-quick-add').classList.remove('hidden');
-  setTimeout(() => {
-    const nameInput = document.getElementById('add-item-name');
-    if (nameInput) nameInput.focus();
-  }, 100);
+  switchPage('add');
 };
 
 window.openQuickAddModalWithRoom = function (roomName) {
   state.editingItemId = null;
-  populateQuickAddModal(roomName);
-  document.getElementById('modal-quick-add').classList.remove('hidden');
+  switchPage('add');
+  setAddCaptureMode('form');
   setTimeout(() => {
-    const nameInput = document.getElementById('add-item-name');
-    if (nameInput) nameInput.focus();
+    const roomSelect = document.getElementById('add-item-room');
+    if (roomSelect) roomSelect.value = roomName;
   }, 100);
 };
 
 window.closeQuickAddModal = function () {
-  document.getElementById('modal-quick-add').classList.add('hidden');
+  switchPage('home');
 };
+
+function initAddView() {
+  populatePhotoSelect();
+  populateTourSelect();
+  populateDetailedAddForm();
+  setAddCaptureMode(state.addCaptureMode || 'voice');
+}
+
+window.setAddCaptureMode = function (mode) {
+  state.addCaptureMode = mode;
+  const modes = ['voice', 'photo', 'tour', 'form'];
+
+  modes.forEach((m) => {
+    const panel = document.getElementById(`add-panel-${m}`);
+    const tabBtn = document.getElementById(`add-tab-${m}`);
+
+    if (panel) {
+      if (m === mode) {
+        panel.classList.remove('hidden');
+        panel.classList.add('page-enter');
+      } else {
+        panel.classList.add('hidden');
+        panel.classList.remove('page-enter');
+      }
+    }
+
+    if (tabBtn) {
+      if (m === mode) {
+        tabBtn.className =
+          'px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer bg-white text-stone-900 shadow-soft flex items-center gap-1.5';
+      } else {
+        tabBtn.className =
+          'px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5';
+      }
+    }
+  });
+
+  if (mode === 'voice') {
+    setTimeout(() => {
+      const input = document.getElementById('voice-nlp-input');
+      if (input) input.focus();
+    }, 150);
+  }
+
+  lucide.createIcons();
+};
+
+// -------------------------------------------------------------------------
+// 1. VOICE & NATURAL LANGUAGE CAPTURE (CONFIRM, DON'T CORRECT)
+// -------------------------------------------------------------------------
+
+let voiceRecognitionInstance = null;
+window.toggleVoiceRecognition = function () {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    showToast('Voice recognition not supported on this browser. Type below!');
+    const input = document.getElementById('voice-nlp-input');
+    if (input) input.focus();
+    return;
+  }
+
+  const btn = document.getElementById('btn-voice-record');
+  const label = document.getElementById('voice-record-label');
+
+  if (state.isRecordingVoice && voiceRecognitionInstance) {
+    voiceRecognitionInstance.stop();
+    state.isRecordingVoice = false;
+    if (btn) btn.classList.remove('recording-pulse');
+    if (label) label.textContent = 'Tap microphone to speak';
+    return;
+  }
+
+  try {
+    voiceRecognitionInstance = new SpeechRecognition();
+    voiceRecognitionInstance.continuous = false;
+    voiceRecognitionInstance.interimResults = true;
+    voiceRecognitionInstance.lang = 'en-US';
+
+    voiceRecognitionInstance.onstart = function () {
+      state.isRecordingVoice = true;
+      if (btn) btn.classList.add('recording-pulse');
+      if (label) label.textContent = 'Listening... Speak what you stored!';
+    };
+
+    voiceRecognitionInstance.onresult = function (event) {
+      const transcript = Array.from(event.results)
+        .map((r) => r[0].transcript)
+        .join('');
+      const input = document.getElementById('voice-nlp-input');
+      if (input) {
+        input.value = transcript;
+        handleNlpInputChange(transcript);
+      }
+    };
+
+    voiceRecognitionInstance.onerror = function (e) {
+      console.warn('Voice speech error:', e);
+      state.isRecordingVoice = false;
+      if (btn) btn.classList.remove('recording-pulse');
+      if (label) label.textContent = 'Tap microphone to speak';
+      showToast('Could not record voice. Type your sentence below.');
+    };
+
+    voiceRecognitionInstance.onend = function () {
+      state.isRecordingVoice = false;
+      if (btn) btn.classList.remove('recording-pulse');
+      if (label) label.textContent = 'Tap microphone to speak';
+    };
+
+    voiceRecognitionInstance.start();
+  } catch (err) {
+    console.error('Voice start error:', err);
+    state.isRecordingVoice = false;
+    showToast('Microphone error. You can type your sentence directly.');
+  }
+};
+
+let currentParsedNlp = null;
+
+function parseSentence(raw) {
+  if (!raw || !raw.trim()) return null;
+  let text = raw.trim();
+
+  // Strip leading conversational phrases
+  text = text.replace(/^(?:i\s+(?:just\s+)?(?:put|placed|stored|kept|left|moved)\s+(?:the|my|a|an)?\s*)/i, '');
+  text = text.replace(/^(?:put|place|store|keep|leave)\s+(?:the|my|a|an)?\s*/i, '');
+
+  const roomKeywords = [
+    { match: /master\s+bedroom|bedroom/i, name: 'Master Bedroom' },
+    { match: /garage|workshop/i, name: 'Garage & Workshop' },
+    { match: /kitchen|pantry/i, name: 'Kitchen & Pantry' },
+    { match: /hallway\s+closet|hallway|linen\s+closet|closet/i, name: 'Hallway Closet' },
+    { match: /living\s+room/i, name: 'Living Room' },
+    { match: /home\s+office|office|study/i, name: 'Home Office' },
+    { match: /bathroom/i, name: 'Bathroom' },
+    { match: /basement/i, name: 'Basement' },
+    { match: /attic/i, name: 'Attic' },
+  ];
+
+  // Match any custom rooms
+  state.rooms.forEach((r) => {
+    const escaped = r.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    roomKeywords.unshift({ match: new RegExp(escaped, 'i'), name: r.name });
+  });
+
+  let detectedRoom = null;
+  let detectedZone = 'Main Storage Shelf';
+  let itemName = text;
+
+  for (const rk of roomKeywords) {
+    const m = text.match(rk.match);
+    if (m) {
+      detectedRoom = rk.name;
+      const roomIndex = m.index;
+      const roomLength = m[0].length;
+
+      let before = text.substring(0, roomIndex).replace(/(?:\s+in|\s+on|\s+at|\s+inside)\s*$/i, '').trim();
+      let after = text.substring(roomIndex + roomLength).trim();
+      after = after.replace(/^(?:in|on|at|inside|the)\s+/i, '').trim();
+
+      if (before) itemName = before;
+      if (after) detectedZone = after;
+      break;
+    }
+  }
+
+  if (!detectedRoom) {
+    const splitIn = text.split(/\s+in\s+|\s+on\s+|\s+inside\s+/i);
+    if (splitIn.length > 1) {
+      itemName = splitIn[0].trim();
+      detectedZone = splitIn[1].trim();
+      detectedRoom = state.rooms[0]?.name || 'Living Room';
+    } else {
+      itemName = text;
+      detectedRoom = state.rooms[0]?.name || 'Living Room';
+      detectedZone = 'Main Shelf';
+    }
+  }
+
+  itemName = itemName.replace(/^(?:the|my|a|an)\s+/i, '').trim();
+  if (!itemName) itemName = 'Stored Belonging';
+  itemName = itemName.charAt(0).toUpperCase() + itemName.slice(1);
+  detectedZone = detectedZone.charAt(0).toUpperCase() + detectedZone.slice(1);
+
+  // Infer category automatically
+  let category = 'Other';
+  const lowerItem = itemName.toLowerCase();
+  if (lowerItem.match(/passport|document|paper|tax|deed|certificate|card|cash|will|receipt|id|ticket/)) {
+    category = 'Documents & Valuables';
+  } else if (lowerItem.match(/drill|hammer|saw|screw|wrench|pliers|tape|hardware|tool|ladder|nail|blade/)) {
+    category = 'Tools & Hardware';
+  } else if (lowerItem.match(/battery|cable|charger|remote|phone|laptop|hdmi|adapter|earbuds|usb|wire/)) {
+    category = 'Electronics & Cables';
+  } else if (lowerItem.match(/band\s*aid|medicine|pills|first\s*aid|antihistamine|vitamin|syrup|spray/)) {
+    category = 'Health & Medication';
+  } else if (lowerItem.match(/bulb|soap|towel|cleaner|detergent|filter|foil|bag|sponge|bleach|wipe/)) {
+    category = 'Household & Utility';
+  } else if (lowerItem.match(/coat|gloves|scarf|jacket|umbrella|boots|sweater|blanket|socks/)) {
+    category = 'Seasonal & Apparel';
+  } else if (lowerItem.match(/pen|paper|stapler|notebook|marker|printer|envelope|folder/)) {
+    category = 'Office & Workspace';
+  }
+
+  return {
+    name: itemName,
+    room: detectedRoom,
+    zone: detectedZone,
+    category,
+  };
+}
+
+window.handleNlpInputChange = function (val) {
+  const preview = document.getElementById('nlp-parse-preview');
+  if (!val || val.trim().length < 2) {
+    if (preview) preview.classList.add('hidden');
+    currentParsedNlp = null;
+    return;
+  }
+
+  const parsed = parseSentence(val);
+  currentParsedNlp = parsed;
+
+  if (preview && parsed) {
+    preview.classList.remove('hidden');
+    const pItem = document.getElementById('preview-item-name');
+    const pRoom = document.getElementById('preview-room-name');
+    const pZone = document.getElementById('preview-zone-name');
+
+    if (pItem) pItem.textContent = parsed.name;
+    if (pRoom) pRoom.textContent = parsed.room;
+    if (pZone) pZone.textContent = parsed.zone;
+  }
+};
+
+window.confirmNlpCapture = function () {
+  if (!currentParsedNlp) {
+    const val = document.getElementById('voice-nlp-input')?.value;
+    if (val) currentParsedNlp = parseSentence(val);
+  }
+  if (!currentParsedNlp) {
+    showToast('Please speak or type what you put away first.');
+    return;
+  }
+
+  const now = new Date().toISOString();
+  const newItem = {
+    id: `item-${Date.now()}`,
+    name: currentParsedNlp.name,
+    category: currentParsedNlp.category,
+    location: {
+      room: currentParsedNlp.room,
+      zone: currentParsedNlp.zone,
+      container: '',
+      landmark: 'Captured at moment of putting away',
+    },
+    description: '',
+    tags: [currentParsedNlp.name.toLowerCase(), currentParsedNlp.room.toLowerCase()],
+    lent: { isLent: false },
+    isEssentialForGuests: false,
+    lastVerifiedAt: now,
+    createdAt: now,
+  };
+
+  state.items = [newItem, ...state.items];
+  saveItems();
+
+  // Boost streak check-in
+  handleDailyCheckIn();
+
+  // Reset inputs
+  const nlpInput = document.getElementById('voice-nlp-input');
+  if (nlpInput) nlpInput.value = '';
+  document.getElementById('nlp-parse-preview')?.classList.add('hidden');
+  currentParsedNlp = null;
+
+  showToast(`✨ Saved "${newItem.name}" in ${newItem.location.room}!`);
+  switchPage('home');
+};
+
+// -------------------------------------------------------------------------
+// 2. PHOTO-FIRST CLUE CAPTURE
+// -------------------------------------------------------------------------
+
+let currentPhotoDataUrl = null;
+
+function populatePhotoSelect() {
+  const sel = document.getElementById('photo-room-select');
+  if (!sel) return;
+  sel.innerHTML = state.rooms
+    .map((r) => `<option value="${escapeHtml(r.name)}">${escapeHtml(r.name)}</option>`)
+    .join('');
+}
+
+window.handlePhotoUpload = function (event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const img = new Image();
+    img.onload = function () {
+      // Resize & compress to max 600px
+      const canvas = document.createElement('canvas');
+      let width = img.width;
+      let height = img.height;
+      const maxDim = 600;
+
+      if (width > height) {
+        if (width > maxDim) {
+          height *= maxDim / width;
+          width = maxDim;
+        }
+      } else {
+        if (height > maxDim) {
+          width *= maxDim / height;
+          height = maxDim;
+        }
+      }
+
+      canvas.width = Math.round(width);
+      canvas.height = Math.round(height);
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      const compressed = canvas.toDataURL('image/jpeg', 0.72);
+      currentPhotoDataUrl = compressed;
+
+      const previewImg = document.getElementById('photo-preview-img');
+      const previewContainer = document.getElementById('photo-preview-container');
+      if (previewImg) previewImg.src = compressed;
+      if (previewContainer) previewContainer.classList.remove('hidden');
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+};
+
+window.clearPhotoPreview = function () {
+  currentPhotoDataUrl = null;
+  const previewContainer = document.getElementById('photo-preview-container');
+  if (previewContainer) previewContainer.classList.add('hidden');
+  const fileInput = document.getElementById('photo-file-input');
+  if (fileInput) fileInput.value = '';
+};
+
+window.savePhotoClueItem = function () {
+  if (!currentPhotoDataUrl) {
+    showToast('Please take or choose a photo first!');
+    return;
+  }
+
+  const room = document.getElementById('photo-room-select')?.value || state.rooms[0]?.name || 'Living Room';
+  const customName = document.getElementById('photo-item-name')?.value.trim();
+  const name = customName || `Photo Memory Clue (${room})`;
+
+  const now = new Date().toISOString();
+  const newItem = {
+    id: `item-${Date.now()}`,
+    name,
+    category: 'Household & Utility',
+    photoUrl: currentPhotoDataUrl,
+    location: {
+      room,
+      zone: 'Visual Photo Area',
+      container: '',
+      landmark: 'Captured photo memory clue',
+    },
+    description: 'Visual shelf / box memory clue.',
+    tags: ['photo', 'clue', room.toLowerCase()],
+    lent: { isLent: false },
+    isEssentialForGuests: false,
+    lastVerifiedAt: now,
+    createdAt: now,
+  };
+
+  state.items = [newItem, ...state.items];
+  saveItems();
+  handleDailyCheckIn();
+
+  clearPhotoPreview();
+  const nameInput = document.getElementById('photo-item-name');
+  if (nameInput) nameInput.value = '';
+
+  showToast(`📸 Saved photo clue for ${room}!`);
+  switchPage('home');
+};
+
+// -------------------------------------------------------------------------
+// 3. BULK "TOUR MODE" CAPTURE (Setup 50 items in 5 minutes)
+// -------------------------------------------------------------------------
+
+let tourRecognitionInstance = null;
+
+function populateTourSelect() {
+  const sel = document.getElementById('tour-room-select');
+  if (!sel) return;
+  sel.innerHTML = state.rooms
+    .map((r) => `<option value="${escapeHtml(r.name)}">${escapeHtml(r.name)}</option>`)
+    .join('');
+}
+
+window.toggleTourVoice = function () {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    showToast('Speech recognition not available. Please type items separated by commas.');
+    return;
+  }
+
+  const label = document.getElementById('tour-voice-label');
+  const btn = document.getElementById('btn-tour-voice');
+
+  if (state.isRecordingTour && tourRecognitionInstance) {
+    tourRecognitionInstance.stop();
+    state.isRecordingTour = false;
+    if (btn) btn.classList.remove('recording-pulse');
+    if (label) label.textContent = 'Speak items';
+    return;
+  }
+
+  try {
+    tourRecognitionInstance = new SpeechRecognition();
+    tourRecognitionInstance.continuous = true;
+    tourRecognitionInstance.interimResults = false;
+    tourRecognitionInstance.lang = 'en-US';
+
+    tourRecognitionInstance.onstart = function () {
+      state.isRecordingTour = true;
+      if (btn) btn.classList.add('recording-pulse');
+      if (label) label.textContent = 'Listening... Say items!';
+    };
+
+    tourRecognitionInstance.onresult = function (event) {
+      const newWords = [];
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          newWords.push(event.results[i][0].transcript);
+        }
+      }
+      if (newWords.length > 0) {
+        const textarea = document.getElementById('tour-items-input');
+        if (textarea) {
+          const existing = textarea.value.trim();
+          const joined = newWords.join(', ');
+          textarea.value = existing ? `${existing}, ${joined}` : joined;
+          handleTourInputChange(textarea.value);
+        }
+      }
+    };
+
+    tourRecognitionInstance.onend = function () {
+      state.isRecordingTour = false;
+      if (btn) btn.classList.remove('recording-pulse');
+      if (label) label.textContent = 'Speak items';
+    };
+
+    tourRecognitionInstance.start();
+  } catch (e) {
+    console.error('Tour voice error:', e);
+    state.isRecordingTour = false;
+    showToast('Could not start microphone. You can type items with commas.');
+  }
+};
+
+window.handleTourInputChange = function (val) {
+  const badgesContainer = document.getElementById('tour-preview-badges');
+  const labelBtn = document.getElementById('btn-save-tour-label');
+
+  const items = val
+    .split(/[,;\n]+/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+
+  state.activeTourItems = items;
+
+  if (badgesContainer) {
+    badgesContainer.innerHTML = items
+      .map(
+        (item) =>
+          `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-950 font-bold text-xs rounded-lg border border-emerald-300 shadow-xs">${escapeHtml(
+            item
+          )}</span>`
+      )
+      .join('');
+  }
+
+  if (labelBtn) {
+    labelBtn.textContent =
+      items.length > 0
+        ? `Add ${items.length} Items to Room in 1 Tap`
+        : 'Add Items in Tour';
+  }
+};
+
+window.saveBulkTourItems = function () {
+  const room = document.getElementById('tour-room-select')?.value || state.rooms[0]?.name || 'Living Room';
+  const zone = document.getElementById('tour-zone-input')?.value.trim() || 'Room Shelf / Drawer';
+  const rawItems = state.activeTourItems;
+
+  if (!rawItems || rawItems.length === 0) {
+    showToast('Please speak or type at least one item to catalog.');
+    return;
+  }
+
+  const now = new Date().toISOString();
+  const newItems = rawItems.map((rawName, idx) => {
+    const cleaned = rawName.charAt(0).toUpperCase() + rawName.slice(1);
+    return {
+      id: `item-${Date.now()}-${idx}`,
+      name: cleaned,
+      category: inferCategoryFromName(cleaned),
+      location: {
+        room,
+        zone,
+        container: '',
+        landmark: 'Cataloged via Bulk Tour Mode',
+      },
+      description: `Batch cataloged in ${room}`,
+      tags: [cleaned.toLowerCase(), room.toLowerCase()],
+      lent: { isLent: false },
+      isEssentialForGuests: false,
+      lastVerifiedAt: now,
+      createdAt: now,
+    };
+  });
+
+  state.items = [...newItems, ...state.items];
+  saveItems();
+  handleDailyCheckIn();
+
+  // Reset tour input
+  const textarea = document.getElementById('tour-items-input');
+  if (textarea) textarea.value = '';
+  const badges = document.getElementById('tour-preview-badges');
+  if (badges) badges.innerHTML = '';
+  state.activeTourItems = [];
+
+  showToast(`🎉 Bulk Tour Complete! Added ${newItems.length} items to ${room}!`);
+  switchPage('home');
+};
+
+function inferCategoryFromName(name) {
+  const l = name.toLowerCase();
+  if (l.match(/drill|hammer|saw|screw|wrench|pliers|tape|hardware|tool|ladder|nail|blade|knife/)) return 'Tools & Hardware';
+  if (l.match(/passport|document|paper|tax|deed|certificate|card|cash|will|receipt|id/)) return 'Documents & Valuables';
+  if (l.match(/battery|cable|charger|remote|phone|laptop|hdmi|adapter|earbuds|usb|wire/)) return 'Electronics & Cables';
+  if (l.match(/band\s*aid|medicine|pills|first\s*aid|antihistamine|vitamin|syrup|spray|drops/)) return 'Health & Medication';
+  if (l.match(/bulb|soap|towel|cleaner|detergent|filter|foil|bag|sponge|bleach|wipe/)) return 'Household & Utility';
+  if (l.match(/coat|gloves|scarf|jacket|umbrella|boots|sweater|blanket|socks/)) return 'Seasonal & Apparel';
+  if (l.match(/pen|paper|stapler|notebook|marker|printer|envelope|folder/)) return 'Office & Workspace';
+  return 'Other';
+}
+
+// -------------------------------------------------------------------------
+// 4. DETAILED FORM (ALL OPTIONS VISIBLE AT ONE GO)
+// -------------------------------------------------------------------------
 
 window.editItem = function (id) {
   state.editingItemId = id;
-  populateQuickAddModal();
-  document.getElementById('modal-quick-add').classList.remove('hidden');
-  setTimeout(() => {
-    const nameInput = document.getElementById('add-item-name');
-    if (nameInput) nameInput.focus();
-  }, 100);
+  switchPage('add');
+  setAddCaptureMode('form');
+  populateDetailedAddForm(state.items.find((i) => i.id === id));
 };
 
-function populateQuickAddModal(defaultRoom) {
-  const modalTitle = document.getElementById('modal-add-title');
+function populateDetailedAddForm(editingItem) {
+  const addTitle = document.getElementById('add-view-title');
   const catSelect = document.getElementById('add-item-category');
   const roomSelect = document.getElementById('add-item-room');
-  const form = document.getElementById('quick-add-form');
-
-  const editingItem = state.items.find((i) => i.id === state.editingItemId);
+  const form = document.getElementById('full-add-form');
 
   if (catSelect) {
     catSelect.innerHTML = CATEGORIES.filter((c) => c !== 'All')
@@ -1644,7 +2232,7 @@ function populateQuickAddModal(defaultRoom) {
   }
 
   if (editingItem) {
-    modalTitle.textContent = `Edit "${editingItem.name}"`;
+    if (addTitle) addTitle.textContent = `Edit "${editingItem.name}"`;
     document.getElementById('add-item-name').value = editingItem.name;
     document.getElementById('add-item-category').value = editingItem.category;
     document.getElementById('add-item-room').value = editingItem.location.room;
@@ -1655,7 +2243,6 @@ function populateQuickAddModal(defaultRoom) {
     document.getElementById('add-item-tags').value = (editingItem.tags || []).join(', ');
     document.getElementById('add-item-guest').checked = !!editingItem.isEssentialForGuests;
 
-    // Consumables
     const isConsumable = !!editingItem.consumable?.isConsumable;
     document.getElementById('add-item-consumable-toggle').checked = isConsumable;
     document.getElementById('consumable-fields').style.display = isConsumable ? 'grid' : 'none';
@@ -1665,7 +2252,6 @@ function populateQuickAddModal(defaultRoom) {
       document.getElementById('add-item-threshold').value = editingItem.consumable.minThreshold || 1;
     }
 
-    // Lending
     const isLent = !!editingItem.lent?.isLent;
     document.getElementById('add-item-lent-toggle').checked = isLent;
     document.getElementById('lent-fields').style.display = isLent ? 'grid' : 'none';
@@ -1677,24 +2263,25 @@ function populateQuickAddModal(defaultRoom) {
       document.getElementById('add-item-expected-return').value = '';
     }
   } else {
-    modalTitle.textContent = 'Add an Item';
-    form.reset();
-    if (defaultRoom && roomSelect) {
-      roomSelect.value = defaultRoom;
-    }
-    document.getElementById('consumable-fields').style.display = 'none';
-    document.getElementById('lent-fields').style.display = 'none';
+    if (addTitle) addTitle.textContent = 'Add to Physical Memory';
+    if (form) form.reset();
+    const consFields = document.getElementById('consumable-fields');
+    if (consFields) consFields.style.display = 'none';
+    const lentFields = document.getElementById('lent-fields');
+    if (lentFields) lentFields.style.display = 'none';
   }
 }
 
 window.toggleConsumableInputs = function () {
   const isChecked = document.getElementById('add-item-consumable-toggle').checked;
-  document.getElementById('consumable-fields').style.display = isChecked ? 'grid' : 'none';
+  const el = document.getElementById('consumable-fields');
+  if (el) el.style.display = isChecked ? 'grid' : 'none';
 };
 
 window.toggleLentInputs = function () {
   const isChecked = document.getElementById('add-item-lent-toggle').checked;
-  document.getElementById('lent-fields').style.display = isChecked ? 'grid' : 'none';
+  const el = document.getElementById('lent-fields');
+  if (el) el.style.display = isChecked ? 'grid' : 'none';
 };
 
 window.handleSaveItemSubmit = function (e) {
@@ -1762,6 +2349,7 @@ window.handleSaveItemSubmit = function (e) {
       return item;
     });
     showToast(`Updated "${name}"`);
+    state.editingItemId = null;
   } else {
     const newItem = {
       id: `item-${Date.now()}`,
@@ -1781,29 +2369,36 @@ window.handleSaveItemSubmit = function (e) {
   }
 
   saveItems();
-  closeQuickAddModal();
-  renderApp();
+  handleDailyCheckIn();
+  switchPage('home');
 };
 
-// Friendly Spot Check Modal (Quick 3-item check - Centered)
-window.openSpotCheckModal = function () {
+// =========================================================================
+// SPOT CHECK VIEW (IN-PAGE 15-SECOND MEMORY FLASHCARD)
+// =========================================================================
+
+function initSpotCheckPage() {
   const itemsSortedByAge = [...state.items].sort(
-    (a, b) => new Date(a.lastVerifiedAt).getTime() - new Date(b.lastVerifiedAt).getTime()
+    (a, b) => new Date(a.lastVerifiedAt || 0).getTime() - new Date(b.lastVerifiedAt || 0).getTime()
   );
   state.spotCheckItems = itemsSortedByAge.slice(0, 3);
   state.spotCheckCurrentIndex = 0;
   renderSpotCheckStep();
-  document.getElementById('modal-spot-check').classList.remove('hidden');
-  lucide.createIcons();
-};
-
-window.closeSpotCheckModal = function () {
-  document.getElementById('modal-spot-check').classList.add('hidden');
-};
+}
 
 function renderSpotCheckStep() {
   const container = document.getElementById('spot-check-body');
   if (!container) return;
+
+  if (state.spotCheckItems.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-6 space-y-3 flex flex-col items-center justify-center">
+        <p class="text-xs text-stone-500">No items available to spot check. Add items first!</p>
+        <button onclick="switchPage('add')" class="px-5 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold">Add Item</button>
+      </div>
+    `;
+    return;
+  }
 
   if (state.spotCheckCurrentIndex >= state.spotCheckItems.length) {
     container.innerHTML = `
@@ -1811,15 +2406,15 @@ function renderSpotCheckStep() {
         <div class="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mx-auto shadow-xs">
           <i data-lucide="check" class="w-7 h-7"></i>
         </div>
-        <h3 class="text-lg font-extrabold text-stone-900">All Checked!</h3>
+        <h3 class="text-lg font-extrabold text-stone-900">All Spot Checks Completed!</h3>
         <p class="text-xs sm:text-sm text-stone-600 max-w-sm mx-auto text-center">
-          You confirmed your items are right where they belong. Nice job keeping your home memory fresh!
+          You confirmed your items are right where they belong. Your mental map is 100% synchronized!
         </p>
         <button
-          onclick="closeSpotCheckModal()"
+          onclick="switchPage('home')"
           class="px-6 py-2.5 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft text-center"
         >
-          Complete Check
+          Back to Home
         </button>
       </div>
     `;
@@ -1830,13 +2425,13 @@ function renderSpotCheckStep() {
   const item = state.spotCheckItems[state.spotCheckCurrentIndex];
 
   container.innerHTML = `
-    <div class="space-y-4 w-full flex flex-col items-center justify-center text-center">
+    <div class="space-y-4 w-full flex flex-col items-center justify-center text-center max-w-md">
       <div class="flex items-center justify-center gap-2 text-xs text-stone-500">
         <span class="font-bold">Item ${state.spotCheckCurrentIndex + 1} of ${state.spotCheckItems.length}</span>
       </div>
 
       <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-4 space-y-2 w-full text-center">
-        <h4 class="text-base font-black text-stone-900">${escapeHtml(item.name)}</h4>
+        <h4 class="text-lg font-black text-stone-900">${escapeHtml(item.name)}</h4>
         <div class="text-xs text-stone-800 flex items-center justify-center gap-1.5 font-semibold">
           <i data-lucide="map-pin" class="w-4 h-4 text-amber-500"></i>
           <span>${escapeHtml(item.location.room)} &rsaquo; ${escapeHtml(item.location.zone)}</span>
@@ -1883,111 +2478,68 @@ window.confirmSpotCheckItem = function (id) {
 };
 
 window.relocateSpotCheckItem = function (id) {
-  closeSpotCheckModal();
   editItem(id);
 };
 
-// Guest Guide Modal - Centered
-window.openGuestGuideModal = function () {
+// =========================================================================
+// GUIDE VIEW (HOW TO USE FINDIT & GUEST HOUSE GUIDE)
+// =========================================================================
+
+function initGuidePage() {
   const guestItems = state.items.filter((i) => i.isEssentialForGuests);
-  const container = document.getElementById('guest-guide-list');
-  if (container) {
-    container.innerHTML = guestItems
-      .map(
-        (item) => `
-      <div class="bg-stone-50 border border-stone-200/90 rounded-2xl p-4 space-y-2 text-center flex flex-col items-center">
-        <div class="flex flex-col items-center justify-center gap-1">
-          <span class="text-sm font-black text-stone-900">${escapeHtml(item.name)}</span>
-          <span class="text-[10px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 px-2.5 py-0.5 rounded-full">Guest Essential</span>
-        </div>
-        <div class="text-xs text-stone-800 flex items-center justify-center gap-1.5 font-semibold">
-          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-400"></i>
-          <span>${escapeHtml(item.location.room)} &rsaquo; ${escapeHtml(item.location.zone)}</span>
-        </div>
-        ${
-          item.location.container
-            ? `<div class="text-xs text-stone-600">In: <strong>${escapeHtml(item.location.container)}</strong></div>`
-            : ''
-        }
-        ${
-          item.location.landmark
-            ? `<div class="text-xs text-stone-500 italic">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</div>`
-            : ''
-        }
-        ${
-          item.description
-            ? `<div class="text-xs text-stone-600 bg-white p-2 rounded-xl border border-stone-200 mt-1 max-w-sm text-center">${escapeHtml(item.description)}</div>`
-            : ''
-        }
+  const container = document.getElementById('guide-guest-list');
+  if (!container) return;
+
+  if (guestItems.length === 0) {
+    container.innerHTML = `
+      <div class="p-4 bg-stone-50 border border-stone-200 rounded-2xl text-xs text-stone-500 text-center">
+        No items tagged as "Guest Essential" yet. When saving items, check "Include in House Guide" to show keys, emergency kits, or Wi-Fi info here for visitors!
       </div>
-    `
-      )
-      .join('');
+    `;
+    return;
   }
-  document.getElementById('modal-guest-guide').classList.remove('hidden');
+
+  container.innerHTML = guestItems
+    .map(
+      (item) => `
+    <div class="bg-white border border-stone-200/90 rounded-2xl p-3.5 space-y-1.5 text-center flex flex-col items-center shadow-xs">
+      <div class="flex flex-wrap items-center justify-center gap-1.5">
+        <span class="text-sm font-black text-stone-900">${escapeHtml(item.name)}</span>
+        <span class="text-[10px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 px-2 py-0.2 rounded-full">Guest Guide</span>
+      </div>
+      <div class="text-xs text-stone-800 flex items-center justify-center gap-1.5 font-semibold">
+        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500"></i>
+        <span>${escapeHtml(item.location.room)} &rsaquo; ${escapeHtml(item.location.zone)}</span>
+      </div>
+      ${
+        item.location.container
+          ? `<div class="text-xs text-stone-600">In: <strong>${escapeHtml(item.location.container)}</strong></div>`
+          : ''
+      }
+      ${
+        item.location.landmark
+          ? `<div class="text-xs text-stone-500 italic">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</div>`
+          : ''
+      }
+      ${
+        item.description
+          ? `<div class="text-xs text-stone-600 bg-stone-50 p-2 rounded-xl border border-stone-200 mt-1 max-w-sm text-center">${escapeHtml(item.description)}</div>`
+          : ''
+      }
+    </div>
+  `
+    )
+    .join('');
   lucide.createIcons();
-};
+}
 
-window.closeGuestGuideModal = function () {
-  document.getElementById('modal-guest-guide').classList.add('hidden');
-};
-
-// Record Loan Modal - Centered
-window.openRecordLoanModal = function () {
-  const select = document.getElementById('loan-item-select');
-  if (select) {
-    const unlent = state.items.filter((i) => !i.lent?.isLent);
-    select.innerHTML = unlent
-      .map(
-        (i) =>
-          `<option value="${i.id}">${escapeHtml(i.name)} (${escapeHtml(i.location.room)})</option>`
-      )
-      .join('');
-  }
-  document.getElementById('modal-record-loan').classList.remove('hidden');
-};
-
-window.closeRecordLoanModal = function () {
-  document.getElementById('modal-record-loan').classList.add('hidden');
-};
-
-window.handleRecordLoanSubmit = function (e) {
-  e.preventDefault();
-  const itemId = document.getElementById('loan-item-select').value;
-  const borrower = document.getElementById('loan-borrower').value.trim();
-  const returnDate = document.getElementById('loan-return-date').value;
-  const notes = document.getElementById('loan-notes').value.trim();
-
-  if (!borrower) return;
-
-  state.items = state.items.map((i) =>
-    i.id === itemId
-      ? {
-          ...i,
-          lent: {
-            isLent: true,
-            lentTo: borrower,
-            lentDate: new Date().toISOString().slice(0, 10),
-            expectedReturn: returnDate || undefined,
-            notes: notes || undefined,
-          },
-        }
-      : i
-  );
-  saveItems();
-  closeRecordLoanModal();
-  renderApp();
-  showToast(`Recorded loan to ${borrower}`);
-};
-
-// Help Modal - Centered
-window.openHelpModal = function () {
-  document.getElementById('modal-help').classList.remove('hidden');
-  lucide.createIcons();
-};
-
-window.closeHelpModal = function () {
-  document.getElementById('modal-help').classList.add('hidden');
+// Quick trigger from top header
+window.startQuickVoiceFromHeader = function () {
+  switchPage('add');
+  setAddCaptureMode('voice');
+  setTimeout(() => {
+    toggleVoiceRecognition();
+  }, 250);
 };
 
 // Reset Demo Data (NO EXPORT BACKUP OPTION AS REQUESTED)
@@ -2068,5 +2620,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  renderApp();
+  // Set initial page to home
+  switchPage('home');
 });

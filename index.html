@@ -42,331 +42,271 @@
   </head>
   <body class="min-h-screen text-stone-800 flex flex-col font-sans selection:bg-amber-100 selection:text-amber-900 overflow-x-hidden w-full max-w-full">
     
-    <!-- Top Navigation Bar - Centered Horizontally & Vertically -->
-    <header class="bg-white/85 backdrop-blur-md border-b border-stone-200/80 sticky top-0 z-40 w-full shadow-xs">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 w-full py-3 flex flex-col items-center justify-center text-center gap-3">
+    <!-- Top Navigation Bar - Compact & Centered (Instant Screen Real Estate) -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-stone-200/80 sticky top-0 z-40 w-full shadow-xs">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 w-full py-2.5 flex items-center justify-between text-center">
         
-        <!-- Big Prominent FindIt Branding (Significantly Increased Font Size & Centered) -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5 text-center">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 flex items-center justify-center text-stone-900 shadow-soft shrink-0">
-            <i data-lucide="compass" class="w-7 h-7 text-stone-950"></i>
+        <!-- Quick Streak Pill (Left) -->
+        <button
+          onclick="openHabitsModal()"
+          class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 hover:bg-amber-100 border border-amber-300 rounded-full text-xs font-bold text-amber-900 transition-colors cursor-pointer shadow-xs"
+          title="View Organizing Streak & Habits"
+        >
+          <span>🔥</span>
+          <span id="header-streak-badge">3 Days</span>
+        </button>
+
+        <!-- Big Prominent FindIt Branding (Centered) -->
+        <div class="flex items-center justify-center gap-2 cursor-pointer" onclick="scrollToTopView()">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 flex items-center justify-center text-stone-900 shadow-soft shrink-0">
+            <i data-lucide="compass" class="w-5 h-5 text-stone-950"></i>
           </div>
           <div class="flex flex-col items-center justify-center text-center">
-            <div class="flex items-center justify-center gap-2">
-              <h1 class="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight leading-none">FindIt</h1>
-              <span class="text-[11px] font-bold bg-amber-100/90 text-amber-900 px-2.5 py-0.5 rounded-full border border-amber-300 uppercase tracking-wider shadow-xs">
-                Home
-              </span>
-            </div>
-            <p class="text-xs sm:text-sm text-stone-500 font-medium mt-1 text-center">
-              Your colorful physical memory for every item in your home
-            </p>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight leading-none">FindIt</h1>
+            <span class="text-[10px] text-stone-500 font-medium">Everyday Physical Memory</span>
           </div>
         </div>
 
-        <!-- Header Action Controls - Centered & Flexible Width -->
-        <div class="flex flex-wrap items-center justify-center gap-2 w-full pt-1">
-          <!-- Primary Add Item Button -->
-          <button
-            onclick="openQuickAddModal()"
-            class="px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-soft transition-all flex items-center justify-center gap-2 cursor-pointer hover:shadow-elevated text-center"
-          >
-            <i data-lucide="plus" class="w-4 h-4 text-amber-400 shrink-0"></i>
-            <span>Add New Item</span>
-          </button>
-
-          <!-- Daily Spot Check Button -->
-          <button
-            onclick="openSpotCheckModal()"
-            class="px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs sm:text-sm font-semibold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2 text-center"
-            title="Casual 15-second spot check"
-          >
-            <i data-lucide="sparkles" class="w-4 h-4 text-amber-600 shrink-0"></i>
-            <span>15s Spot Check</span>
-          </button>
-
-          <!-- House Guide for Guests & Sitters -->
-          <button
-            onclick="openGuestGuideModal()"
-            class="px-4 py-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs sm:text-sm font-medium rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer text-center"
-            title="House guide for family, guests & sitters"
-          >
-            <i data-lucide="home" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-            <span>House Guide</span>
-          </button>
-
-          <!-- Tips & Help Button -->
-          <button
-            onclick="openHelpModal()"
-            class="p-2.5 text-stone-600 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 border border-stone-200 rounded-xl transition-colors cursor-pointer flex items-center justify-center"
-            title="Tips & Help"
-          >
-            <i data-lucide="help-circle" class="w-4 h-4"></i>
-          </button>
-
+        <!-- Header Actions (Right) -->
+        <div class="flex items-center gap-2">
           <!-- PWA Install Button (if browser supports install prompt) -->
           <button
             id="btn-pwa-install"
             onclick="installPWA()"
-            class="hidden px-3.5 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-semibold rounded-xl transition-colors cursor-pointer flex items-center justify-center gap-1.5 shadow-soft"
-            title="Install app to your home screen or desktop"
+            class="hidden px-2.5 py-1.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-semibold rounded-xl transition-colors cursor-pointer flex items-center justify-center gap-1 shadow-soft"
+            title="Install app to your home screen"
           >
-            <i data-lucide="download" class="w-4 h-4 shrink-0"></i>
-            <span>Install App</span>
+            <i data-lucide="download" class="w-3.5 h-3.5 shrink-0"></i>
+            <span class="hidden sm:inline">Install</span>
+          </button>
+
+          <!-- Quick Add Button -->
+          <button
+            onclick="openQuickAddModal()"
+            class="px-3 py-1.5 bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold rounded-xl shadow-soft transition-all flex items-center justify-center gap-1 cursor-pointer"
+            title="Add New Item"
+          >
+            <i data-lucide="plus" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span class="hidden sm:inline">Add Item</span>
           </button>
         </div>
       </div>
     </header>
 
-    <!-- Main Container - Centered Alignment -->
-    <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6 overflow-x-hidden flex flex-col items-center">
+    <!-- Main Container - Centered Alignment & Bottom Bar Spacing -->
+    <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 pt-4 pb-28 space-y-4 overflow-x-hidden flex flex-col items-center">
       
-      <!-- DAILY ENGAGEMENT CARD: Daily Streak, Motivation & Smart Notifications -->
-      <section class="w-full bg-white/90 backdrop-blur-sm border border-stone-200/90 rounded-3xl p-5 shadow-soft flex flex-col items-center justify-center text-center space-y-4">
+      <!-- COMPACT CARD TO SORT ITEMS BY TYPES AND LOCATION (Dynamic as per user entered data) -->
+      <section id="sort-filter-card" class="w-full bg-white/95 backdrop-blur-sm border border-stone-200/90 rounded-3xl p-4 sm:p-5 shadow-soft space-y-3.5 flex flex-col items-center justify-center text-center">
         
-        <!-- Streak & Daily Motivation Badge -->
-        <div class="flex flex-wrap items-center justify-center gap-3 text-center">
-          <div class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold text-amber-900 shadow-xs">
-            <span class="text-base">🔥</span>
-            <span id="streak-counter-badge">3-Day Organizing Streak</span>
-          </div>
-          <div class="inline-flex items-center justify-center gap-1.5 bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-full text-xs font-semibold text-emerald-900">
-            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i>
-            <span id="health-score-badge">Home Clarity: 100%</span>
-          </div>
-        </div>
-
-        <!-- Compelling Motivation Pitch (Centered) -->
-        <div class="max-w-xl text-center space-y-1">
-          <h2 class="text-lg sm:text-xl font-bold text-stone-900" id="daily-challenge-title">
-            Keep your physical home fresh in your memory!
-          </h2>
-          <p class="text-xs sm:text-sm text-stone-600" id="daily-challenge-desc">
-            A quick 10-second check-in each day ensures you never misplace important items or forget lent tools.
-          </p>
-        </div>
-
-        <!-- Action Row: Daily Check-In & Push Notification Toggle -->
-        <div class="flex flex-wrap items-center justify-center gap-2.5 pt-1">
-          <button
-            id="btn-daily-checkin"
-            onclick="handleDailyCheckIn()"
-            class="px-4 py-2 bg-amber-400 hover:bg-amber-500 text-stone-950 font-bold text-xs sm:text-sm rounded-xl transition-all shadow-soft flex items-center justify-center gap-1.5 cursor-pointer text-center"
-          >
-            <span>🔥</span>
-            <span>Check In Today (+1 Streak)</span>
-          </button>
-
-          <button
-            id="btn-enable-notifications"
-            onclick="toggleDailyNotifications()"
-            class="px-4 py-2 bg-sky-50 hover:bg-sky-100 text-sky-900 border border-sky-300 font-semibold text-xs sm:text-sm rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer text-center"
-          >
-            <i data-lucide="bell" class="w-4 h-4 text-sky-600"></i>
-            <span id="notif-button-label">Enable Daily Reminders</span>
-          </button>
-
-          <button
-            id="btn-test-notification"
-            onclick="sendTestNotification()"
-            class="hidden px-3.5 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-medium rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer text-center"
-            title="Test desktop/mobile notification"
-          >
-            <i data-lucide="send" class="w-3.5 h-3.5"></i>
-            <span>Test Alert</span>
-          </button>
-        </div>
-
-        <!-- Subtle Notification Status Note (Centered) -->
-        <p id="notif-status-note" class="text-[11px] text-stone-500 text-center max-w-md">
-          🔔 Notifications remind you when someone owes you a tool or when it's time for a fun 15s spot check.
-        </p>
-      </section>
-
-      <!-- Friendly Search & Quick Summary Card - Fully Centered -->
-      <section class="w-full bg-white/95 backdrop-blur-sm border border-stone-200 rounded-3xl p-5 sm:p-6 shadow-soft space-y-5 flex flex-col items-center justify-center text-center">
-        
-        <!-- Big Friendly Search Box (Centered text & Centered styling) -->
+        <!-- Search Box (Integrated cleanly in Sort & Filter Card) -->
         <div class="relative w-full max-w-xl mx-auto">
-          <i data-lucide="search" class="w-5 h-5 text-stone-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+          <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
           <input
             type="text"
             id="search-input"
-            placeholder="Search anything... e.g. passport, drill, charger, keys, medicine"
-            class="w-full pl-11 pr-11 py-3.5 bg-stone-50/90 hover:bg-stone-100/70 focus:bg-white border-2 border-stone-200 focus:border-amber-400 rounded-2xl text-sm sm:text-base font-medium text-stone-900 placeholder:text-stone-400 text-center focus:outline-none transition-all shadow-xs"
-            autofocus
+            placeholder="Search items, rooms, tools, keys, documents..."
+            class="w-full pl-10 pr-9 py-2.5 bg-stone-50/90 hover:bg-stone-100/70 focus:bg-white border-2 border-stone-200 focus:border-amber-400 rounded-xl text-xs sm:text-sm font-medium text-stone-900 placeholder:text-stone-400 text-center focus:outline-none transition-all shadow-xs"
           />
           <button
             id="btn-clear-search"
             onclick="clearSearchInput()"
-            class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-stone-400 hover:text-stone-700 cursor-pointer rounded-full"
+            class="hidden absolute right-3 top-1/2 -translate-y-1/2 p-1 text-stone-400 hover:text-stone-700 cursor-pointer rounded-full"
             title="Clear search"
           >
-            <i data-lucide="x" class="w-4 h-4"></i>
+            <i data-lucide="x" class="w-3.5 h-3.5"></i>
           </button>
         </div>
 
-        <!-- View Switcher Tabs & Quick Stats - Centered -->
-        <div class="flex flex-col items-center justify-center gap-3 w-full">
+        <!-- Dynamic Dropdowns Row: Sort By, Dynamic Types, Dynamic Locations -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full">
           
-          <!-- View Tabs (All Items, By Room, Lent Out) - Centered -->
-          <div class="bg-stone-100 p-1.5 rounded-2xl flex flex-wrap items-center justify-center gap-1.5 shadow-inner">
-            <button
-              id="view-tab-grid"
-              onclick="setViewMode('grid')"
-              class="px-5 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer bg-white text-stone-900 shadow-soft text-center"
+          <!-- Dynamic Types (Categories) Filter -->
+          <div class="flex flex-col text-left">
+            <label class="text-[11px] font-bold text-stone-600 mb-1 flex items-center justify-center sm:justify-start gap-1">
+              <i data-lucide="tag" class="w-3 h-3 text-amber-600"></i>
+              <span>Type / Category</span>
+            </label>
+            <select
+              id="filter-type-select"
+              onchange="handleTypeFilterChange(this.value)"
+              class="w-full px-3 py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl text-xs font-semibold text-stone-800 focus:outline-none focus:ring-2 focus:ring-amber-400 cursor-pointer text-center sm:text-left transition-colors"
             >
-              All Items
-            </button>
-            <button
-              id="view-tab-rooms"
-              onclick="setViewMode('rooms')"
-              class="px-5 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 text-center"
-            >
-              By Room
-            </button>
-            <button
-              id="view-tab-lending"
-              onclick="setViewMode('lending')"
-              class="px-5 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center justify-center gap-1.5 text-center"
-            >
-              <span>Lent Out</span>
-              <span id="badge-lent-tab" class="hidden text-[10px] bg-rose-200 text-rose-950 px-2 py-0.5 rounded-full font-bold">0</span>
-            </button>
+              <option value="All">All Types (Loading...)</option>
+            </select>
           </div>
 
-          <!-- Quick Stats Summary Pill - Centered -->
-          <div class="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm text-stone-600">
-            <div id="stat-summary-pill" class="flex items-center justify-center gap-2 bg-stone-50 px-4 py-1.5 rounded-xl border border-stone-200/80">
-              <span id="stat-total-items" class="font-bold text-stone-800">12 items</span>
-              <span class="text-stone-300">&bull;</span>
-              <span id="stat-total-rooms" class="text-stone-600 font-medium">6 rooms</span>
-            </div>
-            
-            <button
-              id="stat-lent-link"
-              onclick="setViewMode('lending')"
-              class="hidden hover:underline text-rose-800 font-semibold cursor-pointer bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-xl"
+          <!-- Dynamic Locations (Rooms) Filter -->
+          <div class="flex flex-col text-left">
+            <label class="text-[11px] font-bold text-stone-600 mb-1 flex items-center justify-center sm:justify-start gap-1">
+              <i data-lucide="map-pin" class="w-3 h-3 text-indigo-600"></i>
+              <span>Location / Room</span>
+            </label>
+            <select
+              id="filter-location-select"
+              onchange="handleLocationFilterChange(this.value)"
+              class="w-full px-3 py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl text-xs font-semibold text-stone-800 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer text-center sm:text-left transition-colors"
             >
-              <span id="stat-lent-count">1 lent</span>
-            </button>
+              <option value="All">All Locations (Loading...)</option>
+            </select>
+          </div>
+
+          <!-- Sort Order -->
+          <div class="flex flex-col text-left">
+            <label class="text-[11px] font-bold text-stone-600 mb-1 flex items-center justify-center sm:justify-start gap-1">
+              <i data-lucide="arrow-down-up" class="w-3 h-3 text-emerald-600"></i>
+              <span>Sort Items By</span>
+            </label>
+            <select
+              id="sort-order-select"
+              onchange="handleSortOrderChange(this.value)"
+              class="w-full px-3 py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl text-xs font-semibold text-stone-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer text-center sm:text-left transition-colors"
+            >
+              <option value="recent">Recently Added / Updated</option>
+              <option value="name-asc">Name (A &rarr; Z)</option>
+              <option value="name-desc">Name (Z &rarr; A)</option>
+              <option value="room-asc">Location (A &rarr; Z)</option>
+              <option value="category">Type / Category</option>
+              <option value="verified">Last Verified (Oldest first)</option>
+            </select>
           </div>
         </div>
 
-        <!-- Filter Row: Category Codification Pills & Quick Toggles - Centered -->
-        <div id="filter-controls-row" class="w-full pt-3 border-t border-stone-100 flex flex-col items-center justify-center gap-3">
+        <!-- Quick Status Pills & Filter Summary - Centered -->
+        <div class="w-full pt-2 border-t border-stone-100 flex flex-wrap items-center justify-center gap-2">
           
-          <!-- Category Filter Pills (Soft Light Colorful Codification - Centered) -->
-          <div class="flex flex-wrap items-center justify-center gap-2 w-full" id="category-pills">
-            <!-- Populated dynamically with colorful subtle light pastel pills -->
-          </div>
+          <button
+            id="filter-btn-all"
+            onclick="resetAllFilters()"
+            class="px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer bg-stone-900 text-white shadow-xs"
+          >
+            All Items (<span id="stat-total-items">12</span>)
+          </button>
 
-          <!-- Quick Toggles: Guest Essentials & Low Consumables - Centered -->
-          <div class="flex flex-wrap items-center justify-center gap-2 pt-1">
-            <button
-              id="filter-btn-guest"
-              onclick="toggleGuestFilter()"
-              class="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-xl border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-stone-50 text-center"
-              title="Show only guest & babysitter essential items"
-            >
-              <i data-lucide="home" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
-              <span>Guest Essentials</span>
-            </button>
+          <button
+            id="filter-btn-lent"
+            onclick="toggleLentFilter()"
+            class="px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-rose-50 flex items-center gap-1"
+          >
+            <span>🤝 Lent Out</span>
+            <span id="badge-lent-count" class="hidden text-[10px] bg-rose-200 text-rose-950 px-1.5 py-0.2 rounded-full font-bold">0</span>
+          </button>
 
-            <button
-              id="filter-btn-low"
-              onclick="toggleLowStockFilter()"
-              class="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-xl border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-stone-50 text-center"
-              title="Show low stock consumables (batteries, filters...)"
-            >
-              <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
-              <span>Running Low</span>
-              <span id="badge-low-count" class="hidden text-[10px] bg-red-100 text-red-700 px-1.5 py-0.2 rounded-full font-bold">0</span>
-            </button>
-          </div>
+          <button
+            id="filter-btn-low"
+            onclick="toggleLowStockFilter()"
+            class="px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-amber-50 flex items-center gap-1"
+          >
+            <span>⚠️ Running Low</span>
+            <span id="badge-low-count" class="hidden text-[10px] bg-red-100 text-red-700 px-1.5 py-0.2 rounded-full font-bold">0</span>
+          </button>
+
+          <button
+            id="filter-btn-guest"
+            onclick="toggleGuestFilter()"
+            class="px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-emerald-50 flex items-center gap-1"
+          >
+            <span>🏡 Guest Guide</span>
+          </button>
+
+          <!-- Active Filter Reset Indicator -->
+          <button
+            id="btn-active-reset"
+            onclick="resetAllFilters()"
+            class="hidden px-2.5 py-1 text-xs font-bold text-amber-800 bg-amber-100 hover:bg-amber-200 rounded-xl border border-amber-300 transition-colors cursor-pointer flex items-center gap-1"
+            title="Clear all active filters"
+          >
+            <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+            <span>Reset Filters</span>
+          </button>
         </div>
       </section>
 
-      <!-- Prominent Friendly Cue: Tell User to Scroll Down to View All Items - Centered -->
-      <div
-        id="scroll-to-items-hint"
-        onclick="scrollToItemsView()"
-        class="w-full bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 hover:from-amber-100/80 hover:to-amber-100 border border-amber-300 rounded-3xl p-4 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-3 text-stone-800 shadow-soft cursor-pointer transition-all select-none text-center group"
-        title="Click to jump down to items below"
-      >
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left">
-          <div class="w-9 h-9 rounded-2xl bg-amber-400 text-stone-900 flex items-center justify-center shrink-0 shadow-xs group-hover:translate-y-0.5 transition-transform">
-            <i data-lucide="arrow-down" class="w-5 h-5 animate-bounce"></i>
-          </div>
-          <div class="text-center sm:text-left">
-            <p class="text-sm sm:text-base font-extrabold text-stone-900 leading-tight">
-              Scroll down to view all items
-            </p>
-            <p class="text-xs text-stone-600 font-medium mt-0.5">
-              Explore your organized home below &mdash; tap any item card to edit or spot-check
-            </p>
-          </div>
-        </div>
-        <div class="flex items-center justify-center gap-1.5 shrink-0 bg-white px-4 py-2 rounded-2xl border border-amber-300 text-amber-950 text-xs font-bold shadow-xs">
-          <span id="scroll-count-pill">12 items</span>
-          <i data-lucide="chevron-down" class="w-4 h-4 text-amber-700"></i>
-        </div>
-      </div>
-
-      <!-- Main Dynamic Content Area - Centered Alignment -->
-      <section id="main-content-view" class="min-h-[300px] w-full max-w-full flex flex-col items-center justify-center">
-        <!-- Rendered by app.js -->
+      <!-- ITEM CARDS START IMMEDIATELY HERE (No scrolling down twice needed!) -->
+      <section id="main-content-view" class="min-h-[200px] w-full max-w-full flex flex-col items-center justify-center">
+        <!-- Rendered dynamically by app.js -->
       </section>
     </main>
 
-    <!-- Footer - Centered Horizontally & Vertically (No Export Backup Option) -->
-    <footer class="border-t border-stone-200/80 bg-white/80 backdrop-blur-xs mt-12 py-8 text-xs text-stone-500 w-full flex flex-col items-center justify-center text-center">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center justify-center gap-4 text-center">
+    <!-- FIXED BOTTOM BAR WITH ALL OTHER OPTIONS & ABOUT US ON THE FAR RIGHT -->
+    <nav id="bottom-bar" class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200/90 shadow-elevated">
+      <div class="max-w-4xl mx-auto px-2 sm:px-6 py-2 flex items-center justify-between sm:justify-around w-full">
         
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
-          <span class="text-sm font-bold text-stone-800">FindIt</span>
-          <span class="hidden sm:inline text-stone-300">&bull;</span>
-          <span class="text-stone-600">Your everyday physical home organizer &amp; memory engine</span>
-        </div>
+        <!-- 1. Items (Home List) -->
+        <button
+          id="nav-btn-items"
+          onclick="handleNavItemsClick()"
+          class="flex flex-col items-center justify-center gap-1 px-2.5 py-1 text-stone-900 rounded-xl transition-colors cursor-pointer group"
+          title="Home & Item Cards"
+        >
+          <div class="w-7 h-7 rounded-xl bg-amber-400 text-stone-950 flex items-center justify-center shadow-xs">
+            <i data-lucide="package" class="w-4 h-4"></i>
+          </div>
+          <span class="text-[10px] sm:text-xs font-bold leading-none">Items</span>
+        </button>
 
-        <!-- Footer Navigation Links - Centered (Export Backup completely removed per user request) -->
-        <div class="flex flex-wrap items-center justify-center gap-4 text-center">
-          <button
-            onclick="scrollToTopView()"
-            class="hover:text-stone-900 cursor-pointer flex items-center justify-center gap-1.5 text-stone-600 font-medium"
-            title="Scroll back to top"
-          >
-            <i data-lucide="arrow-up" class="w-4 h-4"></i>
-            <span>Back to top</span>
-          </button>
-          
-          <span class="text-stone-300">&bull;</span>
+        <!-- 2. Add New Item -->
+        <button
+          onclick="openQuickAddModal()"
+          class="flex flex-col items-center justify-center gap-1 px-2.5 py-1 text-stone-600 hover:text-stone-900 rounded-xl transition-colors cursor-pointer group"
+          title="Add a new item"
+        >
+          <div class="w-7 h-7 rounded-xl bg-stone-100 group-hover:bg-stone-200 text-stone-800 flex items-center justify-center">
+            <i data-lucide="plus" class="w-4 h-4 text-stone-900"></i>
+          </div>
+          <span class="text-[10px] sm:text-xs font-medium leading-none">Add Item</span>
+        </button>
 
-          <button
-            onclick="openSpotCheckModal()"
-            class="hover:text-stone-900 cursor-pointer flex items-center justify-center gap-1.5 text-stone-600 font-medium"
-          >
+        <!-- 3. Habits & Streak -->
+        <button
+          onclick="openHabitsModal()"
+          class="flex flex-col items-center justify-center gap-1 px-2.5 py-1 text-stone-600 hover:text-amber-800 rounded-xl transition-colors cursor-pointer group"
+          title="Daily Habits, Streak & Reminders"
+        >
+          <div class="w-7 h-7 rounded-xl bg-amber-50 group-hover:bg-amber-100 text-amber-700 flex items-center justify-center border border-amber-200/60">
+            <i data-lucide="flame" class="w-4 h-4"></i>
+          </div>
+          <span class="text-[10px] sm:text-xs font-medium leading-none">Streak</span>
+        </button>
+
+        <!-- 4. Spot Check (15s Flashcard) -->
+        <button
+          onclick="openSpotCheckModal()"
+          class="flex flex-col items-center justify-center gap-1 px-2.5 py-1 text-stone-600 hover:text-stone-900 rounded-xl transition-colors cursor-pointer group"
+          title="15s Spot Check"
+        >
+          <div class="w-7 h-7 rounded-xl bg-stone-100 group-hover:bg-stone-200 text-stone-700 flex items-center justify-center">
             <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
-            <span>Daily Spot Check</span>
-          </button>
+          </div>
+          <span class="text-[10px] sm:text-xs font-medium leading-none">Spot Check</span>
+        </button>
 
-          <span class="text-stone-300">&bull;</span>
+        <!-- 5. House Guide -->
+        <button
+          onclick="openGuestGuideModal()"
+          class="flex flex-col items-center justify-center gap-1 px-2.5 py-1 text-stone-600 hover:text-emerald-800 rounded-xl transition-colors cursor-pointer group"
+          title="House Guide for Guests & Sitters"
+        >
+          <div class="w-7 h-7 rounded-xl bg-emerald-50 group-hover:bg-emerald-100 text-emerald-700 flex items-center justify-center border border-emerald-200/60">
+            <i data-lucide="home" class="w-4 h-4"></i>
+          </div>
+          <span class="text-[10px] sm:text-xs font-medium leading-none">Guide</span>
+        </button>
 
-          <button
-            onclick="resetData()"
-            class="hover:text-stone-900 cursor-pointer flex items-center justify-center gap-1 text-stone-400 hover:text-stone-700 font-medium"
-            title="Reset to starter demo items"
-          >
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-            <span>Reset Demo Data</span>
-          </button>
-        </div>
+        <!-- 6. ABOUT US (ON THE FAR RIGHT AS REQUESTED) -->
+        <button
+          onclick="openAboutModal()"
+          class="flex flex-col items-center justify-center gap-1 px-2.5 py-1 text-stone-600 hover:text-indigo-900 rounded-xl transition-colors cursor-pointer group"
+          title="About Us & Legal Disclaimers - Opal Luna Labs"
+        >
+          <div class="w-7 h-7 rounded-xl bg-indigo-50 group-hover:bg-indigo-100 text-indigo-700 flex items-center justify-center border border-indigo-200/60">
+            <i data-lucide="info" class="w-4 h-4"></i>
+          </div>
+          <span class="text-[10px] sm:text-xs font-bold leading-none text-indigo-900">About Us</span>
+        </button>
 
-        <p class="text-[11px] text-stone-400 text-center max-w-md">
-          All belongings and locations are saved securely on this device. Open daily to maintain your organization streak!
-        </p>
       </div>
-    </footer>
+    </nav>
 
     <!-- MODAL: Add / Edit Item (All options visible at one go! No hidden details!) -->
     <div id="modal-quick-add" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
@@ -712,38 +652,177 @@
       </div>
     </div>
 
-    <!-- MODAL: Friendly Help & Tips - Centered -->
-    <div id="modal-help" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
-      <div class="bg-white rounded-3xl max-w-md w-full border border-stone-200 shadow-elevated modal-content p-6 space-y-4 flex flex-col items-center justify-center text-center">
+    <!-- MODAL: About Us & Legal Disclaimers (Opal Luna Labs - Full Liability Waiver) - Placed on Far Right in Bottom Bar -->
+    <div id="modal-about" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/50 backdrop-blur-xs modal-backdrop hidden">
+      <div class="bg-white rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto border border-stone-200 shadow-elevated modal-content p-6 sm:p-7 space-y-5 flex flex-col items-center justify-center text-center">
+        
+        <!-- Header -->
         <div class="flex items-center justify-between w-full border-b border-stone-100 pb-3">
           <div class="w-8"></div>
-          <div class="flex items-center justify-center gap-2">
-            <i data-lucide="info" class="w-5 h-5 text-amber-500 shrink-0"></i>
-            <h3 class="text-base font-extrabold text-stone-900">Tips for using FindIt</h3>
+          <div class="flex flex-col items-center justify-center text-center">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 flex items-center justify-center text-stone-900 shadow-soft mb-1.5">
+              <i data-lucide="compass" class="w-6 h-6 text-stone-950"></i>
+            </div>
+            <h3 class="text-xl font-extrabold text-stone-900 leading-tight">About FindIt</h3>
+            <span class="text-xs text-amber-800 font-bold bg-amber-100/90 px-2.5 py-0.5 rounded-full border border-amber-300 mt-1">
+              Version 1.0 &bull; Vanilla PWA
+            </span>
           </div>
-          <button onclick="closeHelpModal()" class="text-stone-400 hover:text-stone-700 cursor-pointer p-1 shrink-0">
+          <button onclick="closeAboutModal()" class="text-stone-400 hover:text-stone-700 cursor-pointer p-1 shrink-0">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
 
-        <div class="space-y-3 text-xs text-stone-600 leading-relaxed text-center">
-          <div class="p-3 bg-amber-50/70 rounded-2xl border border-amber-200/60">
-            <strong class="text-stone-900 block font-bold text-sm mb-1">📍 Be specific with spots</strong>
-            Write "Top shelf of pantry, in blue bin" rather than just "Kitchen". You will find it 10x faster!
+        <!-- Creator & Purpose -->
+        <div class="w-full bg-gradient-to-br from-stone-50 to-amber-50/40 p-4 rounded-2xl border border-stone-200/90 space-y-2 text-center">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-stone-900 text-white text-xs font-bold shadow-xs">
+            <span>Crafted by Opal Luna Labs</span>
           </div>
-          <div class="p-3 bg-rose-50/70 rounded-2xl border border-rose-200/60">
-            <strong class="text-stone-900 block font-bold text-sm mb-1">🤝 Never lose lent tools</strong>
-            When a friend borrows your drill or ladder, tap "Lend" so you always recall who has it.
+          <p class="text-xs sm:text-sm text-stone-700 leading-relaxed font-medium">
+            <strong>FindIt</strong> is an everyday physical memory engine and household organizer designed to help you instantly recall where you stored tools, keys, spare parts, travel documents, and lent items.
+          </p>
+        </div>
+
+        <!-- COMPREHENSIVE LEGAL DISCLAIMERS & LIABILITY WAIVER -->
+        <div class="w-full bg-red-50/50 border-2 border-red-200 rounded-2xl p-4 sm:p-5 space-y-3 text-left">
+          <div class="flex items-center justify-center sm:justify-start gap-2 text-red-950 font-extrabold text-xs sm:text-sm border-b border-red-200/80 pb-2">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-red-600 shrink-0"></i>
+            <span>LEGAL DISCLAIMER &amp; LIMITATION OF LIABILITY</span>
           </div>
-          <div class="p-3 bg-sky-50/70 rounded-2xl border border-sky-200/60">
-            <strong class="text-stone-900 block font-bold text-sm mb-1">🔥 Build a daily organizing habit</strong>
-            Open FindIt once a day to check in, boost your streak, and do a 15-second spot check.
+
+          <div class="space-y-2 text-[11px] sm:text-xs text-stone-700 leading-relaxed">
+            <p class="font-bold text-red-900">
+              1. NO LEGAL LIABILITIES WHATSOEVER
+            </p>
+            <p>
+              This application (&ldquo;FindIt&rdquo;) and all associated software, features, tools, and materials are created and provided by <strong>Opal Luna Labs</strong> and the application developer strictly on an <strong>&ldquo;AS IS&rdquo;</strong> and <strong>&ldquo;AS AVAILABLE&rdquo;</strong> basis. Opal Luna Labs and the application developer make no representations, conditions, or warranties of any kind, whether express, statutory, or implied, including without limitation warranties of merchantability, fitness for a particular purpose, non-infringement, security, or accuracy.
+            </p>
+
+            <p class="font-bold text-red-900 pt-1">
+              2. COMPLETE EXCLUSION OF LIABILITY
+            </p>
+            <p>
+              Under no circumstances and under no legal theory (whether in contract, tort, negligence, strict liability, or otherwise) shall <strong>Opal Luna Labs</strong>, the application developer, contributors, affiliates, directors, or agents be liable to you or any third party for any direct, indirect, incidental, consequential, special, punitive, or exemplary damages, costs, or losses whatsoever. This includes, but is not limited to:
+            </p>
+            <ul class="list-disc list-inside space-y-1 pl-1 text-stone-600">
+              <li>Misplacement, theft, damage, or permanent loss of any physical item, key, tool, or document;</li>
+              <li>Damage to home property, vehicles, electrical equipment, or fixtures;</li>
+              <li>Missing, unreturned, or damaged tools or belongings lent to third parties;</li>
+              <li>Lost passports, identification cards, travel papers, or missed flights/deadlines;</li>
+              <li>Improper storage or delayed access to emergency first aid supplies or medications;</li>
+              <li>Any disputes, misunderstandings, or claims between users, lenders, borrowers, or sitters.</li>
+            </ul>
+
+            <p class="font-bold text-red-900 pt-1">
+              3. USER EXCLUSIVE RESPONSIBILITY
+            </p>
+            <p>
+              The user assumes 100% full, sole, and exclusive responsibility for physically inspecting, securing, handling, and storing their own belongings, dangerous tools, medications, and valuable documents. FindIt serves merely as a memory notepad.
+            </p>
+
+            <p class="font-bold text-red-900 pt-1">
+              4. 100% LOCAL-FIRST CLIENT-SIDE PRIVACY
+            </p>
+            <p>
+              FindIt operates entirely within your browser&rsquo;s local offline storage. Opal Luna Labs does not collect, transmit, store, view, or sell your private home inventory or location details to remote servers or third parties.
+            </p>
           </div>
         </div>
 
-        <div class="pt-3 border-t border-stone-100 flex justify-center w-full">
-          <button onclick="closeHelpModal()" class="px-8 py-2.5 bg-stone-900 text-white rounded-xl text-xs font-bold cursor-pointer text-center">
-            Got it
+        <!-- Quick Demo Reset Option -->
+        <div class="w-full flex flex-wrap items-center justify-between gap-2 p-3 bg-stone-50 border border-stone-200 rounded-2xl text-xs text-stone-600">
+          <span class="text-left font-medium">Need a fresh start?</span>
+          <button
+            onclick="resetData()"
+            class="px-3 py-1.5 text-stone-500 hover:text-stone-800 hover:bg-stone-200 rounded-xl transition-colors cursor-pointer flex items-center gap-1 font-semibold"
+            title="Reset to starter demo items"
+          >
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            <span>Reset Demo Data</span>
+          </button>
+        </div>
+
+        <!-- Close Button -->
+        <div class="pt-2 border-t border-stone-100 flex justify-center w-full">
+          <button
+            onclick="closeAboutModal()"
+            class="px-8 py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs sm:text-sm font-bold cursor-pointer transition-colors shadow-soft text-center"
+          >
+            Understood &amp; Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Habits, Organizing Streak & Notifications - Accessible via Bottom Bar or Header -->
+    <div id="modal-habits" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/40 backdrop-blur-xs modal-backdrop hidden">
+      <div class="bg-white rounded-3xl max-w-md w-full border border-stone-200 shadow-elevated modal-content p-6 space-y-5 flex flex-col items-center justify-center text-center">
+        
+        <div class="flex items-center justify-between w-full border-b border-stone-100 pb-3">
+          <div class="w-8"></div>
+          <div class="flex items-center justify-center gap-2">
+            <span class="text-lg">🔥</span>
+            <h3 class="text-base font-extrabold text-stone-900">Daily Organizing Habit</h3>
+          </div>
+          <button onclick="closeHabitsModal()" class="text-stone-400 hover:text-stone-700 cursor-pointer p-1 shrink-0">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- Streak Badges -->
+        <div class="flex flex-wrap items-center justify-center gap-2 w-full">
+          <div class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-300 px-4 py-2 rounded-2xl text-xs sm:text-sm font-extrabold text-amber-950 shadow-xs">
+            <span class="text-lg">🔥</span>
+            <span id="streak-counter-badge">3-Day Organizing Streak</span>
+          </div>
+          <div class="inline-flex items-center justify-center gap-1.5 bg-emerald-50 border border-emerald-300 px-3.5 py-2 rounded-2xl text-xs font-bold text-emerald-950">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
+            <span id="health-score-badge">Home Clarity: 100%</span>
+          </div>
+        </div>
+
+        <p class="text-xs sm:text-sm text-stone-600 text-center leading-relaxed">
+          Open FindIt daily to reinforce your physical memory and make sure you never misplace important tools, keys, or lent items!
+        </p>
+
+        <!-- Check-in Button -->
+        <div class="w-full flex flex-col items-center justify-center gap-2.5">
+          <button
+            id="btn-daily-checkin"
+            onclick="handleDailyCheckIn()"
+            class="w-full py-3 bg-amber-400 hover:bg-amber-500 text-stone-950 font-extrabold text-xs sm:text-sm rounded-xl transition-all shadow-soft flex items-center justify-center gap-1.5 cursor-pointer text-center"
+          >
+            <span>🔥</span>
+            <span>Check In Today (+1 Streak)</span>
+          </button>
+
+          <button
+            id="btn-enable-notifications"
+            onclick="toggleDailyNotifications()"
+            class="w-full py-2.5 bg-sky-50 hover:bg-sky-100 text-sky-900 border border-sky-300 font-semibold text-xs sm:text-sm rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer text-center"
+          >
+            <i data-lucide="bell" class="w-4 h-4 text-sky-600"></i>
+            <span id="notif-button-label">Enable Daily Reminders</span>
+          </button>
+
+          <button
+            id="btn-test-notification"
+            onclick="sendTestNotification()"
+            class="hidden px-3.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-medium rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer text-center"
+            title="Test desktop/mobile notification"
+          >
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span>Send Test Alert</span>
+          </button>
+        </div>
+
+        <p id="notif-status-note" class="text-[11px] text-stone-500 text-center">
+          🔔 Daily reminders remind you when lent items are due or when it is time for a quick 15s spot check.
+        </p>
+
+        <div class="pt-2 border-t border-stone-100 flex justify-center w-full">
+          <button onclick="closeHabitsModal()" class="px-6 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold cursor-pointer text-center">
+            Done
           </button>
         </div>
       </div>

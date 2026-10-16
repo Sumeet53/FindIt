@@ -1,8 +1,9 @@
 // FindIt - Everyday Physical Memory
-// Standard Vanilla PWA Engine (User-Friendly & Zero-Build)
+// Standard Vanilla PWA Engine (User-Friendly, Zero-Build & Centered Layout)
 
 const ITEMS_KEY = 'spatialcache_items_v1';
 const ROOMS_KEY = 'spatialcache_rooms_v1';
+const ENGAGEMENT_KEY = 'findit_engagement_v2';
 
 const INITIAL_ROOMS = [
   {
@@ -64,7 +65,7 @@ const INITIAL_ITEMS = [
     tags: ['passport', 'travel', 'id', 'documents', 'identification'],
     lent: { isLent: false },
     isEssentialForGuests: false,
-    lastVerifiedAt: '2026-10-12T10:15:00.000Z',
+    lastVerifiedAt: '2026-10-14T10:15:00.000Z',
     createdAt: '2026-08-10T08:00:00.000Z',
   },
   {
@@ -87,12 +88,12 @@ const INITIAL_ITEMS = [
       minThreshold: 4,
     },
     isEssentialForGuests: true,
-    lastVerifiedAt: '2026-10-14T14:22:00.000Z',
+    lastVerifiedAt: '2026-10-15T07:22:00.000Z',
     createdAt: '2026-08-12T09:30:00.000Z',
   },
   {
     id: 'item-3',
-    name: 'DeWalt 20V Cordless Drill & Drill Bit Kit',
+    name: 'DeWalt 20V Cordless Drill & Bit Kit',
     category: 'Tools & Hardware',
     location: {
       room: 'Garage & Workshop',
@@ -104,10 +105,10 @@ const INITIAL_ITEMS = [
     tags: ['drill', 'dewalt', 'tools', 'screws', 'hardware'],
     lent: {
       isLent: true,
-      lentTo: 'Dave Miller (Next Door Neighbor)',
+      lentTo: 'Dave Miller (Next Door)',
       lentDate: '2026-09-28',
       expectedReturn: '2026-10-18',
-      notes: 'Borrowed for fixing his rear wooden fence gate.',
+      notes: 'Borrowed for fixing rear wooden fence gate.',
     },
     isEssentialForGuests: false,
     lastVerifiedAt: '2026-09-28T16:00:00.000Z',
@@ -178,54 +179,48 @@ const INITIAL_ITEMS = [
       room: 'Living Room',
       zone: 'Entryway Catchall Bowl',
       container: 'Small Leather Key Pouch',
-      landmark: 'Inside ceramic bowl on the wooden entryway console table',
+      landmark: 'Ceramic key bowl directly next to the front door entrance mirror',
     },
-    description: 'Secondary electronic key fob + brass key marked "SHED".',
-    tags: ['keys', 'car', 'shed', 'lock', 'spare', 'fob'],
+    description: 'Includes Subaru spare fob and brass shed padlock key.',
+    tags: ['keys', 'car', 'fob', 'shed', 'valuable'],
     lent: { isLent: false },
     isEssentialForGuests: true,
-    lastVerifiedAt: '2026-10-14T07:00:00.000Z',
-    createdAt: '2026-09-01T08:00:00.000Z',
+    lastVerifiedAt: '2026-10-15T06:00:00.000Z',
+    createdAt: '2026-05-10T14:00:00.000Z',
   },
   {
     id: 'item-8',
-    name: 'Water Filter Pitcher Replacement Cartridges',
+    name: 'Dyson Cordless Vacuum Attachments & Filter',
     category: 'Household & Cleaning',
     location: {
-      room: 'Kitchen & Pantry',
-      zone: 'Under-Sink Caddy',
-      container: 'Cardboard Box (Pack of 3)',
-      landmark: 'Left side caddy behind the dishwashing pods',
+      room: 'Hallway Closet',
+      zone: 'Floor Storage',
+      container: 'Clear Plastic Tote with Lid',
+      landmark: 'Right underneath the hanging coats on closet floor',
     },
-    description: 'Standard replacement filters for 10-cup pitcher.',
-    tags: ['water', 'filter', 'brita', 'kitchen', 'clean'],
+    description: 'Crevice tool, dusting brush, and clean spare HEPA filter.',
+    tags: ['vacuum', 'dyson', 'cleaning', 'filter', 'attachments'],
     lent: { isLent: false },
-    consumable: {
-      isConsumable: true,
-      quantity: 1,
-      unit: 'filters',
-      minThreshold: 2,
-    },
-    isEssentialForGuests: false,
-    lastVerifiedAt: '2026-10-08T19:00:00.000Z',
-    createdAt: '2026-07-20T14:00:00.000Z',
+    isEssentialForGuests: true,
+    lastVerifiedAt: '2026-10-12T11:00:00.000Z',
+    createdAt: '2026-07-20T16:00:00.000Z',
   },
   {
     id: 'item-9',
-    name: 'Heavy Duty 50-Foot Extension Cord',
-    category: 'Tools & Hardware',
+    name: 'Camping LED Headlamp & Extra Strap',
+    category: 'Seasonal & Apparel',
     location: {
       room: 'Garage & Workshop',
       zone: 'Overhead Bins',
-      container: 'Orange Cable Caddy Wheel',
-      landmark: 'Hanging from wall hook next to the garden hose reel',
+      container: 'Clear 30L Camping Tub',
+      landmark: 'Front left corner of the top rack overhead shelving',
     },
-    description: '12-gauge 3-prong water resistant orange outdoor extension cord.',
-    tags: ['cable', 'power', 'outdoor', 'extension', 'yard'],
+    description: '350 lumen USB-rechargeable headlamp with red night light mode.',
+    tags: ['headlamp', 'camping', 'flashlight', 'light', 'outdoors'],
     lent: { isLent: false },
     isEssentialForGuests: false,
-    lastVerifiedAt: '2026-10-09T11:30:00.000Z',
-    createdAt: '2026-06-10T16:00:00.000Z',
+    lastVerifiedAt: '2026-09-15T18:00:00.000Z',
+    createdAt: '2026-06-01T12:00:00.000Z',
   },
   {
     id: 'item-10',
@@ -246,7 +241,7 @@ const INITIAL_ITEMS = [
   },
   {
     id: 'item-11',
-    name: 'Wi-Fi Network Backup Password & Info Card',
+    name: 'Wi-Fi Network Backup Password Card',
     category: 'Office & Tech',
     location: {
       room: 'Living Room',
@@ -292,10 +287,109 @@ const CATEGORIES = [
   'Other',
 ];
 
+// Subtle & Distinct Pastel Themes for Visual Codification & Categorization (Applied to Entire Card)
+const CATEGORY_THEMES = {
+  'Tools & Hardware': {
+    themeClass: 'cat-theme-tools',
+    bg: 'bg-amber-100',
+    border: 'border-amber-300',
+    badge: 'bg-amber-200 text-amber-950 border-amber-400',
+    innerBox: 'bg-white/75 border-amber-200/90',
+    pillActive: 'bg-amber-500 text-stone-950 border-amber-600 shadow-sm font-bold',
+    pillInactive: 'bg-amber-100 text-amber-900 border-amber-300 hover:bg-amber-200 font-semibold',
+    colorName: 'Warm Amber',
+    icon: 'wrench',
+  },
+  'Electronics & Cables': {
+    themeClass: 'cat-theme-electronics',
+    bg: 'bg-indigo-100',
+    border: 'border-indigo-300',
+    badge: 'bg-indigo-200 text-indigo-950 border-indigo-400',
+    innerBox: 'bg-white/75 border-indigo-200/90',
+    pillActive: 'bg-indigo-600 text-white border-indigo-700 shadow-sm font-bold',
+    pillInactive: 'bg-indigo-100 text-indigo-900 border-indigo-300 hover:bg-indigo-200 font-semibold',
+    colorName: 'Soft Indigo',
+    icon: 'cpu',
+  },
+  'Documents & Valuables': {
+    themeClass: 'cat-theme-documents',
+    bg: 'bg-yellow-100',
+    border: 'border-yellow-300',
+    badge: 'bg-yellow-200 text-yellow-950 border-yellow-400',
+    innerBox: 'bg-white/75 border-yellow-200/90',
+    pillActive: 'bg-yellow-400 text-stone-950 border-yellow-500 shadow-sm font-bold',
+    pillInactive: 'bg-yellow-100 text-yellow-950 border-yellow-300 hover:bg-yellow-200 font-semibold',
+    colorName: 'Sunny Yellow',
+    icon: 'file-text',
+  },
+  'Health & Medication': {
+    themeClass: 'cat-theme-health',
+    bg: 'bg-emerald-100',
+    border: 'border-emerald-300',
+    badge: 'bg-emerald-200 text-emerald-950 border-emerald-400',
+    innerBox: 'bg-white/75 border-emerald-200/90',
+    pillActive: 'bg-emerald-600 text-white border-emerald-700 shadow-sm font-bold',
+    pillInactive: 'bg-emerald-100 text-emerald-900 border-emerald-300 hover:bg-emerald-200 font-semibold',
+    colorName: 'Fresh Mint',
+    icon: 'shield-plus',
+  },
+  'Household & Cleaning': {
+    themeClass: 'cat-theme-household',
+    bg: 'bg-teal-100',
+    border: 'border-teal-300',
+    badge: 'bg-teal-200 text-teal-950 border-teal-400',
+    innerBox: 'bg-white/75 border-teal-200/90',
+    pillActive: 'bg-teal-600 text-white border-teal-700 shadow-sm font-bold',
+    pillInactive: 'bg-teal-100 text-teal-900 border-teal-300 hover:bg-teal-200 font-semibold',
+    colorName: 'Seafoam Teal',
+    icon: 'sparkles',
+  },
+  'Seasonal & Apparel': {
+    themeClass: 'cat-theme-seasonal',
+    bg: 'bg-pink-100',
+    border: 'border-pink-300',
+    badge: 'bg-pink-200 text-pink-950 border-pink-400',
+    innerBox: 'bg-white/75 border-pink-200/90',
+    pillActive: 'bg-pink-500 text-white border-pink-600 shadow-sm font-bold',
+    pillInactive: 'bg-pink-100 text-pink-900 border-pink-300 hover:bg-pink-200 font-semibold',
+    colorName: 'Cherry Blossom Pink',
+    icon: 'sun',
+  },
+  'Office & Tech': {
+    themeClass: 'cat-theme-office',
+    bg: 'bg-sky-100',
+    border: 'border-sky-300',
+    badge: 'bg-sky-200 text-sky-950 border-sky-400',
+    innerBox: 'bg-white/75 border-sky-200/90',
+    pillActive: 'bg-sky-600 text-white border-sky-700 shadow-sm font-bold',
+    pillInactive: 'bg-sky-100 text-sky-900 border-sky-300 hover:bg-sky-200 font-semibold',
+    colorName: 'Sky Blue',
+    icon: 'briefcase',
+  },
+  'Other': {
+    themeClass: 'cat-theme-other',
+    bg: 'bg-purple-100',
+    border: 'border-purple-300',
+    badge: 'bg-purple-200 text-purple-950 border-purple-400',
+    innerBox: 'bg-white/75 border-purple-200/90',
+    pillActive: 'bg-purple-600 text-white border-purple-700 shadow-sm font-bold',
+    pillInactive: 'bg-purple-100 text-purple-900 border-purple-300 hover:bg-purple-200 font-semibold',
+    colorName: 'Soft Lavender',
+    icon: 'package',
+  },
+};
+
 // App State
 const state = {
   items: [],
   rooms: [],
+  engagement: {
+    streak: 3,
+    lastCheckInDate: '',
+    totalCheckIns: 5,
+    notificationsEnabled: false,
+    lastNotificationTimestamp: 0,
+  },
   searchQuery: '',
   selectedCategory: 'All',
   filterLowStockOnly: false,
@@ -312,9 +406,13 @@ function loadData() {
   try {
     const rawItems = localStorage.getItem(ITEMS_KEY);
     const rawRooms = localStorage.getItem(ROOMS_KEY);
+    const rawEng = localStorage.getItem(ENGAGEMENT_KEY);
 
     state.items = rawItems ? JSON.parse(rawItems) : INITIAL_ITEMS;
     state.rooms = rawRooms ? JSON.parse(rawRooms) : INITIAL_ROOMS;
+    if (rawEng) {
+      state.engagement = { ...state.engagement, ...JSON.parse(rawEng) };
+    }
   } catch (e) {
     console.error('Error reading localStorage:', e);
     state.items = INITIAL_ITEMS;
@@ -338,6 +436,14 @@ function saveRooms() {
   }
 }
 
+function saveEngagement() {
+  try {
+    localStorage.setItem(ENGAGEMENT_KEY, JSON.stringify(state.engagement));
+  } catch (e) {
+    console.error('Error saving engagement:', e);
+  }
+}
+
 // Utility: HTML escape
 function escapeHtml(str) {
   if (!str) return '';
@@ -349,16 +455,16 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
-// Utility: Toast notification
+// Utility: Toast notification (Centered at bottom)
 function showToast(message) {
   const container = document.getElementById('toast-container');
   if (!container) return;
 
   const toast = document.createElement('div');
   toast.className =
-    'bg-stone-900 text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-elevated flex items-center gap-2 pointer-events-auto transform transition-all duration-200 translate-y-2 opacity-0';
+    'bg-stone-900 text-white text-xs sm:text-sm font-semibold px-5 py-3 rounded-2xl shadow-elevated flex items-center justify-center gap-2 pointer-events-auto transform transition-all duration-200 translate-y-3 opacity-0 text-center';
   toast.innerHTML = `
-    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+    <i data-lucide="sparkles" class="w-4 h-4 text-amber-400 shrink-0"></i>
     <span>${escapeHtml(message)}</span>
   `;
 
@@ -366,13 +472,13 @@ function showToast(message) {
   lucide.createIcons();
 
   requestAnimationFrame(() => {
-    toast.classList.remove('translate-y-2', 'opacity-0');
+    toast.classList.remove('translate-y-3', 'opacity-0');
   });
 
   setTimeout(() => {
-    toast.classList.add('opacity-0', 'translate-y-2');
+    toast.classList.add('opacity-0', 'translate-y-3');
     setTimeout(() => toast.remove(), 250);
-  }, 2600);
+  }, 2800);
 }
 
 // Filtering items
@@ -424,6 +530,7 @@ function getFilteredItems() {
 // Render Functions
 function renderApp() {
   renderSummaryStats();
+  renderEngagementStatus();
   renderCategoryPills();
   renderCounters();
   renderMainView();
@@ -467,22 +574,191 @@ function renderSummaryStats() {
   }
 }
 
+// Daily Engagement & Habit Retention Rendering
+function renderEngagementStatus() {
+  const streakBadge = document.getElementById('streak-counter-badge');
+  const healthBadge = document.getElementById('health-score-badge');
+  const notifBtnLabel = document.getElementById('notif-button-label');
+  const testNotifBtn = document.getElementById('btn-test-notification');
+  const notifNote = document.getElementById('notif-status-note');
+  const checkinBtn = document.getElementById('btn-daily-checkin');
+
+  const streak = state.engagement.streak || 1;
+  if (streakBadge) {
+    streakBadge.textContent = `${streak}-Day Organizing Streak`;
+  }
+
+  // Calculate home clarity (percentage of items verified within last 14 days)
+  const nowMs = Date.now();
+  const twoWeeksMs = 14 * 24 * 60 * 60 * 1000;
+  const verifiedCount = state.items.filter((item) => {
+    if (!item.lastVerifiedAt) return false;
+    const diff = nowMs - new Date(item.lastVerifiedAt).getTime();
+    return diff <= twoWeeksMs;
+  }).length;
+
+  const clarityScore = state.items.length > 0 ? Math.round((verifiedCount / state.items.length) * 100) : 100;
+  if (healthBadge) {
+    healthBadge.textContent = `Home Clarity: ${clarityScore}%`;
+  }
+
+  // Check if checked in today
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const isCheckedInToday = state.engagement.lastCheckInDate === todayStr;
+  if (checkinBtn) {
+    if (isCheckedInToday) {
+      checkinBtn.innerHTML = `<span>✅</span><span>Checked In Today (${streak}🔥)</span>`;
+      checkinBtn.className =
+        'px-4 py-2 bg-emerald-100 text-emerald-950 font-bold text-xs sm:text-sm rounded-xl cursor-default text-center flex items-center justify-center gap-1.5 shadow-xs border border-emerald-300';
+    } else {
+      checkinBtn.innerHTML = `<span>🔥</span><span>Daily Check-In (+1 Streak)</span>`;
+      checkinBtn.className =
+        'px-4 py-2 bg-amber-400 hover:bg-amber-500 text-stone-950 font-extrabold text-xs sm:text-sm rounded-xl transition-all shadow-soft flex items-center justify-center gap-1.5 cursor-pointer text-center pulse-subtle';
+    }
+  }
+
+  // Notification status
+  const notifGranted = typeof Notification !== 'undefined' && Notification.permission === 'granted';
+  if (notifBtnLabel) {
+    if (notifGranted) {
+      notifBtnLabel.textContent = 'Reminders Active';
+    } else {
+      notifBtnLabel.textContent = 'Enable Daily Reminders';
+    }
+  }
+
+  if (testNotifBtn) {
+    if (notifGranted) {
+      testNotifBtn.classList.remove('hidden');
+    } else {
+      testNotifBtn.classList.add('hidden');
+    }
+  }
+
+  if (notifNote) {
+    if (notifGranted) {
+      notifNote.textContent = '🔔 Daily Reminders are active! You will get friendly notifications to check lent items and do casual spot-checks.';
+    } else {
+      notifNote.textContent = '🔔 Turn on notifications to receive friendly nudges when lent items are due or for your quick 15s check.';
+    }
+  }
+}
+
+// Daily Check-In Action
+window.handleDailyCheckIn = function () {
+  const todayStr = new Date().toISOString().slice(0, 10);
+  if (state.engagement.lastCheckInDate === todayStr) {
+    showToast(`You already checked in today! Streak: ${state.engagement.streak} 🔥`);
+    return;
+  }
+
+  state.engagement.streak = (state.engagement.streak || 0) + 1;
+  state.engagement.lastCheckInDate = todayStr;
+  state.engagement.totalCheckIns = (state.engagement.totalCheckIns || 0) + 1;
+  saveEngagement();
+  renderEngagementStatus();
+
+  showToast(`🎉 Streak increased to ${state.engagement.streak} days! Keeping home organized.`);
+
+  // If notifications enabled, trigger a celebratory reminder confirmation
+  if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+    try {
+      new Notification('FindIt: Check-In Complete! 🔥', {
+        body: `Day ${state.engagement.streak} locked in! Your home items and lent belongings are right in memory.`,
+        icon: './icon.svg',
+      });
+    } catch (e) {
+      console.warn('Notification error:', e);
+    }
+  }
+};
+
+// Web Notification Handling
+window.toggleDailyNotifications = async function () {
+  if (typeof Notification === 'undefined') {
+    showToast('Notifications are not supported on this browser.');
+    return;
+  }
+
+  if (Notification.permission === 'granted') {
+    showToast('Daily reminders are already active on this device!');
+    renderEngagementStatus();
+    return;
+  }
+
+  try {
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+      state.engagement.notificationsEnabled = true;
+      saveEngagement();
+      renderEngagementStatus();
+      showToast('🔔 Daily reminders enabled! You will stay on top of all your items.');
+
+      new Notification('FindIt Reminders Active 🌟', {
+        body: 'Welcome! You will receive gentle reminders so you never misplace tools or forget lent items.',
+        icon: './icon.svg',
+      });
+    } else {
+      showToast('Notifications were not granted. You can re-enable anytime in browser settings.');
+    }
+  } catch (err) {
+    console.error('Notification permission error:', err);
+    showToast('Could not request notification permission.');
+  }
+};
+
+window.sendTestNotification = function () {
+  if (typeof Notification === 'undefined' || Notification.permission !== 'granted') {
+    showToast('Please enable notifications first.');
+    return;
+  }
+
+  const sampleItems = ['Passports', 'Cordless Drill', 'Extra Car Keys', 'First Aid Kit'];
+  const randomItem = sampleItems[Math.floor(Math.random() * sampleItems.length)];
+
+  try {
+    new Notification('FindIt: 15s Memory Spot Check 📍', {
+      body: `Quick check! Do you know where your ${randomItem} is stored? Tap to check!`,
+      icon: './icon.svg',
+      badge: './icon.svg',
+    });
+    showToast('Test notification sent! Check your screen/banner.');
+  } catch (err) {
+    console.warn('Error creating test notification:', err);
+    showToast('Could not deliver notification.');
+  }
+};
+
+// Category Filter Pills (Soft Light Pastel Colors & Centered)
 function renderCategoryPills() {
   const container = document.getElementById('category-pills');
   if (!container) return;
 
   container.innerHTML = CATEGORIES.map((cat) => {
     const isSelected = state.selectedCategory === cat;
+    const theme = CATEGORY_THEMES[cat];
+
+    let pillClasses = '';
+    if (cat === 'All') {
+      pillClasses = isSelected
+        ? 'bg-stone-900 text-white shadow-soft font-bold'
+        : 'bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200 font-semibold';
+    } else if (theme) {
+      pillClasses = isSelected
+        ? `${theme.pillActive} font-bold`
+        : `${theme.pillInactive} font-semibold`;
+    } else {
+      pillClasses = isSelected
+        ? 'bg-stone-900 text-white shadow-soft font-bold'
+        : 'bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200 font-semibold';
+    }
+
     return `
       <button
         onclick="selectCategory('${cat}')"
-        class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-normal break-words max-w-full text-center transition-all cursor-pointer ${
-          isSelected
-            ? 'bg-stone-900 text-white shadow-soft'
-            : 'bg-stone-50 text-stone-600 hover:bg-stone-100 hover:text-stone-900 border border-stone-200/80'
-        }"
+        class="px-4 py-1.5 rounded-xl text-xs sm:text-sm whitespace-normal break-words max-w-full text-center transition-all cursor-pointer flex items-center justify-center gap-1.5 ${pillClasses}"
       >
-        ${escapeHtml(cat)}
+        <span>${escapeHtml(cat)}</span>
       </button>
     `;
   }).join('');
@@ -493,7 +769,7 @@ function renderCounters() {
   const lowCount = state.items.filter(
     (i) =>
       i.consumable?.isConsumable &&
-      (i.consumable.quantity ?? 0) <= (i.consumable.minThreshold ?? 0)
+      (i.consumable.quantity ?? 0) <= (itemQuantity(i) <= (i.consumable.minThreshold ?? 0))
   ).length;
 
   const lentTabBadge = document.getElementById('badge-lent-tab');
@@ -512,45 +788,49 @@ function renderCounters() {
   }
 
   if (guestBtn) {
-    guestBtn.className = `inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border transition-all cursor-pointer ${
+    guestBtn.className = `inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-xl border transition-all cursor-pointer text-center ${
       state.filterGuestOnly
-        ? 'bg-emerald-50 border-emerald-300 text-emerald-900 shadow-soft'
-        : 'bg-white border-stone-200 text-stone-600 hover:bg-stone-50'
+        ? 'bg-emerald-100 border-emerald-400 text-emerald-950 shadow-soft'
+        : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
     }`;
   }
 
   if (lowBtn) {
-    lowBtn.className = `inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border transition-all cursor-pointer ${
+    lowBtn.className = `inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-xl border transition-all cursor-pointer text-center ${
       state.filterLowStockOnly
-        ? 'bg-red-50 border-red-300 text-red-900 shadow-soft'
-        : 'bg-white border-stone-200 text-stone-600 hover:bg-stone-50'
+        ? 'bg-red-100 border-red-400 text-red-950 shadow-soft'
+        : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
     }`;
   }
+}
+
+function itemQuantity(item) {
+  return item.consumable?.quantity ?? 0;
 }
 
 function renderMainView() {
   const container = document.getElementById('main-content-view');
   if (!container) return;
 
-  // View switch tab styles
+  // View switch tab styles (Centered)
   const btnGrid = document.getElementById('view-tab-grid');
   const btnRooms = document.getElementById('view-tab-rooms');
   const btnLending = document.getElementById('view-tab-lending');
 
   if (btnGrid)
-    btnGrid.className = `px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+    btnGrid.className = `px-5 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer text-center ${
       state.viewMode === 'grid'
         ? 'bg-white text-stone-900 shadow-soft'
         : 'text-stone-600 hover:text-stone-900'
     }`;
   if (btnRooms)
-    btnRooms.className = `px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+    btnRooms.className = `px-5 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all cursor-pointer text-center ${
       state.viewMode === 'rooms'
         ? 'bg-white text-stone-900 shadow-soft'
         : 'text-stone-600 hover:text-stone-900'
     }`;
   if (btnLending)
-    btnLending.className = `px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+    btnLending.className = `px-5 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 text-center ${
       state.viewMode === 'lending'
         ? 'bg-white text-stone-900 shadow-soft'
         : 'text-stone-600 hover:text-stone-900'
@@ -570,30 +850,30 @@ function renderGridView(container) {
 
   if (filtered.length === 0) {
     container.innerHTML = `
-      <div class="p-12 text-center bg-white rounded-2xl border border-stone-200 space-y-3 shadow-soft">
-        <div class="w-12 h-12 rounded-2xl bg-stone-100 flex items-center justify-center text-stone-400 mx-auto">
-          <i data-lucide="search" class="w-6 h-6"></i>
+      <div class="p-12 text-center bg-white/95 rounded-3xl border border-stone-200 space-y-4 shadow-soft w-full max-w-xl mx-auto flex flex-col items-center justify-center">
+        <div class="w-14 h-14 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-700 mx-auto">
+          <i data-lucide="search" class="w-7 h-7"></i>
         </div>
-        <h3 class="text-sm font-semibold text-stone-900">No items found</h3>
-        <p class="text-xs text-stone-500 max-w-sm mx-auto">
+        <h3 class="text-lg font-bold text-stone-900">No items found</h3>
+        <p class="text-xs sm:text-sm text-stone-500 max-w-sm mx-auto text-center">
           ${
             state.searchQuery
-              ? `No matches for "${escapeHtml(state.searchQuery)}". Check your spelling or add it now.`
-              : 'No items match your active filters.'
+              ? `No matches for "${escapeHtml(state.searchQuery)}". Check spelling or add it now.`
+              : 'No items match your active category or filters.'
           }
         </p>
-        <div class="flex items-center justify-center gap-2 pt-2">
+        <div class="flex flex-wrap items-center justify-center gap-2 pt-2">
           ${
             state.searchQuery || state.selectedCategory !== 'All' || state.filterGuestOnly || state.filterLowStockOnly
-              ? `<button onclick="clearAllFilters()" class="px-3 py-1.5 text-xs border border-stone-200 rounded-lg text-stone-600 hover:bg-stone-50 cursor-pointer">Clear filters</button>`
+              ? `<button onclick="clearAllFilters()" class="px-4 py-2 text-xs font-semibold border border-stone-200 rounded-xl text-stone-600 hover:bg-stone-50 cursor-pointer">Clear filters</button>`
               : ''
           }
           <button
             onclick="openQuickAddModal()"
-            class="inline-flex items-center gap-1.5 px-4 py-2 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft"
+            class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-stone-900 text-white rounded-xl text-xs sm:text-sm font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft"
           >
             <i data-lucide="plus" class="w-4 h-4 text-amber-400"></i>
-            <span>Add this item</span>
+            <span>Add this item now</span>
           </button>
         </div>
       </div>
@@ -604,82 +884,110 @@ function renderGridView(container) {
   const itemsHtml = filtered.map((item) => renderItemCardHtml(item)).join('');
 
   container.innerHTML = `
-    <div class="space-y-4">
-      <div class="flex flex-wrap items-center justify-between text-xs text-stone-500 px-1 gap-2">
-        <div class="flex items-center gap-1.5 font-medium text-stone-700">
-          <i data-lucide="arrow-down" class="w-3.5 h-3.5 text-amber-600 shrink-0 animate-bounce"></i>
-          <span>Scroll down to view all <strong>${filtered.length}</strong> ${filtered.length === 1 ? 'item' : 'items'} below</span>
-          ${state.searchQuery ? `<span class="text-stone-400 font-normal">matching "${escapeHtml(state.searchQuery)}"</span>` : ''}
+    <div class="space-y-5 w-full flex flex-col items-center">
+      
+      <!-- List Meta & Category Color Legend - Centered -->
+      <div class="w-full flex flex-col items-center justify-center gap-3 text-xs sm:text-sm text-stone-500 px-2 text-center">
+        <div class="flex items-center justify-center gap-2">
+          <span>Showing <strong>${filtered.length}</strong> of <strong>${state.items.length}</strong> total items</span>
+          <span>&bull;</span>
+          <span class="text-amber-800 font-medium">Scroll down to explore all</span>
         </div>
-        ${
-          state.searchQuery || state.selectedCategory !== 'All' || state.filterLowStockOnly || state.filterGuestOnly
-            ? `<button onclick="clearAllFilters()" class="text-stone-700 hover:text-stone-950 font-medium underline cursor-pointer">Clear filters</button>`
-            : ''
-        }
+
+        <!-- Color Codification Guide showing the whole card colors -->
+        <div class="w-full flex flex-wrap items-center justify-center gap-1.5 text-[11px] font-semibold text-stone-600 px-3 py-2 bg-white/75 backdrop-blur-xs rounded-2xl border border-stone-200/90 shadow-xs text-center">
+          <span class="text-stone-400 font-bold uppercase tracking-wider text-[10px] mr-1">🎨 Entire Card Color:</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-amber-100 text-amber-950 border border-amber-300">🧰 Tools</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-indigo-100 text-indigo-950 border border-indigo-300">⚡ Tech</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-yellow-100 text-yellow-950 border border-yellow-300">📄 Docs</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-emerald-100 text-emerald-950 border border-emerald-300">🩹 Health</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-teal-100 text-teal-950 border border-teal-300">🧼 Household</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-pink-100 text-pink-950 border border-pink-300">🧣 Seasonal</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-sky-100 text-sky-950 border border-sky-300">💻 Office</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-950 border border-purple-300">📦 Other</span>
+        </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <!-- Items Grid: 1 col on mobile, 2 cols on tablet/desktop - Centered items -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
         ${itemsHtml}
+      </div>
+
+      <!-- Scroll Back to Top Button - Centered -->
+      <div class="w-full pt-6 flex flex-col items-center justify-center text-center space-y-2">
+        <button
+          onclick="scrollToTopView()"
+          class="px-5 py-2.5 bg-white hover:bg-stone-50 border border-stone-200 text-stone-700 hover:text-stone-900 rounded-2xl text-xs sm:text-sm font-semibold shadow-soft flex items-center justify-center gap-2 cursor-pointer transition-all"
+        >
+          <i data-lucide="arrow-up" class="w-4 h-4 text-stone-500"></i>
+          <span>You have reached the end &bull; Back to Top</span>
+        </button>
       </div>
     </div>
   `;
 }
 
-// Clean, User-Friendly Item Card
+// Render Item Card - Color Codification Applied Across the ENTIRE Card
 function renderItemCardHtml(item) {
   const isLent = item.lent && item.lent.isLent;
   const isLowConsumable =
     item.consumable?.isConsumable &&
     (item.consumable.quantity ?? 0) <= (item.consumable.minThreshold ?? 0);
 
+  const theme = CATEGORY_THEMES[item.category] || CATEGORY_THEMES['Other'];
+
   return `
-    <div class="bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 flex flex-col justify-between card-hover shadow-soft relative group max-w-full">
+    <div class="${theme.themeClass} ${theme.bg} ${theme.border} rounded-3xl border-2 p-5 sm:p-6 flex flex-col items-center justify-between card-hover shadow-soft relative group max-w-full text-center transition-all ${
+      isLent ? 'ring-4 ring-rose-400 border-rose-400' : ''
+    }">
       
-      <!-- Card Top Content -->
-      <div class="space-y-3">
+      <!-- Card Top Content - Centered Horizontally & Vertically -->
+      <div class="space-y-4 w-full flex flex-col items-center justify-center text-center">
         
-        <!-- Header Pill Row -->
-        <div class="flex items-center justify-between gap-2">
-          <span class="inline-flex items-center gap-1 text-[11px] font-medium text-stone-600 bg-stone-100/90 px-2.5 py-0.5 rounded-lg max-w-[70%] truncate">
-            <i data-lucide="map-pin" class="w-3 h-3 text-stone-400 shrink-0"></i>
-            <span class="truncate">${escapeHtml(item.location.room)}</span>
+        <!-- Room & Category Pills Row - Centered -->
+        <div class="flex flex-wrap items-center justify-center gap-2 w-full">
+          <span class="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-stone-800 bg-white/95 border border-stone-200/90 px-3 py-1 rounded-full shadow-xs">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+            <span>${escapeHtml(item.location.room)}</span>
           </span>
 
-          <div class="flex items-center gap-1 shrink-0">
-            ${
-              item.isEssentialForGuests
-                ? `<span class="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-md flex items-center gap-1 shrink-0" title="Included in House Guide">
-                    <i data-lucide="home" class="w-2.5 h-2.5 text-emerald-600 shrink-0"></i>
-                    <span>Guest Guide</span>
-                  </span>`
-                : ''
-            }
-          </div>
+          <span class="inline-flex items-center justify-center gap-1.5 text-xs font-extrabold px-3 py-1 rounded-full border shadow-xs ${theme.badge}">
+            <i data-lucide="${theme.icon || 'tag'}" class="w-3.5 h-3.5 shrink-0"></i>
+            <span>${escapeHtml(item.category)}</span>
+          </span>
+
+          ${
+            item.isEssentialForGuests
+              ? `<span class="text-[11px] font-bold text-emerald-950 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full flex items-center justify-center gap-1 shadow-xs" title="Included in House Guide">
+                  <i data-lucide="home" class="w-3 h-3 text-emerald-700 shrink-0"></i>
+                  <span>Guest Guide</span>
+                </span>`
+              : ''
+          }
         </div>
 
-        <!-- Title -->
-        <div>
-          <h4 class="text-sm font-semibold text-stone-900 tracking-tight leading-snug break-words">
+        <!-- Big Item Title (Significantly Increased Font Size & Centered) -->
+        <div class="w-full text-center space-y-1">
+          <h4 class="text-xl sm:text-2xl font-black text-stone-900 tracking-tight leading-snug break-words text-center">
             ${escapeHtml(item.name)}
           </h4>
-          <span class="text-[11px] text-stone-400 font-medium break-words">
-            ${escapeHtml(item.category)}
-          </span>
         </div>
 
-        <!-- Spot & Location Details (Clean & Readable) -->
-        <div class="bg-stone-50/80 rounded-xl p-3 border border-stone-200/60 space-y-1.5 text-xs max-w-full">
+        <!-- Spot & Exact Location Box - Translucent so Whole Card Pastel Radiates Through -->
+        <div class="w-full ${theme.innerBox || 'bg-white/75 border-amber-200/90'} backdrop-blur-xs rounded-2xl p-4 border shadow-xs flex flex-col items-center justify-center text-center space-y-2">
+          
           <!-- Spot / Shelf -->
-          <div class="flex items-start gap-1.5 text-stone-800 font-medium">
-            <span class="text-stone-400 font-normal shrink-0">Spot:</span>
-            <span class="break-words min-w-0">${escapeHtml(item.location.zone)}</span>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-1.5 text-center">
+            <span class="text-xs uppercase tracking-wider font-extrabold text-stone-500">Spot:</span>
+            <span class="text-sm sm:text-base font-bold text-stone-900 break-words">${escapeHtml(item.location.zone)}</span>
           </div>
 
           <!-- Container -->
           ${
             item.location.container
-              ? `<div class="flex items-start gap-1.5 text-stone-600">
-                  <span class="text-stone-400 font-normal shrink-0">In:</span>
-                  <span class="break-words min-w-0">${escapeHtml(item.location.container)}</span>
+              ? `<div class="text-xs font-medium text-stone-700 flex items-center justify-center gap-1.5 text-center">
+                  <span class="text-stone-500 font-normal">Inside:</span>
+                  <span class="font-bold break-words">${escapeHtml(item.location.container)}</span>
                 </div>`
               : ''
           }
@@ -687,65 +995,64 @@ function renderItemCardHtml(item) {
           <!-- Visual Clue -->
           ${
             item.location.landmark
-              ? `<div class="flex items-start gap-1.5 text-stone-500 text-[11px] pt-0.5">
-                  <span class="text-stone-400 font-normal shrink-0">💡</span>
-                  <span class="italic break-words min-w-0">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</span>
+              ? `<div class="text-xs text-amber-950 bg-amber-50/90 px-3.5 py-1.5 rounded-xl border border-amber-200/90 italic text-center max-w-full break-words">
+                  💡 &ldquo;${escapeHtml(item.location.landmark)}&rdquo;
                 </div>`
               : ''
           }
         </div>
 
-        <!-- Notes if provided -->
+        <!-- Notes if provided - Centered -->
         ${
           item.description
-            ? `<p class="text-xs text-stone-600 line-clamp-2 break-words">${escapeHtml(item.description)}</p>`
+            ? `<p class="text-xs sm:text-sm text-stone-700 text-center max-w-sm mx-auto leading-relaxed break-words">${escapeHtml(item.description)}</p>`
             : ''
         }
 
-        <!-- Lent Banner if currently borrowed -->
+        <!-- Lent Banner if currently borrowed - Centered & Colorful Soft Rose Accent -->
         ${
           isLent
-            ? `<div class="bg-amber-50 border border-amber-200/80 rounded-xl p-2.5 text-xs flex flex-wrap items-center justify-between gap-2 text-amber-900">
-                <div class="flex items-center gap-1.5 min-w-0">
-                  <i data-lucide="share-2" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
-                  <span class="break-words">Lent to <strong>${escapeHtml(item.lent.lentTo || 'Someone')}</strong></span>
+            ? `<div class="w-full bg-rose-50 border border-rose-300 rounded-2xl p-3 text-xs flex flex-col sm:flex-row items-center justify-center gap-2.5 text-rose-950 text-center">
+                <div class="flex items-center justify-center gap-1.5">
+                  <i data-lucide="share-2" class="w-4 h-4 text-rose-600 shrink-0"></i>
+                  <span>Lent to <strong>${escapeHtml(item.lent.lentTo || 'Someone')}</strong></span>
                 </div>
                 <button
                   onclick="returnLentItem('${item.id}')"
-                  class="text-[11px] bg-white border border-amber-300 px-2.5 py-0.5 rounded-md font-semibold text-amber-900 hover:bg-amber-100 transition-colors cursor-pointer shrink-0 ml-auto whitespace-normal break-words"
+                  class="text-xs bg-white border border-rose-300 px-3.5 py-1 rounded-xl font-bold text-rose-900 hover:bg-rose-100 transition-colors cursor-pointer shadow-xs text-center"
                 >
-                  Returned
+                  Mark Returned
                 </button>
               </div>`
             : ''
         }
 
-        <!-- Stock tracker if consumable -->
+        <!-- Stock tracker if consumable - Centered -->
         ${
           item.consumable?.isConsumable
-            ? `<div class="flex items-center justify-between bg-stone-50 rounded-xl px-3 py-1.5 border border-stone-200/60 text-xs">
-                <div class="flex items-center gap-1.5 min-w-0">
-                  <span class="text-stone-500 shrink-0">Stock:</span>
-                  <strong class="${isLowConsumable ? 'text-red-600' : 'text-stone-800'} truncate">
+            ? `<div class="flex flex-wrap items-center justify-center gap-3 bg-white/85 rounded-2xl px-4 py-2 border ${theme.border} text-xs shadow-xs text-center">
+                <div class="flex items-center justify-center gap-1.5">
+                  <span class="text-stone-500">In Stock:</span>
+                  <strong class="${isLowConsumable ? 'text-red-600 font-extrabold' : 'text-stone-900 font-bold'} text-sm">
                     ${item.consumable.quantity} ${escapeHtml(item.consumable.unit || 'items')}
                   </strong>
                   ${
                     isLowConsumable
-                      ? `<span class="bg-red-100 text-red-700 text-[10px] font-bold px-1.5 py-0.2 rounded shrink-0">Low</span>`
+                      ? `<span class="bg-red-100 text-red-700 text-[10px] font-black px-2 py-0.5 rounded-full uppercase">Low</span>`
                       : ''
                   }
                 </div>
-                <div class="flex items-center gap-1 shrink-0 ml-2">
+                <div class="flex items-center justify-center gap-1.5">
                   <button
                     onclick="changeItemQuantity('${item.id}', -1)"
-                    class="w-6 h-6 rounded-md bg-white border border-stone-200 hover:bg-stone-100 flex items-center justify-center text-xs font-bold text-stone-700 cursor-pointer"
+                    class="w-7 h-7 rounded-lg bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-800 cursor-pointer"
                     title="Decrease count"
                   >
                     -
                   </button>
                   <button
                     onclick="changeItemQuantity('${item.id}', 1)"
-                    class="w-6 h-6 rounded-md bg-white border border-stone-200 hover:bg-stone-100 flex items-center justify-center text-xs font-bold text-stone-700 cursor-pointer"
+                    class="w-7 h-7 rounded-lg bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-800 cursor-pointer"
                     title="Increase count"
                   >
                     +
@@ -756,89 +1063,88 @@ function renderItemCardHtml(item) {
         }
       </div>
 
-      <!-- Card Bottom Actions (Fits nicely on all screen widths) -->
-      <div class="mt-4 pt-3 border-t border-stone-100 flex flex-wrap items-center justify-between gap-2 text-xs text-stone-500">
+      <!-- Card Bottom Actions - Centered Horizontally & Vertically -->
+      <div class="w-full mt-5 pt-4 border-t ${theme.border} flex flex-wrap items-center justify-center gap-2 text-xs">
         
-        <!-- Left: Quick Lend / Return -->
+        <!-- Still Here (Verification) Button - Centered -->
         <button
-          onclick="toggleLentStatus('${item.id}')"
-          class="hover:text-stone-900 cursor-pointer flex items-center gap-1 text-[11px] font-medium text-stone-600 px-2 py-1 rounded-lg hover:bg-stone-50 border border-stone-200/70 max-w-full break-words whitespace-normal text-left"
+          onclick="verifyLocation('${item.id}')"
+          class="text-xs font-bold text-emerald-950 bg-emerald-100/90 hover:bg-emerald-200 border border-emerald-300 cursor-pointer px-3.5 py-1.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-xs text-center"
+          title="Confirm item is still in this spot"
         >
-          <i data-lucide="${isLent ? 'corner-down-left' : 'share-2'}" class="w-3.5 h-3.5 shrink-0"></i>
-          <span class="break-words">${isLent ? 'Mark Returned' : 'Lend'}</span>
+          <i data-lucide="check" class="w-4 h-4 text-emerald-700 shrink-0"></i>
+          <span>Still here</span>
         </button>
 
-        <!-- Right: Edit & Delete -->
-        <div class="flex flex-wrap items-center gap-1.5 ml-auto">
-          <button
-            onclick="verifyLocation('${item.id}')"
-            class="text-[11px] text-stone-600 hover:text-emerald-800 bg-stone-50 hover:bg-emerald-50 border border-stone-200/70 hover:border-emerald-300 cursor-pointer px-2 py-1 rounded-lg transition-colors flex items-center gap-1 max-w-full break-words whitespace-normal"
-            title="Confirm item is still in this spot"
-          >
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
-            <span>Still here</span>
-          </button>
-          
-          <button
-            onclick="editItem('${item.id}')"
-            class="text-stone-500 hover:text-stone-900 bg-stone-50 hover:bg-stone-100 border border-stone-200/70 cursor-pointer p-1.5 rounded-lg transition-colors"
-            title="Edit Item"
-          >
-            <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
-          </button>
+        <!-- Lend / Return Button -->
+        <button
+          onclick="toggleLentStatus('${item.id}')"
+          class="text-xs font-semibold text-stone-700 hover:text-stone-900 bg-white/90 hover:bg-white border border-stone-300 cursor-pointer px-3 py-1.5 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-xs text-center"
+        >
+          <i data-lucide="${isLent ? 'corner-down-left' : 'share-2'}" class="w-3.5 h-3.5 text-stone-500 shrink-0"></i>
+          <span>${isLent ? 'Returned' : 'Lend'}</span>
+        </button>
 
-          <button
-            onclick="deleteItem('${item.id}')"
-            class="text-stone-400 hover:text-red-600 bg-stone-50 hover:bg-red-50 border border-stone-200/70 hover:border-red-200 cursor-pointer p-1.5 rounded-lg transition-colors"
-            title="Delete Item"
-          >
-            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
+        <!-- Edit Button -->
+        <button
+          onclick="editItem('${item.id}')"
+          class="text-stone-600 hover:text-stone-900 bg-white/90 hover:bg-white border border-stone-300 cursor-pointer p-2 rounded-xl transition-colors shadow-xs"
+          title="Edit Item (All fields open)"
+        >
+          <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+        </button>
+
+        <!-- Delete Button -->
+        <button
+          onclick="deleteItem('${item.id}')"
+          class="text-stone-400 hover:text-red-700 bg-white hover:bg-red-50 border border-stone-300 hover:border-red-300 cursor-pointer p-2 rounded-xl transition-colors shadow-xs"
+          title="Delete Item"
+        >
+          <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+        </button>
       </div>
     </div>
   `;
 }
 
-// Rooms Explorer View
+// Rooms Explorer View - Centered
 function renderRoomsView(container) {
   const roomsHtml = state.rooms.map((room) => {
     const roomItems = state.items.filter((i) => i.location.room === room.name);
     return `
-      <div class="bg-white rounded-2xl border border-stone-200/90 p-5 space-y-4 shadow-soft">
-        <div class="flex items-start justify-between">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-stone-100 flex items-center justify-center text-stone-800">
-              <i data-lucide="${escapeHtml(room.icon || 'archive')}" class="w-5 h-5 text-amber-600"></i>
-            </div>
-            <div>
-              <h3 class="text-sm font-bold text-stone-900">${escapeHtml(room.name)}</h3>
-              <p class="text-xs text-stone-500">${escapeHtml(room.description || '')}</p>
-            </div>
+      <div class="bg-white/95 rounded-3xl border border-stone-200/90 p-5 space-y-4 shadow-soft flex flex-col items-center justify-between text-center">
+        
+        <div class="flex flex-col items-center justify-center text-center space-y-2">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-stone-800 shadow-xs mx-auto">
+            <i data-lucide="${escapeHtml(room.icon || 'archive')}" class="w-6 h-6 text-amber-600"></i>
           </div>
-          <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700">
-            ${roomItems.length}
+          <div>
+            <h3 class="text-base font-extrabold text-stone-900">${escapeHtml(room.name)}</h3>
+            <p class="text-xs text-stone-500">${escapeHtml(room.description || '')}</p>
+          </div>
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-stone-100 text-stone-700 border border-stone-200">
+            ${roomItems.length} items stored
           </span>
         </div>
 
         <!-- Items located inside this room -->
-        <div class="border-t border-stone-100 pt-3 space-y-2">
-          <span class="text-[11px] font-semibold text-stone-400 uppercase tracking-wider">Items in this room:</span>
+        <div class="border-t border-stone-100 pt-3 space-y-2 w-full text-center">
+          <span class="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">Items in this room:</span>
           ${
             roomItems.length === 0
-              ? `<p class="text-xs text-stone-400 italic py-2">No items listed in this room yet.</p>`
+              ? `<p class="text-xs text-stone-400 italic py-2 text-center">No items listed in this room yet.</p>`
               : `<div class="space-y-1.5 max-h-52 overflow-y-auto pr-1">
                   ${roomItems
                     .map(
                       (item) => `
-                    <div class="flex items-center justify-between text-xs bg-stone-50/80 p-2.5 rounded-xl border border-stone-100 hover:bg-stone-100/70 transition-colors">
-                      <div class="pr-2">
-                        <span class="font-medium text-stone-800">${escapeHtml(item.name)}</span>
+                    <div class="flex items-center justify-between text-xs bg-stone-50 p-2.5 rounded-xl border border-stone-200/70 hover:bg-stone-100/70 transition-colors">
+                      <div class="text-left pr-2">
+                        <span class="font-bold text-stone-900">${escapeHtml(item.name)}</span>
                         <div class="text-[11px] text-stone-500">${escapeHtml(item.location.zone)} ${item.location.container ? `· ${escapeHtml(item.location.container)}` : ''}</div>
                       </div>
                       <button
                         onclick="editItem('${item.id}')"
-                        class="text-stone-400 hover:text-stone-800 cursor-pointer p-1"
+                        class="text-stone-400 hover:text-stone-800 cursor-pointer p-1.5 rounded-lg"
                         title="Edit Item"
                       >
                         <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
@@ -853,7 +1159,7 @@ function renderRoomsView(container) {
 
         <button
           onclick="openQuickAddModalWithRoom('${escapeHtml(room.name)}')"
-          class="w-full py-2 px-3 bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-700 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer whitespace-normal break-words text-center"
+          class="w-full py-2.5 px-3 bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-700 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer text-center"
         >
           <i data-lucide="plus" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
           <span>Add item to ${escapeHtml(room.name)}</span>
@@ -863,87 +1169,88 @@ function renderRoomsView(container) {
   }).join('');
 
   container.innerHTML = `
-    <div class="space-y-4">
-      <div class="flex items-center justify-between text-xs text-stone-500 px-1">
-        <span>Organized across <strong>${state.rooms.length}</strong> rooms &amp; household spaces</span>
+    <div class="space-y-5 w-full flex flex-col items-center">
+      <div class="text-center text-xs sm:text-sm text-stone-500">
+        Organized across <strong>${state.rooms.length}</strong> household rooms &amp; spaces
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
         ${roomsHtml}
       </div>
     </div>
   `;
 }
 
-// Lending View (Clear & Friendly)
+// Lending View - Centered & Soft Coral Codification
 function renderLendingView(container) {
   const lentItems = state.items.filter((i) => i.lent && i.lent.isLent);
 
   container.innerHTML = `
-    <div class="space-y-5">
-      <div class="bg-white border border-stone-200 rounded-2xl p-5 sm:p-6 space-y-4 shadow-soft">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <h3 class="text-sm font-bold text-stone-900">Lent Out Items</h3>
-            <p class="text-xs text-stone-500">Know where your tools, gear, and books are when people borrow them.</p>
-          </div>
-          <button
-            onclick="openRecordLoanModal()"
-            class="px-4 py-2 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-stone-800 transition-colors flex items-center gap-1.5 self-start sm:self-auto cursor-pointer shadow-soft"
-          >
-            <i data-lucide="plus" class="w-4 h-4 text-amber-400"></i>
-            <span>Lend an Item</span>
-          </button>
+    <div class="space-y-5 w-full flex flex-col items-center">
+      <div class="bg-white/95 border border-stone-200 rounded-3xl p-6 sm:p-7 space-y-4 shadow-soft w-full flex flex-col items-center justify-center text-center">
+        <div class="text-center space-y-1">
+          <h3 class="text-lg sm:text-xl font-extrabold text-stone-900">Lent Out Belongings</h3>
+          <p class="text-xs sm:text-sm text-stone-500 max-w-md mx-auto">
+            Know exactly who borrowed your tools, books, and gear so they always make it back home.
+          </p>
         </div>
+
+        <button
+          onclick="openRecordLoanModal()"
+          class="px-5 py-2.5 bg-stone-900 text-white rounded-xl text-xs sm:text-sm font-bold hover:bg-stone-800 transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-soft text-center"
+        >
+          <i data-lucide="plus" class="w-4 h-4 text-amber-400"></i>
+          <span>Record a Loan</span>
+        </button>
 
         ${
           lentItems.length === 0
-            ? `<div class="p-8 text-center bg-stone-50 rounded-xl border border-stone-200/80 space-y-2">
-                <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mx-auto">
-                  <i data-lucide="check" class="w-5 h-5"></i>
+            ? `<div class="p-8 text-center bg-emerald-50/60 rounded-2xl border border-emerald-200/80 space-y-2 w-full max-w-md mx-auto">
+                <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mx-auto">
+                  <i data-lucide="check" class="w-6 h-6"></i>
                 </div>
-                <h4 class="text-xs font-bold text-stone-800">Everything is at Home</h4>
-                <p class="text-xs text-stone-500 max-w-xs mx-auto">You haven't marked any items as borrowed. When you lend something to a friend, log it here!</p>
+                <h4 class="text-sm font-bold text-stone-800">Everything is at Home</h4>
+                <p class="text-xs text-stone-500">You haven't marked any items as borrowed. When you lend something to a friend or neighbor, log it here!</p>
               </div>`
-            : `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            : `<div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full pt-2">
                 ${lentItems
                   .map(
                     (item) => `
-                  <div class="bg-stone-50 border border-stone-200/90 rounded-2xl p-4 flex flex-col justify-between space-y-3">
-                    <div class="space-y-2">
-                      <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-stone-900">${escapeHtml(item.name)}</span>
-                        <span class="text-[10px] font-semibold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">Borrowed</span>
+                  <div class="bg-rose-100 border-2 border-rose-300 rounded-2xl p-5 flex flex-col items-center justify-between space-y-3 text-center shadow-soft">
+                    <div class="space-y-2 w-full flex flex-col items-center">
+                      <div class="flex items-center justify-center gap-2">
+                        <span class="text-sm font-black text-stone-900">${escapeHtml(item.name)}</span>
+                        <span class="text-[10px] font-bold bg-rose-200 text-rose-950 border border-rose-400 px-2.5 py-0.5 rounded-full uppercase">Lent Out</span>
                       </div>
                       
-                      <div class="text-xs text-stone-700 flex items-center gap-1.5">
-                        <i data-lucide="user" class="w-3.5 h-3.5 text-stone-400"></i>
+                      <div class="text-xs text-stone-800 flex items-center justify-center gap-1.5 font-medium">
+                        <i data-lucide="user" class="w-4 h-4 text-rose-500"></i>
                         <span>Borrower: <strong>${escapeHtml(item.lent.lentTo || 'Someone')}</strong></span>
                       </div>
 
                       ${
                         item.lent.lentDate
-                          ? `<div class="text-[11px] text-stone-500">Borrowed on: ${escapeHtml(item.lent.lentDate)}</div>`
+                          ? `<div class="text-xs text-stone-500">Lent on: ${escapeHtml(item.lent.lentDate)}</div>`
                           : ''
                       }
                       ${
                         item.lent.expectedReturn
-                          ? `<div class="text-[11px] text-stone-500">Expected return: ${escapeHtml(item.lent.expectedReturn)}</div>`
+                          ? `<div class="text-xs text-rose-700 font-semibold">Expected return: ${escapeHtml(item.lent.expectedReturn)}</div>`
                           : ''
                       }
                       ${
                         item.lent.notes
-                          ? `<div class="text-xs text-stone-600 italic bg-white p-2.5 rounded-xl border border-stone-200/70">
+                          ? `<div class="text-xs text-stone-600 italic bg-white p-2.5 rounded-xl border border-rose-100 max-w-sm text-center">
                               &ldquo;${escapeHtml(item.lent.notes)}&rdquo;
                             </div>`
                           : ''
                       }
                     </div>
 
-                    <div class="pt-3 border-t border-stone-200/80 flex items-center justify-between text-xs">
-                      <span class="text-stone-400">Home spot: ${escapeHtml(item.location.room)}</span>
+                    <div class="pt-3 border-t border-rose-200/80 flex flex-col sm:flex-row items-center justify-center gap-2 text-xs w-full">
+                      <span class="text-stone-500">Home: ${escapeHtml(item.location.room)}</span>
                       <button
                         onclick="returnLentItem('${item.id}')"
-                        class="px-3.5 py-1.5 bg-white hover:bg-stone-100 border border-stone-300 rounded-xl font-semibold text-stone-800 transition-colors cursor-pointer shadow-soft"
+                        class="px-4 py-2 bg-white hover:bg-stone-50 border border-rose-300 rounded-xl font-bold text-rose-900 transition-colors cursor-pointer shadow-soft text-center"
                       >
                         Mark as Returned
                       </button>
@@ -1007,7 +1314,7 @@ window.verifyLocation = function (id) {
   );
   saveItems();
   renderApp();
-  showToast('Spot confirmed! Location updated.');
+  showToast('Spot confirmed! Location refreshed.');
 };
 
 window.changeItemQuantity = function (id, delta) {
@@ -1078,7 +1385,7 @@ window.deleteItem = function (id) {
   }
 };
 
-// Modals Handling
+// Modals Handling (ALL OPTIONS VISIBLE AT ONE GO, NO ACCORDIONS)
 window.openQuickAddModal = function () {
   state.editingItemId = null;
   populateQuickAddModal();
@@ -1099,24 +1406,27 @@ window.openQuickAddModalWithRoom = function (roomName) {
   }, 100);
 };
 
-window.editItem = function (id) {
-  state.editingItemId = id;
-  const item = state.items.find((i) => i.id === id);
-  if (!item) return;
-  populateQuickAddModal(undefined, item);
-  document.getElementById('modal-quick-add').classList.remove('hidden');
-};
-
 window.closeQuickAddModal = function () {
   document.getElementById('modal-quick-add').classList.add('hidden');
-  state.editingItemId = null;
 };
 
-function populateQuickAddModal(defaultRoom, editingItem) {
+window.editItem = function (id) {
+  state.editingItemId = id;
+  populateQuickAddModal();
+  document.getElementById('modal-quick-add').classList.remove('hidden');
+  setTimeout(() => {
+    const nameInput = document.getElementById('add-item-name');
+    if (nameInput) nameInput.focus();
+  }, 100);
+};
+
+function populateQuickAddModal(defaultRoom) {
   const modalTitle = document.getElementById('modal-add-title');
-  const form = document.getElementById('quick-add-form');
-  const roomSelect = document.getElementById('add-item-room');
   const catSelect = document.getElementById('add-item-category');
+  const roomSelect = document.getElementById('add-item-room');
+  const form = document.getElementById('quick-add-form');
+
+  const editingItem = state.items.find((i) => i.id === state.editingItemId);
 
   if (catSelect) {
     catSelect.innerHTML = CATEGORIES.filter((c) => c !== 'All')
@@ -1142,6 +1452,7 @@ function populateQuickAddModal(defaultRoom, editingItem) {
     document.getElementById('add-item-tags').value = (editingItem.tags || []).join(', ');
     document.getElementById('add-item-guest').checked = !!editingItem.isEssentialForGuests;
 
+    // Consumables
     const isConsumable = !!editingItem.consumable?.isConsumable;
     document.getElementById('add-item-consumable-toggle').checked = isConsumable;
     document.getElementById('consumable-fields').style.display = isConsumable ? 'grid' : 'none';
@@ -1150,6 +1461,18 @@ function populateQuickAddModal(defaultRoom, editingItem) {
       document.getElementById('add-item-unit').value = editingItem.consumable.unit || 'items';
       document.getElementById('add-item-threshold').value = editingItem.consumable.minThreshold || 1;
     }
+
+    // Lending
+    const isLent = !!editingItem.lent?.isLent;
+    document.getElementById('add-item-lent-toggle').checked = isLent;
+    document.getElementById('lent-fields').style.display = isLent ? 'grid' : 'none';
+    if (isLent) {
+      document.getElementById('add-item-lent-to').value = editingItem.lent.lentTo || '';
+      document.getElementById('add-item-expected-return').value = editingItem.lent.expectedReturn || '';
+    } else {
+      document.getElementById('add-item-lent-to').value = '';
+      document.getElementById('add-item-expected-return').value = '';
+    }
   } else {
     modalTitle.textContent = 'Add an Item';
     form.reset();
@@ -1157,12 +1480,18 @@ function populateQuickAddModal(defaultRoom, editingItem) {
       roomSelect.value = defaultRoom;
     }
     document.getElementById('consumable-fields').style.display = 'none';
+    document.getElementById('lent-fields').style.display = 'none';
   }
 }
 
 window.toggleConsumableInputs = function () {
   const isChecked = document.getElementById('add-item-consumable-toggle').checked;
   document.getElementById('consumable-fields').style.display = isChecked ? 'grid' : 'none';
+};
+
+window.toggleLentInputs = function () {
+  const isChecked = document.getElementById('add-item-lent-toggle').checked;
+  document.getElementById('lent-fields').style.display = isChecked ? 'grid' : 'none';
 };
 
 window.handleSaveItemSubmit = function (e) {
@@ -1178,6 +1507,7 @@ window.handleSaveItemSubmit = function (e) {
   const tagsStr = document.getElementById('add-item-tags').value;
   const isEssentialForGuests = document.getElementById('add-item-guest').checked;
   const isConsumable = document.getElementById('add-item-consumable-toggle').checked;
+  const isLent = document.getElementById('add-item-lent-toggle').checked;
 
   const tags = tagsStr
     ? tagsStr.split(',').map((t) => t.trim().toLowerCase()).filter(Boolean)
@@ -1196,6 +1526,18 @@ window.handleSaveItemSubmit = function (e) {
     };
   }
 
+  let lentData = { isLent: false };
+  if (isLent) {
+    const borrower = document.getElementById('add-item-lent-to').value.trim();
+    const returnDate = document.getElementById('add-item-expected-return').value;
+    lentData = {
+      isLent: true,
+      lentTo: borrower || 'Someone',
+      lentDate: new Date().toISOString().slice(0, 10),
+      expectedReturn: returnDate || undefined,
+    };
+  }
+
   const now = new Date().toISOString();
 
   if (state.editingItemId) {
@@ -1210,6 +1552,7 @@ window.handleSaveItemSubmit = function (e) {
           tags,
           isEssentialForGuests,
           consumable: consumableData,
+          lent: lentData,
           lastVerifiedAt: now,
         };
       }
@@ -1224,7 +1567,7 @@ window.handleSaveItemSubmit = function (e) {
       location: { room, zone, container, landmark },
       description,
       tags,
-      lent: { isLent: false },
+      lent: lentData,
       isEssentialForGuests,
       consumable: consumableData,
       lastVerifiedAt: now,
@@ -1239,7 +1582,7 @@ window.handleSaveItemSubmit = function (e) {
   renderApp();
 };
 
-// Friendly Spot Check Modal (Quick 3-item check)
+// Friendly Spot Check Modal (Quick 3-item check - Centered)
 window.openSpotCheckModal = function () {
   const itemsSortedByAge = [...state.items].sort(
     (a, b) => new Date(a.lastVerifiedAt).getTime() - new Date(b.lastVerifiedAt).getTime()
@@ -1261,19 +1604,19 @@ function renderSpotCheckStep() {
 
   if (state.spotCheckCurrentIndex >= state.spotCheckItems.length) {
     container.innerHTML = `
-      <div class="text-center py-6 space-y-3">
-        <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mx-auto">
-          <i data-lucide="check" class="w-6 h-6"></i>
+      <div class="text-center py-6 space-y-3 flex flex-col items-center justify-center">
+        <div class="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mx-auto shadow-xs">
+          <i data-lucide="check" class="w-7 h-7"></i>
         </div>
-        <h3 class="text-base font-bold text-stone-900">All Checked!</h3>
-        <p class="text-xs text-stone-600 max-w-sm mx-auto">
-          You confirmed your items are right where they belong. Nice job keeping home organized!
+        <h3 class="text-lg font-extrabold text-stone-900">All Checked!</h3>
+        <p class="text-xs sm:text-sm text-stone-600 max-w-sm mx-auto text-center">
+          You confirmed your items are right where they belong. Nice job keeping your home memory fresh!
         </p>
         <button
           onclick="closeSpotCheckModal()"
-          class="px-5 py-2.5 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft"
+          class="px-6 py-2.5 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft text-center"
         >
-          Done
+          Complete Check
         </button>
       </div>
     `;
@@ -1284,43 +1627,42 @@ function renderSpotCheckStep() {
   const item = state.spotCheckItems[state.spotCheckCurrentIndex];
 
   container.innerHTML = `
-    <div class="space-y-4">
-      <div class="flex items-center justify-between text-xs text-stone-500">
-        <span>Item ${state.spotCheckCurrentIndex + 1} of ${state.spotCheckItems.length}</span>
-        <span class="text-stone-400 font-medium">Quick check</span>
+    <div class="space-y-4 w-full flex flex-col items-center justify-center text-center">
+      <div class="flex items-center justify-center gap-2 text-xs text-stone-500">
+        <span class="font-bold">Item ${state.spotCheckCurrentIndex + 1} of ${state.spotCheckItems.length}</span>
       </div>
 
-      <div class="bg-stone-50 border border-stone-200/80 rounded-2xl p-4 space-y-2">
-        <h4 class="text-sm font-bold text-stone-900">${escapeHtml(item.name)}</h4>
-        <div class="text-xs text-stone-700 flex items-center gap-1.5">
-          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-400"></i>
-          <span><strong>${escapeHtml(item.location.room)}</strong> &rsaquo; ${escapeHtml(item.location.zone)}</span>
+      <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-4 space-y-2 w-full text-center">
+        <h4 class="text-base font-black text-stone-900">${escapeHtml(item.name)}</h4>
+        <div class="text-xs text-stone-800 flex items-center justify-center gap-1.5 font-semibold">
+          <i data-lucide="map-pin" class="w-4 h-4 text-amber-500"></i>
+          <span>${escapeHtml(item.location.room)} &rsaquo; ${escapeHtml(item.location.zone)}</span>
         </div>
         ${
           item.location.container
-            ? `<div class="text-xs text-stone-600 pl-5">In: <strong>${escapeHtml(item.location.container)}</strong></div>`
+            ? `<div class="text-xs text-stone-600">In: <strong>${escapeHtml(item.location.container)}</strong></div>`
             : ''
         }
         ${
           item.location.landmark
-            ? `<div class="text-[11px] text-stone-500 italic pl-5">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</div>`
+            ? `<div class="text-xs text-amber-900 italic">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</div>`
             : ''
         }
       </div>
 
-      <p class="text-xs text-stone-600 font-medium text-center">Is this still in this spot?</p>
+      <p class="text-xs sm:text-sm text-stone-700 font-bold text-center">Is this still in this spot?</p>
 
-      <div class="grid grid-cols-2 gap-2.5 pt-1">
+      <div class="grid grid-cols-2 gap-3 pt-1 w-full">
         <button
           onclick="confirmSpotCheckItem('${item.id}')"
-          class="py-2.5 px-3 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-soft"
+          class="py-3 px-3 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-soft text-center"
         >
           <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-          <span>Yes, still there</span>
+          <span>Still there</span>
         </button>
         <button
           onclick="relocateSpotCheckItem('${item.id}')"
-          class="py-2.5 px-3 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+          class="py-3 px-3 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer text-center"
         >
           <i data-lucide="pencil" class="w-3.5 h-3.5 text-stone-500"></i>
           <span>Change spot</span>
@@ -1342,7 +1684,7 @@ window.relocateSpotCheckItem = function (id) {
   editItem(id);
 };
 
-// Guest Guide Modal
+// Guest Guide Modal - Centered
 window.openGuestGuideModal = function () {
   const guestItems = state.items.filter((i) => i.isEssentialForGuests);
   const container = document.getElementById('guest-guide-list');
@@ -1350,28 +1692,28 @@ window.openGuestGuideModal = function () {
     container.innerHTML = guestItems
       .map(
         (item) => `
-      <div class="bg-stone-50 border border-stone-200/80 rounded-2xl p-4 space-y-2">
-        <div class="flex items-start justify-between">
-          <span class="text-xs font-bold text-stone-900">${escapeHtml(item.name)}</span>
-          <span class="text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/60 px-2 py-0.5 rounded-md">Guest Accessible</span>
+      <div class="bg-stone-50 border border-stone-200/90 rounded-2xl p-4 space-y-2 text-center flex flex-col items-center">
+        <div class="flex flex-col items-center justify-center gap-1">
+          <span class="text-sm font-black text-stone-900">${escapeHtml(item.name)}</span>
+          <span class="text-[10px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 px-2.5 py-0.5 rounded-full">Guest Essential</span>
         </div>
-        <div class="text-xs text-stone-700 flex items-center gap-1.5 font-medium">
+        <div class="text-xs text-stone-800 flex items-center justify-center gap-1.5 font-semibold">
           <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-400"></i>
           <span>${escapeHtml(item.location.room)} &rsaquo; ${escapeHtml(item.location.zone)}</span>
         </div>
         ${
           item.location.container
-            ? `<div class="text-xs text-stone-500 pl-5">In: ${escapeHtml(item.location.container)}</div>`
+            ? `<div class="text-xs text-stone-600">In: <strong>${escapeHtml(item.location.container)}</strong></div>`
             : ''
         }
         ${
           item.location.landmark
-            ? `<div class="text-[11px] text-stone-500 italic pl-5">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</div>`
+            ? `<div class="text-xs text-stone-500 italic">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</div>`
             : ''
         }
         ${
           item.description
-            ? `<div class="text-xs text-stone-600 bg-white p-2 rounded-lg border border-stone-200/60 mt-1">${escapeHtml(item.description)}</div>`
+            ? `<div class="text-xs text-stone-600 bg-white p-2 rounded-xl border border-stone-200 mt-1 max-w-sm text-center">${escapeHtml(item.description)}</div>`
             : ''
         }
       </div>
@@ -1387,7 +1729,7 @@ window.closeGuestGuideModal = function () {
   document.getElementById('modal-guest-guide').classList.add('hidden');
 };
 
-// Record Loan Modal
+// Record Loan Modal - Centered
 window.openRecordLoanModal = function () {
   const select = document.getElementById('loan-item-select');
   if (select) {
@@ -1435,7 +1777,7 @@ window.handleRecordLoanSubmit = function (e) {
   showToast(`Recorded loan to ${borrower}`);
 };
 
-// Help Modal
+// Help Modal - Centered
 window.openHelpModal = function () {
   document.getElementById('modal-help').classList.remove('hidden');
   lucide.createIcons();
@@ -1445,29 +1787,21 @@ window.closeHelpModal = function () {
   document.getElementById('modal-help').classList.add('hidden');
 };
 
-// Data Backup & Reset
-window.exportData = function () {
-  const dataStr =
-    'data:text/json;charset=utf-8,' +
-    encodeURIComponent(JSON.stringify(state.items, null, 2));
-  const downloadAnchor = document.createElement('a');
-  downloadAnchor.setAttribute('href', dataStr);
-  downloadAnchor.setAttribute(
-    'download',
-    `findit-backup-${new Date().toISOString().slice(0, 10)}.json`
-  );
-  document.body.appendChild(downloadAnchor);
-  downloadAnchor.click();
-  downloadAnchor.remove();
-  showToast('Exported backup to your device');
-};
-
+// Reset Demo Data (NO EXPORT BACKUP OPTION AS REQUESTED)
 window.resetData = function () {
   if (confirm('Reset items and rooms back to starter demo data?')) {
     state.items = INITIAL_ITEMS;
     state.rooms = INITIAL_ROOMS;
+    state.engagement = {
+      streak: 3,
+      lastCheckInDate: '',
+      totalCheckIns: 5,
+      notificationsEnabled: false,
+      lastNotificationTimestamp: 0,
+    };
     saveItems();
     saveRooms();
+    saveEngagement();
     renderApp();
     showToast('Reset to starter items');
   }

@@ -42,22 +42,15 @@
   </head>
   <body class="min-h-screen text-stone-800 flex flex-col font-sans selection:bg-amber-100 selection:text-amber-900 overflow-x-hidden w-full max-w-full">
     
-    <!-- Top Navigation Bar - Compact & Centered (Instant Screen Real Estate) -->
+    <!-- Top Navigation Bar - Clean, Compact & Centered -->
     <header class="bg-white/90 backdrop-blur-md border-b border-stone-200/80 sticky top-0 z-40 w-full shadow-xs">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 w-full py-2.5 flex items-center justify-between text-center">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 w-full py-2.5 flex items-center justify-between">
         
-        <!-- Quick Streak Pill (Left) -->
-        <button
-          onclick="openHabitsModal()"
-          class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 hover:bg-amber-100 border border-amber-300 rounded-full text-xs font-bold text-amber-900 transition-colors cursor-pointer shadow-xs"
-          title="View Organizing Streak & Habits"
-        >
-          <span>🔥</span>
-          <span id="header-streak-badge">3 Days</span>
-        </button>
+        <!-- Left spacer for balance -->
+        <div class="w-8 sm:w-16"></div>
 
         <!-- Big Prominent FindIt Branding (Centered) -->
-        <button type="button" class="flex items-center justify-center gap-2 cursor-pointer bg-transparent border-0 p-0 text-stone-900" onclick="scrollToTopView()" title="FindIt Home">
+        <button type="button" class="flex items-center justify-center gap-2 cursor-pointer bg-transparent border-0 p-0 text-stone-900 touch-manipulation" onclick="scrollToTopView()" title="FindIt Home">
           <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 flex items-center justify-center text-stone-900 shadow-soft shrink-0">
             <i data-lucide="compass" class="w-5 h-5 text-stone-950"></i>
           </div>
@@ -67,27 +60,16 @@
           </div>
         </button>
 
-        <!-- Header Actions (Right) - Quick Voice Action & PWA Install (No redundant Add button) -->
-        <div class="flex items-center gap-2">
-          <!-- PWA Install Button (if browser supports install prompt) -->
+        <!-- Right Side: PWA Install (if available) -->
+        <div class="w-8 sm:w-16 flex items-center justify-end">
           <button
             id="btn-pwa-install"
             onclick="installPWA()"
-            class="hidden px-2.5 py-1.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-semibold rounded-xl transition-colors cursor-pointer flex items-center justify-center gap-1 shadow-soft"
+            class="hidden px-2.5 py-1.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-semibold rounded-xl transition-colors cursor-pointer flex items-center justify-center gap-1 shadow-soft touch-manipulation"
             title="Install app to your home screen"
           >
             <i data-lucide="download" class="w-3.5 h-3.5 shrink-0"></i>
             <span class="hidden sm:inline">Install</span>
-          </button>
-
-          <!-- Quick Voice Trigger Button -->
-          <button
-            onclick="startQuickVoiceFromHeader()"
-            class="px-3 py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-300 text-xs font-bold rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-            title="I just put something away - Quick Voice"
-          >
-            <span>🎙️</span>
-            <span class="hidden sm:inline">Put Away</span>
           </button>
         </div>
       </div>
@@ -99,29 +81,29 @@
       <!-- ================= PAGE 1: HOME VIEW ================= -->
       <div id="view-home" class="page-view w-full space-y-4 flex flex-col items-center">
         
-        <!-- Always-Visible Hero Capture Banner: "I Just Put Something Away" -->
+        <!-- Always-Visible Hero Capture Banner: One-line prompt + say or capture subtitle + Log Location button -->
         <button
           type="button"
           onclick="switchPage('add')"
-          class="w-full bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-300 hover:from-amber-500 hover:to-yellow-400 active:scale-[0.99] p-3.5 sm:p-4 rounded-3xl shadow-soft flex items-center justify-between gap-3 text-stone-950 cursor-pointer transition-all border border-amber-400/60 group text-left"
-          title="Tap to log what you just stored away"
+          class="w-full bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-300 hover:from-amber-500 hover:to-yellow-400 active:opacity-90 p-3.5 sm:p-4 rounded-3xl shadow-soft flex items-center justify-between gap-3 text-stone-950 cursor-pointer transition-all border border-amber-400/60 group text-left touch-manipulation"
+          title="Tap to log where you just placed an item"
         >
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-3 min-w-0">
             <div class="w-10 h-10 rounded-2xl bg-stone-950 text-amber-300 flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-              <i data-lucide="mic" class="w-5 h-5"></i>
+              <i data-lucide="map-pin" class="w-5 h-5 text-amber-300"></i>
             </div>
-            <div class="text-left">
+            <div class="text-left min-w-0">
               <div class="flex items-center gap-2">
-                <span class="text-sm sm:text-base font-extrabold tracking-tight">I Just Put Something Away</span>
+                <span class="text-xs sm:text-base font-extrabold tracking-tight truncate">Just placed something somewhere? Log its location now</span>
               </div>
-              <p class="text-xs text-stone-800 font-medium leading-tight mt-0.5">
-                Say or snap: <em>"Keys in hallway drawer"</em> &bull; Voice &amp; photo capture
+              <p class="text-[11px] sm:text-xs text-stone-800 font-medium leading-tight mt-0.5 truncate">
+                Say or capture: <em>"Keys in hallway drawer"</em> &bull; Quick voice, photo, or text log
               </p>
             </div>
           </div>
-          <div class="shrink-0 flex items-center gap-1 bg-stone-950 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-xs">
-            <span>Put Away</span>
-            <i data-lucide="chevron-right" class="w-4 h-4 text-amber-400"></i>
+          <div class="shrink-0 flex items-center gap-1.5 bg-stone-950 text-white px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold shadow-xs">
+            <span>Log Location</span>
+            <i data-lucide="plus" class="w-4 h-4 text-amber-400"></i>
           </div>
         </button>
 
@@ -259,14 +241,25 @@
       <div id="view-add" class="page-view w-full space-y-4 flex flex-col items-center hidden">
         <div class="w-full bg-white/95 backdrop-blur-sm border border-stone-200 rounded-3xl p-5 sm:p-6 shadow-soft space-y-5 text-center flex flex-col items-center">
           
-          <!-- Add Page Header -->
-          <div class="space-y-1 text-center">
-            <h2 id="add-view-title" class="text-xl sm:text-2xl font-extrabold text-stone-900 tracking-tight">
-              Add to Physical Memory
-            </h2>
-            <p class="text-xs sm:text-sm text-stone-500 max-w-md mx-auto">
-              Capture at the moment of putting away &mdash; effortless &amp; instant!
-            </p>
+          <!-- Add Page Header with Discard Option -->
+          <div class="w-full flex items-center justify-between gap-2 border-b border-stone-200/80 pb-3">
+            <div class="space-y-0.5 text-left">
+              <h2 id="add-view-title" class="text-lg sm:text-2xl font-extrabold text-stone-900 tracking-tight">
+                Add to Physical Memory
+              </h2>
+              <p class="text-xs text-stone-500">
+                Log where you placed an item &mdash; instant &amp; effortless
+              </p>
+            </div>
+            <button
+              type="button"
+              onclick="discardAllAddEntries()"
+              class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl text-xs font-bold cursor-pointer transition-colors flex items-center gap-1 shadow-xs touch-manipulation"
+              title="Discard any unsaved info and exit"
+            >
+              <i data-lucide="trash-2" class="w-3.5 h-3.5 text-rose-600"></i>
+              <span>Discard Entry</span>
+            </button>
           </div>
 
           <!-- Capture Mode Selector Tabs (Centered) -->
@@ -274,7 +267,7 @@
             <button
               id="add-tab-voice"
               onclick="setAddCaptureMode('voice')"
-              class="px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer bg-white text-stone-900 shadow-soft flex items-center gap-1.5"
+              class="px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer bg-white text-stone-900 shadow-soft flex items-center gap-1.5 touch-manipulation"
             >
               <i data-lucide="mic" class="w-3.5 h-3.5 text-amber-600"></i>
               <span>🎙️ Voice / Fast Log</span>
@@ -282,7 +275,7 @@
             <button
               id="add-tab-photo"
               onclick="setAddCaptureMode('photo')"
-              class="px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5"
+              class="px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5 touch-manipulation"
             >
               <i data-lucide="camera" class="w-3.5 h-3.5 text-indigo-600"></i>
               <span>📸 Photo Clue</span>
@@ -290,7 +283,7 @@
             <button
               id="add-tab-tour"
               onclick="setAddCaptureMode('tour')"
-              class="px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5"
+              class="px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5 touch-manipulation"
             >
               <i data-lucide="footprints" class="w-3.5 h-3.5 text-emerald-600"></i>
               <span>🚶 Bulk Tour Mode</span>
@@ -298,7 +291,7 @@
             <button
               id="add-tab-form"
               onclick="setAddCaptureMode('form')"
-              class="px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5"
+              class="px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5 touch-manipulation"
             >
               <i data-lucide="file-edit" class="w-3.5 h-3.5 text-stone-600"></i>
               <span>📋 Detailed Form</span>
@@ -314,7 +307,7 @@
                 <button
                   id="btn-voice-record"
                   onclick="toggleVoiceRecognition()"
-                  class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 text-stone-950 flex items-center justify-center shadow-elevated border-4 border-white cursor-pointer transform hover:scale-105 active:scale-95 transition-all"
+                  class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 text-stone-950 flex items-center justify-center shadow-elevated border-4 border-white cursor-pointer hover:opacity-90 active:opacity-80 transition-all touch-manipulation"
                   title="Tap to speak"
                 >
                   <i data-lucide="mic" class="w-8 h-8 text-stone-950"></i>
@@ -327,18 +320,27 @@
                 </span>
               </div>
 
-              <!-- Text Input Fallback (Works with Voice or Typing) -->
-              <div class="w-full max-w-lg mx-auto relative">
+              <!-- Text Input Fallback with Inline Discard Button -->
+              <div class="w-full max-w-lg mx-auto relative flex items-center">
                 <input
                   type="text"
                   id="voice-nlp-input"
                   oninput="handleNlpInputChange(this.value)"
                   placeholder="Or type sentence... e.g. Passports in bedroom closet top shelf"
-                  class="w-full px-4 py-3 bg-white border-2 border-amber-300 focus:border-amber-500 rounded-2xl text-xs sm:text-sm font-semibold text-stone-900 text-center focus:outline-none shadow-xs"
+                  class="w-full pl-4 pr-10 py-3 bg-white border-2 border-amber-300 focus:border-amber-500 rounded-2xl text-xs sm:text-sm font-semibold text-stone-900 text-center focus:outline-none shadow-xs"
                 />
+                <button
+                  type="button"
+                  id="btn-voice-input-clear"
+                  onclick="discardVoiceEntry()"
+                  class="hidden absolute right-3 p-1.5 text-stone-400 hover:text-rose-600 cursor-pointer rounded-full transition-colors touch-manipulation"
+                  title="Discard / Clear entered text"
+                >
+                  <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
               </div>
 
-              <!-- CONFIRM, DON'T CORRECT: Tiny 1-Tap Summary Card -->
+              <!-- CONFIRM, DON'T CORRECT: Tiny 1-Tap Summary Card with Discard & Confirm Buttons -->
               <div id="nlp-parse-preview" class="w-full max-w-md mx-auto bg-white rounded-2xl p-4 border border-amber-300 shadow-soft space-y-3 text-center hidden">
                 <div class="text-[11px] font-bold uppercase tracking-wider text-amber-800">
                   ✨ Instant Parsed Summary
@@ -354,14 +356,26 @@
 
                 <p id="preview-container-note" class="text-xs text-stone-500 italic hidden"></p>
 
-                <!-- One-Tap Confirm Button -->
-                <button
-                  onclick="confirmNlpCapture()"
-                  class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-soft transition-all cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <i data-lucide="check" class="w-4 h-4 text-amber-400"></i>
-                  <span>Confirm &amp; Save to Memory (1 Tap)</span>
-                </button>
+                <!-- Actions: Discard Entry vs Confirm & Save -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                  <button
+                    type="button"
+                    onclick="discardVoiceEntry()"
+                    class="w-full py-2.5 px-3 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs sm:text-sm rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
+                    title="Discard this entry before saving"
+                  >
+                    <i data-lucide="trash-2" class="w-4 h-4 text-rose-600"></i>
+                    <span>Discard Entry</span>
+                  </button>
+                  <button
+                    type="button"
+                    onclick="confirmNlpCapture()"
+                    class="w-full py-2.5 px-3 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-soft transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
+                  >
+                    <i data-lucide="check" class="w-4 h-4 text-amber-400"></i>
+                    <span>Confirm &amp; Save</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -433,13 +447,25 @@
                 </div>
               </div>
 
-              <button
-                onclick="savePhotoClueItem()"
-                class="w-full max-w-md mx-auto py-3 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-soft transition-all cursor-pointer flex items-center justify-center gap-2"
-              >
-                <i data-lucide="save" class="w-4 h-4 text-amber-400"></i>
-                <span>Save Photo Memory Clue</span>
-              </button>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-md mx-auto w-full pt-1">
+                <button
+                  type="button"
+                  onclick="discardPhotoEntry()"
+                  class="w-full py-3 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs sm:text-sm rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
+                  title="Discard this entry before saving"
+                >
+                  <i data-lucide="trash-2" class="w-4 h-4 text-rose-600"></i>
+                  <span>Discard Entry</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="savePhotoClueItem()"
+                  class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-soft transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
+                >
+                  <i data-lucide="save" class="w-4 h-4 text-amber-400"></i>
+                  <span>Save Photo Clue</span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -502,14 +528,26 @@
                 <!-- Badges populated dynamically -->
               </div>
 
-              <button
-                id="btn-save-tour-bulk"
-                onclick="saveBulkTourItems()"
-                class="w-full max-w-md mx-auto py-3 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-soft transition-all cursor-pointer flex items-center justify-center gap-2"
-              >
-                <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-400"></i>
-                <span id="btn-save-tour-label">Add Items in Tour</span>
-              </button>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-md mx-auto w-full pt-1">
+                <button
+                  type="button"
+                  onclick="discardTourEntry()"
+                  class="w-full py-3 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs sm:text-sm rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
+                  title="Discard this tour entry before saving"
+                >
+                  <i data-lucide="trash-2" class="w-4 h-4 text-rose-600"></i>
+                  <span>Discard Entry</span>
+                </button>
+                <button
+                  type="button"
+                  id="btn-save-tour-bulk"
+                  onclick="saveBulkTourItems()"
+                  class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-soft transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
+                >
+                  <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-400"></i>
+                  <span id="btn-save-tour-label">Add Items in Tour</span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -654,20 +692,23 @@
                 </div>
               </div>
 
-              <!-- Form Buttons -->
+              <!-- Form Buttons with Discard Entry -->
               <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
                 <button
                   type="button"
-                  onclick="switchPage('home')"
-                  class="px-6 py-2.5 hover:bg-stone-100 rounded-xl font-semibold text-stone-600 cursor-pointer"
+                  onclick="discardDetailedFormEntry()"
+                  class="px-6 py-2.5 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl font-bold text-rose-700 text-xs sm:text-sm cursor-pointer transition-colors flex items-center gap-1.5 touch-manipulation"
+                  title="Discard all changes and clear form"
                 >
-                  Cancel
+                  <i data-lucide="trash-2" class="w-4 h-4 text-rose-600"></i>
+                  <span>Discard Entry</span>
                 </button>
                 <button
                   type="submit"
-                  class="px-8 py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl font-bold cursor-pointer shadow-soft"
+                  class="px-8 py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl font-bold text-xs sm:text-sm cursor-pointer shadow-soft transition-all touch-manipulation flex items-center gap-1.5"
                 >
-                  Save Item
+                  <i data-lucide="check" class="w-4 h-4 text-amber-400"></i>
+                  <span>Save Item</span>
                 </button>
               </div>
             </form>
@@ -1027,6 +1068,26 @@
 
       </div>
     </nav>
+
+    <!-- In-App Dialog Modal Container (Replaces blocking window.confirm/prompt) -->
+    <div id="app-dialog-modal" class="hidden fixed inset-0 z-[80] bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl max-w-sm w-full p-5 sm:p-6 shadow-elevated border border-stone-200 space-y-4 text-center">
+        <div id="dialog-icon-wrapper" class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 mx-auto flex items-center justify-center">
+          <i data-lucide="alert-circle" id="dialog-icon" class="w-6 h-6"></i>
+        </div>
+        <div class="space-y-1">
+          <h3 id="dialog-title" class="text-base font-extrabold text-stone-900">Dialog Title</h3>
+          <p id="dialog-message" class="text-xs text-stone-600">Dialog message text.</p>
+        </div>
+        <div id="dialog-input-container" class="hidden text-left">
+          <input type="text" id="dialog-input" class="w-full px-3.5 py-2.5 border-2 border-stone-200 focus:border-amber-400 rounded-xl text-xs sm:text-sm font-semibold text-stone-900 focus:outline-none" />
+        </div>
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button type="button" id="dialog-btn-cancel" class="py-2.5 px-4 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl transition-colors cursor-pointer touch-manipulation">Cancel</button>
+          <button type="button" id="dialog-btn-confirm" class="py-2.5 px-4 bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs rounded-xl shadow-soft transition-colors cursor-pointer touch-manipulation">Confirm</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Toast Notification Container - Placed at Top of Screen so it never obstructs bottom navigation buttons -->
     <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-[70] flex flex-col items-center gap-2 pointer-events-none max-w-[90vw] w-full px-4"></div>

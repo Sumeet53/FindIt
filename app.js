@@ -1793,9 +1793,8 @@ function renderDirectAnswerCard(item, confidence, matchReason) {
       ${
         item.isMissing
           ? `<div class="w-full bg-red-100/95 border-2 border-red-400 rounded-2xl p-3.5 text-xs flex flex-col sm:flex-row items-center justify-between gap-2.5 text-red-950 text-center font-bold shadow-xs">
-              <div class="flex items-center justify-center gap-1.5 text-red-900">
-                <i data-lucide="alert-octagon" class="w-4 h-4 text-red-600 shrink-0"></i>
-                <span>Marked <strong>Missing</strong> in red &bull; Not verified today</span>
+              <div class="flex items-center justify-center text-red-900">
+                <span>Item flagged as <strong>Missing</strong> &bull; Not verified today</span>
               </div>
               <button
                 type="button"
@@ -2077,13 +2076,12 @@ function renderItemCardHtml(item) {
             : ''
         }
 
-        <!-- Missing Banner in Red with I Found It action -->
+        <!-- Missing Banner in Red with I Found It action (Single clean banner without duplicate alert icon) -->
         ${
           item.isMissing
             ? `<div class="w-full bg-red-100/95 border-2 border-red-400 rounded-2xl p-3.5 text-xs flex flex-col sm:flex-row items-center justify-between gap-2.5 text-red-950 text-center font-bold shadow-xs">
-                <div class="flex items-center justify-center gap-1.5 text-red-900">
-                  <i data-lucide="alert-octagon" class="w-4 h-4 text-red-600 shrink-0"></i>
-                  <span>Marked <strong>Missing</strong> in red &bull; Not verified today</span>
+                <div class="flex items-center justify-center text-red-900">
+                  <span>Item flagged as <strong>Missing</strong> &bull; Not verified today</span>
                 </div>
                 <div class="flex items-center gap-1.5">
                   <button
@@ -2659,6 +2657,9 @@ window.setAddCaptureMode = function (mode) {
 // -------------------------------------------------------------------------
 
 let voiceRecognitionInstance = null;
+let voiceSilenceTimer = null;
+let voiceBaseTranscript = '';
+
 window.toggleVoiceRecognition = function () {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SpeechRecognition) {
@@ -2671,46 +2672,80 @@ window.toggleVoiceRecognition = function () {
   const btn = document.getElementById('btn-voice-record');
   const label = document.getElementById('voice-record-label');
 
-  if (state.isRecordingVoice && voiceRecognitionInstance) {
-    voiceRecognitionInstance.stop();
+  const clearSilenceTimeout = () => {
+    if (voiceSilenceTimer) {
+      clearTimeout(voiceSilenceTimer);
+      voiceSilenceTimer = null;
+    }
+  };
+
+  const stopRecordingSession = () => {
+    clearSilenceTimeout();
+    if (voiceRecognitionInstance) {
+      try {
+        voiceRecognitionInstance.stop();
+      } catch (err) {}
+    }
     state.isRecordingVoice = false;
     if (btn) btn.classList.remove('recording-pulse');
     if (label) label.textContent = 'Tap microphone to speak';
+  };
+
+  if (state.isRecordingVoice && voiceRecognitionInstance) {
+    stopRecordingSession();
     return;
   }
 
   try {
+    const input = document.getElementById('voice-nlp-input');
+    // Preserve existing text so subsequent speech appends without overwriting
+    voiceBaseTranscript = input && input.value.trim() ? input.value.trim() + ' ' : '';
+
     voiceRecognitionInstance = new SpeechRecognition();
-    voiceRecognitionInstance.continuous = false;
+    voiceRecognitionInstance.continuous = true;
     voiceRecognitionInstance.interimResults = true;
     voiceRecognitionInstance.lang = 'en-US';
+
+    const restartSilenceTimeout = () => {
+      clearSilenceTimeout();
+      voiceSilenceTimer = setTimeout(() => {
+        stopRecordingSession();
+      }, 3000); // Wait for 3 seconds of complete silence before closing mic
+    };
 
     voiceRecognitionInstance.onstart = function () {
       state.isRecordingVoice = true;
       if (btn) btn.classList.add('recording-pulse');
       if (label) label.textContent = 'Listening... Speak what you stored!';
+      restartSilenceTimeout();
     };
 
     voiceRecognitionInstance.onresult = function (event) {
-      const transcript = Array.from(event.results)
-        .map((r) => r[0].transcript)
-        .join('');
-      const input = document.getElementById('voice-nlp-input');
+      restartSilenceTimeout();
+      let currentSessionTranscript = '';
+      for (let i = 0; i < event.results.length; i++) {
+        currentSessionTranscript += event.results[i][0].transcript;
+      }
+      const combined = (voiceBaseTranscript + currentSessionTranscript).trim();
       if (input) {
-        input.value = transcript;
-        handleNlpInputChange(transcript);
+        input.value = combined;
+        handleNlpInputChange(combined);
       }
     };
 
     voiceRecognitionInstance.onerror = function (e) {
       console.warn('Voice speech error:', e);
+      clearSilenceTimeout();
       state.isRecordingVoice = false;
       if (btn) btn.classList.remove('recording-pulse');
       if (label) label.textContent = 'Tap microphone to speak';
-      showToast('Could not record voice. Type your sentence below.');
+      if (e.error !== 'no-speech') {
+        showToast('Microphone notice: You can also type directly below.');
+      }
     };
 
     voiceRecognitionInstance.onend = function () {
+      clearSilenceTimeout();
       state.isRecordingVoice = false;
       if (btn) btn.classList.remove('recording-pulse');
       if (label) label.textContent = 'Tap microphone to speak';
@@ -2719,11 +2754,11 @@ window.toggleVoiceRecognition = function () {
     voiceRecognitionInstance.start();
   } catch (err) {
     console.error('Voice start error:', err);
+    clearSilenceTimeout();
     state.isRecordingVoice = false;
     showToast('Microphone error. You can type your sentence directly.');
   }
 };
-
 let currentParsedNlp = null;
 
 function parseSentence(raw) {

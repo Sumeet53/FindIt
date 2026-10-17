@@ -146,7 +146,8 @@ const INITIAL_ITEMS = [
     description: 'Backlit tire gauge reading up to 150 PSI.',
     tags: ['car', 'tires', 'gauge', 'pressure', 'automotive', 'tyre', 'hawa', 'pump', 'inflator'],
     lent: { isLent: false },
-    lastVerifiedAt: '2026-07-10T17:45:00.000Z', // ~3 months ago
+    isMissing: true,
+    lastVerifiedAt: '2026-07-10T17:45:00.000Z', // ~3 months ago - Not verified today
     createdAt: '2026-06-01T15:20:00.000Z',
   },
   {
@@ -398,6 +399,7 @@ const state = {
   sortBy: 'recent', // 'recent' | 'name-asc' | 'name-desc' | 'room-asc' | 'category' | 'verified'
   filterLentOnly: false,
   filterLowStockOnly: false,
+  filterMissingOnly: false,
   viewMode: 'grid', // 'grid' | 'rooms' | 'lending'
   activePage: 'home', // 'home' | 'add' | 'streak' | 'spotcheck' | 'about'
   addCaptureMode: 'voice', // 'voice' | 'photo' | 'tour' | 'form'
@@ -428,6 +430,14 @@ function loadData() {
       state.items.forEach((item) => {
         delete item.isEssentialForGuests;
       });
+      // Ensure missing item exists for quick verification
+      if (!state.items.some((i) => i.isMissing)) {
+        const item5 = state.items.find((i) => i.id === 'item-5') || state.items[0];
+        if (item5) {
+          item5.isMissing = true;
+          item5.lastVerifiedAt = '2026-07-10T17:45:00.000Z'; // Not verified today
+        }
+      }
     }
 
     state.rooms = rawRooms ? JSON.parse(rawRooms) : INITIAL_ROOMS;
@@ -560,6 +570,18 @@ function getDynamicLocations() {
 // 'last confirmed in March' label. Honesty about staleness builds trust."
 // =========================================================================
 function getVerificationConfidence(item) {
+  if (item.isMissing) {
+    return {
+      status: 'missing',
+      badgeClass: 'bg-red-600 text-white border-red-700 font-extrabold shadow-xs',
+      icon: 'alert-triangle',
+      label: 'Flagged missing · Not verified today',
+      shortLabel: 'Missing',
+      isStale: false,
+      daysAgo: null,
+    };
+  }
+
   if (!item.lastVerifiedAt) {
     return {
       status: 'unverified',
@@ -932,6 +954,10 @@ function getFilteredItems() {
         (item.consumable.quantity ?? 0) <= (item.consumable.minThreshold ?? 0);
       if (!isLow) return false;
     }
+    // Missing items filter
+    if (state.filterMissingOnly && !item.isMissing) {
+      return false;
+    }
     return true;
   });
 
@@ -1049,6 +1075,7 @@ function renderSortFilterCard() {
   const filterAllBtn = document.getElementById('filter-btn-all');
   const filterLentBtn = document.getElementById('filter-btn-lent');
   const filterLowBtn = document.getElementById('filter-btn-low');
+  const filterMissingBtn = document.getElementById('filter-btn-missing');
   const btnActiveReset = document.getElementById('btn-active-reset');
 
   const hasActiveFilters =
@@ -1056,6 +1083,7 @@ function renderSortFilterCard() {
     state.selectedRoom !== 'All' ||
     state.filterLentOnly ||
     state.filterLowStockOnly ||
+    state.filterMissingOnly ||
     Boolean(state.searchQuery.trim());
 
   if (filterAllBtn) {
@@ -1101,6 +1129,27 @@ function renderSortFilterCard() {
     } else {
       filterLowBtn.className =
         'px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-amber-50 flex items-center gap-1';
+    }
+  }
+
+  if (filterMissingBtn) {
+    const missingCount = state.items.filter((i) => i.isMissing).length;
+    const missingBadge = document.getElementById('badge-missing-count');
+    if (missingBadge) {
+      missingBadge.textContent = missingCount;
+      missingBadge.style.display = missingCount > 0 ? 'inline-block' : 'none';
+    }
+    if (state.filterMissingOnly) {
+      filterMissingBtn.className =
+        'px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer bg-red-600 text-white border border-red-700 shadow-xs flex items-center gap-1';
+    } else {
+      if (missingCount > 0) {
+        filterMissingBtn.className =
+          'px-3 py-1 rounded-xl text-xs font-bold border-2 transition-all cursor-pointer bg-red-50 border-red-400 text-red-900 hover:bg-red-100 flex items-center gap-1';
+      } else {
+        filterMissingBtn.className =
+          'px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-red-50 flex items-center gap-1';
+      }
     }
   }
 
@@ -1300,6 +1349,15 @@ window.toggleLowStockFilter = function () {
   renderApp();
 };
 
+window.toggleMissingFilter = function () {
+  state.filterMissingOnly = !state.filterMissingOnly;
+  if (state.filterMissingOnly) {
+    state.filterLentOnly = false;
+    state.filterLowStockOnly = false;
+  }
+  renderApp();
+};
+
 window.setQuickSearchQuery = function (queryText) {
   state.searchQuery = queryText;
   const searchInput = document.getElementById('search-input');
@@ -1316,6 +1374,7 @@ window.resetAllFilters = function () {
   state.selectedRoom = 'All';
   state.filterLentOnly = false;
   state.filterLowStockOnly = false;
+  state.filterMissingOnly = false;
   state.searchQuery = '';
   const searchInput = document.getElementById('search-input');
   if (searchInput) searchInput.value = '';
@@ -1424,10 +1483,18 @@ window.handleNotThereChoice = function (choice) {
 
     case 'missing':
       item.isMissing = true;
-      item.lastVerifiedAt = new Date().toISOString();
+      // Requirement: When tagged as not there it should NOT be marked verified today
+      if (item.lastVerifiedAt) {
+        const vDate = new Date(item.lastVerifiedAt);
+        const now = new Date();
+        if (vDate.toDateString() === now.toDateString()) {
+          const past = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+          item.lastVerifiedAt = past.toISOString();
+        }
+      }
       saveItems();
       renderApp();
-      showToast(`Flagged ${item.name} as missing. We'll remind you on next Spot Check!`, 'warning');
+      showToast(`Flagged "${item.name}" as missing in red (not verified today)`, 'warning');
       break;
   }
 };
@@ -1624,7 +1691,7 @@ function renderDirectAnswerCard(item, confidence, matchReason) {
   ].filter(Boolean);
 
   return `
-    <div class="w-full ${theme.themeClass} ${theme.bg} ${theme.border} rounded-3xl border-2 p-5 sm:p-7 shadow-elevated relative overflow-hidden text-center space-y-4 ring-2 ring-amber-400/60 max-w-2xl mx-auto">
+    <div class="w-full ${theme.themeClass} ${item.isMissing ? 'bg-red-50/95 border-red-500 ring-4 ring-red-400' : `${theme.bg} ${theme.border} ring-2 ring-amber-400/60`} rounded-3xl border-2 p-5 sm:p-7 shadow-elevated relative overflow-hidden text-center space-y-4 max-w-2xl mx-auto">
       
       <!-- Direct Answer Sparkle Header -->
       <div class="flex flex-wrap items-center justify-between gap-2 border-b border-stone-300/60 pb-3">
@@ -1643,6 +1710,14 @@ function renderDirectAnswerCard(item, confidence, matchReason) {
       <!-- Item Title & Category Badges -->
       <div class="space-y-1">
         <div class="flex flex-wrap items-center justify-center gap-1.5">
+          ${
+            item.isMissing
+              ? `<span class="inline-flex items-center gap-1 text-xs font-black px-3 py-1 rounded-full bg-red-600 text-white border border-red-700 shadow-xs animate-pulse">
+                  <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-white"></i>
+                  <span>MISSING</span>
+                </span>`
+              : ''
+          }
           <span class="text-xs font-extrabold px-3 py-1 rounded-full border shadow-xs ${theme.badge}">
             <i data-lucide="${theme.icon || 'tag'}" class="w-3 h-3 inline mr-1"></i>
             ${escapeHtml(item.category)}
@@ -1651,13 +1726,6 @@ function renderDirectAnswerCard(item, confidence, matchReason) {
             isLent
               ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-rose-200 text-rose-950 border border-rose-300">
                   🤝 Lent to ${escapeHtml(item.lent.lentTo || 'Someone')}
-                </span>`
-              : ''
-          }
-          ${
-            item.isMissing
-              ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-red-200 text-red-950 border border-red-300">
-                  ⚠️ Flagged Missing
                 </span>`
               : ''
           }
@@ -1724,6 +1792,26 @@ function renderDirectAnswerCard(item, confidence, matchReason) {
           : ''
       }
 
+      <!-- Missing Banner in Red with I Found It action -->
+      ${
+        item.isMissing
+          ? `<div class="w-full bg-red-100/95 border-2 border-red-400 rounded-2xl p-3.5 text-xs flex flex-col sm:flex-row items-center justify-between gap-2.5 text-red-950 text-center font-bold shadow-xs">
+              <div class="flex items-center justify-center gap-1.5 text-red-900">
+                <i data-lucide="alert-octagon" class="w-4 h-4 text-red-600 shrink-0"></i>
+                <span>Marked <strong>Missing</strong> in red &bull; Not verified today</span>
+              </div>
+              <button
+                type="button"
+                onclick="markItemFound('${item.id}')"
+                class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black shadow-xs cursor-pointer transition-colors flex items-center justify-center gap-1 shrink-0"
+              >
+                <i data-lucide="check" class="w-3.5 h-3.5 text-white"></i>
+                <span>I Found It!</span>
+              </button>
+            </div>`
+          : ''
+      }
+
       <!-- Direct Answer Action Buttons: One-Tap "Not there!", "Still here", "Edit" -->
       <div class="pt-2 flex flex-wrap items-center justify-center gap-2.5 w-full max-w-md mx-auto">
         <!-- One-Tap "Not there!" Button -->
@@ -1741,11 +1829,11 @@ function renderDirectAnswerCard(item, confidence, matchReason) {
         <button
           type="button"
           onclick="verifyLocation('${item.id}')"
-          class="flex-1 min-w-[130px] py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:opacity-85 text-white font-extrabold text-xs sm:text-sm rounded-xl cursor-pointer flex items-center justify-center gap-2 shadow-soft touch-manipulation transition-colors"
-          title="Confirm item is still in this spot"
+          class="flex-1 min-w-[130px] py-3 px-4 ${item.isMissing ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-600 hover:bg-emerald-700'} active:opacity-85 text-white font-extrabold text-xs sm:text-sm rounded-xl cursor-pointer flex items-center justify-center gap-2 shadow-soft touch-manipulation transition-colors"
+          title="${item.isMissing ? 'I found it! Reset missing status' : 'Confirm item is still in this spot'}"
         >
-          <i data-lucide="check" class="w-4 h-4 text-emerald-200"></i>
-          <span>Still here</span>
+          <i data-lucide="check" class="w-4 h-4 text-white"></i>
+          <span>${item.isMissing ? 'I Found It!' : 'Still here'}</span>
         </button>
 
         <!-- Edit / Update -->
@@ -1906,7 +1994,7 @@ function renderItemCardHtml(item) {
   const confidence = getVerificationConfidence(item);
 
   return `
-    <div class="${theme.themeClass} ${theme.bg} ${theme.border} rounded-3xl border-2 p-5 sm:p-6 flex flex-col items-center justify-between card-hover shadow-soft relative group max-w-full text-center transition-all ${
+    <div class="${theme.themeClass} ${item.isMissing ? 'bg-red-50/90 border-red-500 ring-4 ring-red-400 shadow-elevated' : `${theme.bg} ${theme.border}`} rounded-3xl border-2 p-5 sm:p-6 flex flex-col items-center justify-between card-hover shadow-soft relative group max-w-full text-center transition-all ${
       isLent ? 'ring-4 ring-rose-400 border-rose-400' : ''
     }">
       
@@ -1915,6 +2003,15 @@ function renderItemCardHtml(item) {
         
         <!-- Room, Category & Confidence Pills Row - Centered -->
         <div class="flex flex-wrap items-center justify-center gap-1.5 w-full">
+          ${
+            item.isMissing
+              ? `<span class="inline-flex items-center justify-center gap-1 text-xs font-black px-3 py-0.5 rounded-full bg-red-600 text-white border border-red-700 shadow-xs animate-pulse">
+                  <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-white shrink-0"></i>
+                  <span>MISSING</span>
+                </span>`
+              : ''
+          }
+
           <span class="inline-flex items-center justify-center gap-1 text-xs font-bold text-stone-800 bg-white/95 border border-stone-200/90 px-2.5 py-0.5 rounded-full shadow-xs">
             <i data-lucide="map-pin" class="w-3 h-3 text-amber-500 shrink-0"></i>
             <span>${escapeHtml(item.location.room)}</span>
@@ -1980,6 +2077,33 @@ function renderItemCardHtml(item) {
         ${
           item.description
             ? `<p class="text-xs sm:text-sm text-stone-700 text-center max-w-sm mx-auto leading-relaxed break-words">${escapeHtml(item.description)}</p>`
+            : ''
+        }
+
+        <!-- Missing Banner in Red with I Found It action -->
+        ${
+          item.isMissing
+            ? `<div class="w-full bg-red-100/95 border-2 border-red-400 rounded-2xl p-3.5 text-xs flex flex-col sm:flex-row items-center justify-between gap-2.5 text-red-950 text-center font-bold shadow-xs">
+                <div class="flex items-center justify-center gap-1.5 text-red-900">
+                  <i data-lucide="alert-octagon" class="w-4 h-4 text-red-600 shrink-0"></i>
+                  <span>Marked <strong>Missing</strong> in red &bull; Not verified today</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <button
+                    onclick="markItemFound('${item.id}')"
+                    class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl font-black transition-all cursor-pointer shadow-xs flex items-center gap-1"
+                  >
+                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                    <span>I Found It!</span>
+                  </button>
+                  <button
+                    onclick="openRelocateModal('${item.id}')"
+                    class="text-xs bg-white border border-red-300 px-2.5 py-1.5 rounded-xl font-bold text-red-900 hover:bg-red-50 transition-colors cursor-pointer shadow-xs"
+                  >
+                    Relocate
+                  </button>
+                </div>
+              </div>`
             : ''
         }
 
@@ -2288,11 +2412,21 @@ window.toggleLowStockFilter = function () {
 window.verifyLocation = function (id) {
   const now = new Date().toISOString();
   state.items = state.items.map((item) =>
-    item.id === id ? { ...item, lastVerifiedAt: now } : item
+    item.id === id ? { ...item, lastVerifiedAt: now, isMissing: false } : item
   );
   saveItems();
   renderApp();
-  showToast('Spot confirmed! Location refreshed.');
+  showToast('Spot confirmed! Location refreshed.', 'success');
+};
+
+window.markItemFound = function (id) {
+  const now = new Date().toISOString();
+  state.items = state.items.map((item) =>
+    item.id === id ? { ...item, isMissing: false, lastVerifiedAt: now } : item
+  );
+  saveItems();
+  renderApp();
+  showToast('Item found! Verified fresh today.', 'success');
 };
 
 window.changeItemQuantity = function (id, delta) {
@@ -2501,41 +2635,22 @@ window.closeQuickAddModal = function () {
 };
 
 function initAddView() {
-  populatePhotoSelect();
   populateTourSelect();
   populateDetailedAddForm();
-  setAddCaptureMode(state.addCaptureMode || 'voice');
+  if (!state.editingItemId) {
+    clearPhotoPreview();
+    const voiceInput = document.getElementById('voice-nlp-input');
+    if (voiceInput) voiceInput.value = '';
+    const clearBtn = document.getElementById('btn-voice-input-clear');
+    if (clearBtn) clearBtn.classList.add('hidden');
+    const notice = document.getElementById('voice-autofill-notice');
+    if (notice) notice.classList.add('hidden');
+  }
+  safeCreateIcons();
 }
 
 window.setAddCaptureMode = function (mode) {
   state.addCaptureMode = mode;
-  const modes = ['voice', 'photo', 'tour', 'form'];
-
-  modes.forEach((m) => {
-    const panel = document.getElementById(`add-panel-${m}`);
-    const tabBtn = document.getElementById(`add-tab-${m}`);
-
-    if (panel) {
-      if (m === mode) {
-        panel.classList.remove('hidden');
-        panel.classList.add('page-enter');
-      } else {
-        panel.classList.add('hidden');
-        panel.classList.remove('page-enter');
-      }
-    }
-
-    if (tabBtn) {
-      if (m === mode) {
-        tabBtn.className =
-          'px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer bg-white text-stone-900 shadow-soft flex items-center gap-1.5';
-      } else {
-        tabBtn.className =
-          'px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5';
-      }
-    }
-  });
-
   safeCreateIcons();
 };
 
@@ -2713,9 +2828,7 @@ window.handleNlpInputChange = function (val) {
     }
   }
 
-  const preview = document.getElementById('nlp-parse-preview');
   if (!val || val.trim().length < 2) {
-    if (preview) preview.classList.add('hidden');
     currentParsedNlp = null;
     return;
   }
@@ -2723,39 +2836,61 @@ window.handleNlpInputChange = function (val) {
   const parsed = parseSentence(val);
   currentParsedNlp = parsed;
 
-  if (preview && parsed) {
-    preview.classList.remove('hidden');
-    const pItem = document.getElementById('preview-item-name');
-    const pRoom = document.getElementById('preview-room-name');
-    const pZone = document.getElementById('preview-zone-name');
+  if (parsed) {
+    // Populate directly into the detailed form so user can review and edit immediately
+    const nameInput = document.getElementById('add-item-name');
+    const roomSelect = document.getElementById('add-item-room');
+    const zoneInput = document.getElementById('add-item-zone');
+    const catSelect = document.getElementById('add-item-category');
 
-    if (pItem) pItem.textContent = parsed.name;
-    if (pRoom) pRoom.textContent = parsed.room;
-    if (pZone) pZone.textContent = parsed.zone;
+    if (nameInput) nameInput.value = parsed.name;
+    if (zoneInput) zoneInput.value = parsed.zone;
+    if (catSelect && parsed.category) catSelect.value = parsed.category;
+    if (roomSelect && parsed.room) {
+      const matchOpt = Array.from(roomSelect.options).find(
+        (o) => o.value.toLowerCase() === parsed.room.toLowerCase()
+      );
+      if (matchOpt) {
+        roomSelect.value = matchOpt.value;
+      } else {
+        const newOpt = document.createElement('option');
+        newOpt.value = parsed.room;
+        newOpt.textContent = parsed.room;
+        newOpt.selected = true;
+        roomSelect.appendChild(newOpt);
+      }
+    }
+
+    const notice = document.getElementById('voice-autofill-notice');
+    const noticeText = document.getElementById('voice-autofill-text');
+    if (notice && noticeText) {
+      notice.classList.remove('hidden');
+      noticeText.innerHTML = `Heard: <strong>&ldquo;${escapeHtml(val)}&rdquo;</strong> &rarr; Form filled below! You can review or edit any field.`;
+    }
   }
 };
 
-window.discardVoiceEntry = function () {
+window.clearVoiceInputOnly = function () {
   const input = document.getElementById('voice-nlp-input');
   if (input) input.value = '';
   const clearBtn = document.getElementById('btn-voice-input-clear');
   if (clearBtn) clearBtn.classList.add('hidden');
-  const preview = document.getElementById('nlp-parse-preview');
-  if (preview) preview.classList.add('hidden');
-  currentParsedNlp = null;
+};
 
-  if (state.isRecordingVoice && voiceRecognitionInstance) {
-    try {
-      voiceRecognitionInstance.stop();
-    } catch (e) {}
-    state.isRecordingVoice = false;
-    const btn = document.getElementById('btn-voice-record');
-    if (btn) btn.classList.remove('recording-pulse');
-    const label = document.getElementById('voice-record-label');
-    if (label) label.textContent = 'Tap microphone to speak';
+window.dismissVoiceNotice = function () {
+  const notice = document.getElementById('voice-autofill-notice');
+  if (notice) notice.classList.add('hidden');
+};
+
+window.toggleTourModeSection = function () {
+  const panel = document.getElementById('add-panel-tour');
+  if (panel) {
+    panel.classList.toggle('hidden');
   }
+};
 
-  showToast('Entry discarded');
+window.discardVoiceEntry = function () {
+  discardDetailedFormEntry();
 };
 
 window.confirmNlpCapture = function () {
@@ -2856,6 +2991,13 @@ window.handlePhotoUpload = function (event) {
       const previewContainer = document.getElementById('photo-preview-container');
       if (previewImg) previewImg.src = compressed;
       if (previewContainer) previewContainer.classList.remove('hidden');
+
+      const photoIndicator = document.getElementById('photo-status-indicator');
+      if (photoIndicator) {
+        photoIndicator.textContent = '✅ Image attached & visible in detailed form below!';
+        photoIndicator.className = 'text-[11px] text-indigo-700 font-bold';
+      }
+      showToast('Image captured! Attached to form below.');
     };
     img.src = e.target.result;
   };
@@ -2868,13 +3010,15 @@ window.clearPhotoPreview = function () {
   if (previewContainer) previewContainer.classList.add('hidden');
   const fileInput = document.getElementById('photo-file-input');
   if (fileInput) fileInput.value = '';
+  const photoIndicator = document.getElementById('photo-status-indicator');
+  if (photoIndicator) {
+    photoIndicator.textContent = 'Optional • Visible in detailed form once captured';
+    photoIndicator.className = 'text-[11px] text-stone-500 italic';
+  }
 };
 
 window.discardPhotoEntry = function () {
-  clearPhotoPreview();
-  const nameInput = document.getElementById('photo-item-name');
-  if (nameInput) nameInput.value = '';
-  showToast('Photo entry discarded');
+  discardDetailedFormEntry();
 };
 
 window.savePhotoClueItem = function () {
@@ -3166,9 +3310,26 @@ function populateDetailedAddForm(editingItem) {
       document.getElementById('add-item-lent-to').value = '';
       document.getElementById('add-item-expected-return').value = '';
     }
+
+    // Photo clue handling inside detailed form
+    if (editingItem.photoUrl) {
+      currentPhotoDataUrl = editingItem.photoUrl;
+      const previewImg = document.getElementById('photo-preview-img');
+      const previewContainer = document.getElementById('photo-preview-container');
+      if (previewImg) previewImg.src = editingItem.photoUrl;
+      if (previewContainer) previewContainer.classList.remove('hidden');
+      const photoIndicator = document.getElementById('photo-status-indicator');
+      if (photoIndicator) {
+        photoIndicator.textContent = '✅ Image attached & visible in detailed form below!';
+        photoIndicator.className = 'text-[11px] text-indigo-700 font-bold';
+      }
+    } else {
+      clearPhotoPreview();
+    }
   } else {
     if (addTitle) addTitle.textContent = 'Add to Physical Memory';
     if (form) form.reset();
+    clearPhotoPreview();
     const consFields = document.getElementById('consumable-fields');
     if (consFields) consFields.style.display = 'none';
     const lentFields = document.getElementById('lent-fields');
@@ -3263,6 +3424,7 @@ window.handleSaveItemSubmit = function (e) {
           tags,
           consumable: consumableData,
           lent: lentData,
+          photoUrl: currentPhotoDataUrl !== null && currentPhotoDataUrl !== undefined ? currentPhotoDataUrl : item.photoUrl,
           lastVerifiedAt: now,
         };
       }
@@ -3278,6 +3440,7 @@ window.handleSaveItemSubmit = function (e) {
       location: { room, zone, container, landmark },
       description,
       tags,
+      photoUrl: currentPhotoDataUrl || null,
       lent: lentData,
       consumable: consumableData,
       lastVerifiedAt: now,
@@ -3287,92 +3450,83 @@ window.handleSaveItemSubmit = function (e) {
     showToast(`Saved "${name}" in ${room}`);
   }
 
+  clearPhotoPreview();
+  clearVoiceInputOnly();
+  dismissVoiceNotice();
+  const form = document.getElementById('full-add-form');
+  if (form) form.reset();
+
   saveItems();
   handleDailyCheckIn();
   switchPage('home');
 };
 
 window.discardDetailedFormEntry = function () {
-  const form = document.getElementById('full-add-form');
-  if (form) form.reset();
-  state.editingItemId = null;
-  const consFields = document.getElementById('consumable-fields');
-  if (consFields) {
-    consFields.style.display = 'none';
-    consFields.classList.add('hidden');
+  try {
+    const form = document.getElementById('full-add-form');
+    if (form) form.reset();
+    state.editingItemId = null;
+    clearPhotoPreview();
+    clearVoiceInputOnly();
+    dismissVoiceNotice();
+
+    if (state.isRecordingVoice && voiceRecognitionInstance) {
+      try {
+        voiceRecognitionInstance.stop();
+      } catch (e) {}
+      state.isRecordingVoice = false;
+      const btn = document.getElementById('btn-voice-record');
+      if (btn) btn.classList.remove('recording-pulse');
+      const label = document.getElementById('voice-record-label');
+      if (label) label.textContent = 'Tap microphone to speak';
+    }
+
+    // Clear tour
+    const tourInput = document.getElementById('tour-items-input');
+    if (tourInput) tourInput.value = '';
+    const zoneInput = document.getElementById('tour-zone-input');
+    if (zoneInput) zoneInput.value = '';
+    const badges = document.getElementById('tour-preview-badges');
+    if (badges) badges.innerHTML = '';
+    state.activeTourItems = [];
+    if (state.isRecordingTour && tourRecognitionInstance) {
+      try {
+        tourRecognitionInstance.stop();
+      } catch (e) {}
+      state.isRecordingTour = false;
+      const tourBtn = document.getElementById('btn-tour-voice');
+      if (tourBtn) tourBtn.classList.remove('recording-pulse');
+      const tourLabel = document.getElementById('tour-voice-label');
+      if (tourLabel) tourLabel.textContent = 'Speak items';
+    }
+
+    const consFields = document.getElementById('consumable-fields');
+    if (consFields) {
+      consFields.style.display = 'none';
+      consFields.classList.add('hidden');
+    }
+    const lentFields = document.getElementById('lent-fields');
+    if (lentFields) {
+      lentFields.style.display = 'none';
+      lentFields.classList.add('hidden');
+    }
+    showToast('Entry discarded');
+  } catch (err) {
+    console.warn('Discard cleanup warning:', err);
+  } finally {
+    switchPage('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  const lentFields = document.getElementById('lent-fields');
-  if (lentFields) {
-    lentFields.style.display = 'none';
-    lentFields.classList.add('hidden');
-  }
-  showToast('Entry discarded');
-  switchPage('home');
 };
 
 window.discardAllAddEntries = function () {
-  // Clear voice
-  const voiceInput = document.getElementById('voice-nlp-input');
-  if (voiceInput) voiceInput.value = '';
-  const clearBtn = document.getElementById('btn-voice-input-clear');
-  if (clearBtn) clearBtn.classList.add('hidden');
-  const preview = document.getElementById('nlp-parse-preview');
-  if (preview) preview.classList.add('hidden');
-  currentParsedNlp = null;
-  if (state.isRecordingVoice && voiceRecognitionInstance) {
-    try {
-      voiceRecognitionInstance.stop();
-    } catch (e) {}
-    state.isRecordingVoice = false;
-    const btn = document.getElementById('btn-voice-record');
-    if (btn) btn.classList.remove('recording-pulse');
-    const label = document.getElementById('voice-record-label');
-    if (label) label.textContent = 'Tap microphone to speak';
-  }
+  discardDetailedFormEntry();
+};
 
-  // Clear photo
-  clearPhotoPreview();
-  const photoName = document.getElementById('photo-item-name');
-  if (photoName) photoName.value = '';
-
-  // Clear tour
-  const tourInput = document.getElementById('tour-items-input');
-  if (tourInput) tourInput.value = '';
-  const zoneInput = document.getElementById('tour-zone-input');
-  if (zoneInput) zoneInput.value = '';
-  const badges = document.getElementById('tour-preview-badges');
-  if (badges) badges.innerHTML = '';
-  state.activeTourItems = [];
-  const tourLabelBtn = document.getElementById('btn-save-tour-label');
-  if (tourLabelBtn) tourLabelBtn.textContent = 'Add Items in Tour';
-  if (state.isRecordingTour && tourRecognitionInstance) {
-    try {
-      tourRecognitionInstance.stop();
-    } catch (e) {}
-    state.isRecordingTour = false;
-    const tourBtn = document.getElementById('btn-tour-voice');
-    if (tourBtn) tourBtn.classList.remove('recording-pulse');
-    const tourLabel = document.getElementById('tour-voice-label');
-    if (tourLabel) tourLabel.textContent = 'Speak items';
-  }
-
-  // Clear detailed form
-  const form = document.getElementById('full-add-form');
-  if (form) form.reset();
-  state.editingItemId = null;
-  const consFields = document.getElementById('consumable-fields');
-  if (consFields) {
-    consFields.style.display = 'none';
-    consFields.classList.add('hidden');
-  }
-  const lentFields = document.getElementById('lent-fields');
-  if (lentFields) {
-    lentFields.style.display = 'none';
-    lentFields.classList.add('hidden');
-  }
-
-  showToast('Entry discarded');
-  switchPage('home');
+window.discardTourEntry = function () {
+  discardDetailedFormEntry();
+};
+  discardDetailedFormEntry();
 };
 
 // =========================================================================

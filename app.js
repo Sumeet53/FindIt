@@ -53,20 +53,19 @@ const INITIAL_ROOMS = [
 const INITIAL_ITEMS = [
   {
     id: 'item-1',
-    name: 'Passports & Travel Documents',
+    name: 'Passport & Travel Documents',
     category: 'Documents & Valuables',
     location: {
       room: 'Master Bedroom',
-      zone: 'Closet High Shelf',
-      container: 'Grey Fireproof Document Box',
-      landmark: 'Tucked behind the extra winter blankets on the far left corner',
+      zone: 'Closet Top Shelf',
+      container: 'Gray Fireproof Box',
+      landmark: 'Behind winter coats on the far left corner',
     },
-    description: 'Blue passports for family and vaccination certificates.',
-    tags: ['passport', 'travel', 'id', 'documents', 'identification'],
+    description: 'Family blue passports, visas, birth certificates, and travel files.',
+    tags: ['passport', 'travel', 'id', 'documents', 'identification', 'kagaz', 'kagaaz', 'visas', 'passports', 'papers'],
     lent: { isLent: false },
-    isEssentialForGuests: false,
-    lastVerifiedAt: '2026-10-14T10:15:00.000Z',
-    createdAt: '2026-08-10T08:00:00.000Z',
+    lastVerifiedAt: '2026-06-12T10:15:00.000Z', // > 3 months ago (Honesty about staleness builds trust!)
+    createdAt: '2026-05-10T08:00:00.000Z',
   },
   {
     id: 'item-2',
@@ -79,7 +78,7 @@ const INITIAL_ITEMS = [
       landmark: 'Next to the lightbulb box, labeled "Batteries & Chargers"',
     },
     description: 'Pre-charged batteries plus 4-slot smart wall charger.',
-    tags: ['batteries', 'aa', 'aaa', 'power', 'remotes', 'toys'],
+    tags: ['batteries', 'aa', 'aaa', 'power', 'remotes', 'toys', 'cell', 'battery', 'charger', 'bettery', 'battry'],
     lent: { isLent: false },
     consumable: {
       isConsumable: true,
@@ -87,8 +86,7 @@ const INITIAL_ITEMS = [
       unit: 'batteries',
       minThreshold: 4,
     },
-    isEssentialForGuests: true,
-    lastVerifiedAt: '2026-10-15T07:22:00.000Z',
+    lastVerifiedAt: '2026-10-15T07:22:00.000Z', // Fresh
     createdAt: '2026-08-12T09:30:00.000Z',
   },
   {
@@ -102,7 +100,7 @@ const INITIAL_ITEMS = [
       landmark: 'Middle shelf under the main pegboard workbench',
     },
     description: 'Brushless hammer drill with two batteries and charger.',
-    tags: ['drill', 'dewalt', 'tools', 'screws', 'hardware'],
+    tags: ['drill', 'dewalt', 'tools', 'screws', 'hardware', 'dril', 'auzar', 'bit kit'],
     lent: {
       isLent: true,
       lentTo: 'Dave Miller (Next Door)',
@@ -110,7 +108,6 @@ const INITIAL_ITEMS = [
       expectedReturn: '2026-10-18',
       notes: 'Borrowed for fixing rear wooden fence gate.',
     },
-    isEssentialForGuests: false,
     lastVerifiedAt: '2026-09-28T16:00:00.000Z',
     createdAt: '2026-07-01T11:00:00.000Z',
   },
@@ -125,7 +122,7 @@ const INITIAL_ITEMS = [
       landmark: 'Eye level on the right wall of the pantry, next to cereal boxes',
     },
     description: 'Sterile bandages, antiseptic spray, burn gel, and allergy medicine.',
-    tags: ['first aid', 'bandages', 'medicine', 'emergency', 'allergy'],
+    tags: ['first aid', 'bandages', 'medicine', 'emergency', 'allergy', 'dawai', 'davai', 'dawa', 'pills', 'tablets'],
     lent: { isLent: false },
     consumable: {
       isConsumable: true,
@@ -133,8 +130,7 @@ const INITIAL_ITEMS = [
       unit: 'kit',
       minThreshold: 1,
     },
-    isEssentialForGuests: true,
-    lastVerifiedAt: '2026-10-15T08:30:00.000Z',
+    lastVerifiedAt: '2026-10-15T08:30:00.000Z', // Fresh
     createdAt: '2026-06-15T12:00:00.000Z',
   },
   {
@@ -148,11 +144,10 @@ const INITIAL_ITEMS = [
       landmark: 'Third drawer down of the red Craftsman tool chest',
     },
     description: 'Backlit tire gauge reading up to 150 PSI.',
-    tags: ['car', 'tires', 'gauge', 'pressure', 'automotive'],
+    tags: ['car', 'tires', 'gauge', 'pressure', 'automotive', 'tyre', 'hawa', 'pump', 'inflator'],
     lent: { isLent: false },
-    isEssentialForGuests: false,
-    lastVerifiedAt: '2026-10-10T17:45:00.000Z',
-    createdAt: '2026-08-01T15:20:00.000Z',
+    lastVerifiedAt: '2026-07-10T17:45:00.000Z', // ~3 months ago
+    createdAt: '2026-06-01T15:20:00.000Z',
   },
   {
     id: 'item-6',
@@ -164,11 +159,23 @@ const INITIAL_ITEMS = [
       container: 'Mesh Zipper Travel Pouch',
       landmark: 'Top front organizer tray alongside spare flash drives',
     },
-    description: 'Multiport hub with 4K HDMI, Gigabit LAN, and charging.',
-    tags: ['usb-c', 'hdmi', 'adapter', 'dongle', 'cable', 'monitor'],
+    description: 'Multiport hub with 4K HDMI, Gigabit LAN, and charging for TV cable or external monitor.',
+    tags: [
+      'usb-c',
+      'hdmi',
+      'adapter',
+      'dongle',
+      'cable',
+      'monitor',
+      'tv cable',
+      'tv wire',
+      'cord',
+      'taar',
+      'screen connector',
+      'that thing for the tv cable',
+    ],
     lent: { isLent: false },
-    isEssentialForGuests: true,
-    lastVerifiedAt: '2026-10-13T09:10:00.000Z',
+    lastVerifiedAt: '2026-10-13T09:10:00.000Z', // Fresh
     createdAt: '2026-08-20T10:00:00.000Z',
   },
   {
@@ -182,10 +189,9 @@ const INITIAL_ITEMS = [
       landmark: 'Ceramic key bowl directly next to the front door entrance mirror',
     },
     description: 'Includes Subaru spare fob and brass shed padlock key.',
-    tags: ['keys', 'car', 'fob', 'shed', 'valuable'],
+    tags: ['keys', 'car', 'fob', 'shed', 'valuable', 'chabi', 'chaabi', 'chabee', 'tala', 'lock'],
     lent: { isLent: false },
-    isEssentialForGuests: true,
-    lastVerifiedAt: '2026-10-15T06:00:00.000Z',
+    lastVerifiedAt: '2026-10-15T06:00:00.000Z', // Fresh
     createdAt: '2026-05-10T14:00:00.000Z',
   },
   {
@@ -199,10 +205,9 @@ const INITIAL_ITEMS = [
       landmark: 'Right underneath the hanging coats on closet floor',
     },
     description: 'Crevice tool, dusting brush, and clean spare HEPA filter.',
-    tags: ['vacuum', 'dyson', 'cleaning', 'filter', 'attachments'],
+    tags: ['vacuum', 'dyson', 'cleaning', 'filter', 'attachments', 'safai', 'pocha', 'vacum'],
     lent: { isLent: false },
-    isEssentialForGuests: true,
-    lastVerifiedAt: '2026-10-12T11:00:00.000Z',
+    lastVerifiedAt: '2026-10-12T11:00:00.000Z', // Fresh
     createdAt: '2026-07-20T16:00:00.000Z',
   },
   {
@@ -216,11 +221,10 @@ const INITIAL_ITEMS = [
       landmark: 'Front left corner of the top rack overhead shelving',
     },
     description: '350 lumen USB-rechargeable headlamp with red night light mode.',
-    tags: ['headlamp', 'camping', 'flashlight', 'light', 'outdoors'],
+    tags: ['headlamp', 'camping', 'flashlight', 'light', 'outdoors', 'torch'],
     lent: { isLent: false },
-    isEssentialForGuests: false,
-    lastVerifiedAt: '2026-09-15T18:00:00.000Z',
-    createdAt: '2026-06-01T12:00:00.000Z',
+    lastVerifiedAt: '2026-05-15T18:00:00.000Z', // ~5 months ago (Stale)
+    createdAt: '2026-04-01T12:00:00.000Z',
   },
   {
     id: 'item-10',
@@ -233,11 +237,10 @@ const INITIAL_ITEMS = [
       landmark: 'Far left fabric cube marked "Winter Accessories"',
     },
     description: 'Ski mittens, 2 merino wool beanies, and neck gaiter.',
-    tags: ['gloves', 'winter', 'beanie', 'cold', 'snow', 'clothes'],
+    tags: ['gloves', 'winter', 'beanie', 'cold', 'snow', 'clothes', 'kapde', 'topi', 'bistar', 'mittens'],
     lent: { isLent: false },
-    isEssentialForGuests: false,
-    lastVerifiedAt: '2026-10-01T13:00:00.000Z',
-    createdAt: '2026-05-15T10:00:00.000Z',
+    lastVerifiedAt: '2026-04-01T13:00:00.000Z', // > 6 months ago (Stale)
+    createdAt: '2026-03-15T10:00:00.000Z',
   },
   {
     id: 'item-11',
@@ -249,10 +252,9 @@ const INITIAL_ITEMS = [
       container: 'Cable Management Tray',
       landmark: 'Laminated card taped to the underside of the main router shelf',
     },
-    description: 'SSID: "HavenHome_Guest" · Password: "WelcomeQuietStay26!"',
-    tags: ['wifi', 'internet', 'router', 'password', 'tech', 'network'],
+    description: 'Home Wi-Fi backup credentials and recovery keys.',
+    tags: ['wifi', 'internet', 'router', 'password', 'tech', 'network', 'code'],
     lent: { isLent: false },
-    isEssentialForGuests: true,
     lastVerifiedAt: '2026-10-15T12:00:00.000Z',
     createdAt: '2026-08-05T09:00:00.000Z',
   },
@@ -267,11 +269,10 @@ const INITIAL_ITEMS = [
       landmark: 'Secured with black bungee cord to the side of the metal rack',
     },
     description: 'Compact collapsible ladder for painting and ceiling fixtures.',
-    tags: ['ladder', 'tools', 'climbing', 'painting', 'garage'],
+    tags: ['ladder', 'tools', 'climbing', 'painting', 'garage', 'sidhi', 'seedhi'],
     lent: { isLent: false },
-    isEssentialForGuests: false,
-    lastVerifiedAt: '2026-10-05T10:00:00.000Z',
-    createdAt: '2026-07-15T14:00:00.000Z',
+    lastVerifiedAt: '2026-07-05T10:00:00.000Z', // ~3 months ago
+    createdAt: '2026-06-15T14:00:00.000Z',
   },
 ];
 
@@ -288,6 +289,7 @@ const CATEGORIES = [
 ];
 
 // Subtle & Distinct Pastel Themes for Visual Codification & Categorization (Applied to Entire Card)
+// Distinct, unique pastel colors for each category (Health = Soft Rose, Household = Fresh Mint, etc.)
 const CATEGORY_THEMES = {
   'Tools & Hardware': {
     themeClass: 'cat-theme-tools',
@@ -324,6 +326,17 @@ const CATEGORY_THEMES = {
   },
   'Health & Medication': {
     themeClass: 'cat-theme-health',
+    bg: 'bg-rose-100',
+    border: 'border-rose-300',
+    badge: 'bg-rose-200 text-rose-950 border-rose-400',
+    innerBox: 'bg-white/75 border-rose-200/90',
+    pillActive: 'bg-rose-600 text-white border-rose-700 shadow-sm font-bold',
+    pillInactive: 'bg-rose-100 text-rose-900 border-rose-300 hover:bg-rose-200 font-semibold',
+    colorName: 'Soft Rose',
+    icon: 'shield-plus',
+  },
+  'Household & Cleaning': {
+    themeClass: 'cat-theme-household',
     bg: 'bg-emerald-100',
     border: 'border-emerald-300',
     badge: 'bg-emerald-200 text-emerald-950 border-emerald-400',
@@ -331,28 +344,17 @@ const CATEGORY_THEMES = {
     pillActive: 'bg-emerald-600 text-white border-emerald-700 shadow-sm font-bold',
     pillInactive: 'bg-emerald-100 text-emerald-900 border-emerald-300 hover:bg-emerald-200 font-semibold',
     colorName: 'Fresh Mint',
-    icon: 'shield-plus',
-  },
-  'Household & Cleaning': {
-    themeClass: 'cat-theme-household',
-    bg: 'bg-teal-100',
-    border: 'border-teal-300',
-    badge: 'bg-teal-200 text-teal-950 border-teal-400',
-    innerBox: 'bg-white/75 border-teal-200/90',
-    pillActive: 'bg-teal-600 text-white border-teal-700 shadow-sm font-bold',
-    pillInactive: 'bg-teal-100 text-teal-900 border-teal-300 hover:bg-teal-200 font-semibold',
-    colorName: 'Seafoam Teal',
     icon: 'sparkles',
   },
   'Seasonal & Apparel': {
     themeClass: 'cat-theme-seasonal',
-    bg: 'bg-pink-100',
-    border: 'border-pink-300',
-    badge: 'bg-pink-200 text-pink-950 border-pink-400',
-    innerBox: 'bg-white/75 border-pink-200/90',
-    pillActive: 'bg-pink-500 text-white border-pink-600 shadow-sm font-bold',
-    pillInactive: 'bg-pink-100 text-pink-900 border-pink-300 hover:bg-pink-200 font-semibold',
-    colorName: 'Cherry Blossom Pink',
+    bg: 'bg-purple-100',
+    border: 'border-purple-300',
+    badge: 'bg-purple-200 text-purple-950 border-purple-400',
+    innerBox: 'bg-white/75 border-purple-200/90',
+    pillActive: 'bg-purple-600 text-white border-purple-700 shadow-sm font-bold',
+    pillInactive: 'bg-purple-100 text-purple-900 border-purple-300 hover:bg-purple-200 font-semibold',
+    colorName: 'Soft Lavender',
     icon: 'sun',
   },
   'Office & Tech': {
@@ -368,13 +370,13 @@ const CATEGORY_THEMES = {
   },
   'Other': {
     themeClass: 'cat-theme-other',
-    bg: 'bg-purple-100',
-    border: 'border-purple-300',
-    badge: 'bg-purple-200 text-purple-950 border-purple-400',
-    innerBox: 'bg-white/75 border-purple-200/90',
-    pillActive: 'bg-purple-600 text-white border-purple-700 shadow-sm font-bold',
-    pillInactive: 'bg-purple-100 text-purple-900 border-purple-300 hover:bg-purple-200 font-semibold',
-    colorName: 'Soft Lavender',
+    bg: 'bg-stone-100',
+    border: 'border-stone-300',
+    badge: 'bg-stone-200 text-stone-900 border-stone-400',
+    innerBox: 'bg-white/75 border-stone-200/90',
+    pillActive: 'bg-stone-800 text-white border-stone-900 shadow-sm font-bold',
+    pillInactive: 'bg-stone-100 text-stone-800 border-stone-300 hover:bg-stone-200 font-semibold',
+    colorName: 'Warm Pebble',
     icon: 'package',
   },
 };
@@ -396,9 +398,8 @@ const state = {
   sortBy: 'recent', // 'recent' | 'name-asc' | 'name-desc' | 'room-asc' | 'category' | 'verified'
   filterLentOnly: false,
   filterLowStockOnly: false,
-  filterGuestOnly: false,
   viewMode: 'grid', // 'grid' | 'rooms' | 'lending'
-  activePage: 'home', // 'home' | 'add' | 'streak' | 'spotcheck' | 'guide' | 'about'
+  activePage: 'home', // 'home' | 'add' | 'streak' | 'spotcheck' | 'about'
   addCaptureMode: 'voice', // 'voice' | 'photo' | 'tour' | 'form'
   activeTourItems: [],
   isRecordingVoice: false,
@@ -415,8 +416,20 @@ function loadData() {
     const rawItems = localStorage.getItem(ITEMS_KEY);
     const rawRooms = localStorage.getItem(ROOMS_KEY);
     const rawEng = localStorage.getItem(ENGAGEMENT_KEY);
+    const v3Migrated = localStorage.getItem('findit_v3_forgiving_search_migrated');
 
-    state.items = rawItems ? JSON.parse(rawItems) : INITIAL_ITEMS;
+    if (!rawItems || !v3Migrated) {
+      state.items = INITIAL_ITEMS;
+      localStorage.setItem(ITEMS_KEY, JSON.stringify(INITIAL_ITEMS));
+      localStorage.setItem('findit_v3_forgiving_search_migrated', 'true');
+    } else {
+      state.items = JSON.parse(rawItems);
+      // Clean up legacy guest properties if present
+      state.items.forEach((item) => {
+        delete item.isEssentialForGuests;
+      });
+    }
+
     state.rooms = rawRooms ? JSON.parse(rawRooms) : INITIAL_ROOMS;
     if (rawEng) {
       state.engagement = { ...state.engagement, ...JSON.parse(rawEng) };
@@ -541,14 +554,365 @@ function getDynamicLocations() {
   return list;
 }
 
-// Filtering & Dynamic Sorting items
-function getFilteredItems() {
-  const q = state.searchQuery.toLowerCase().trim();
-  const normalizedQuery = q
-    .replace(/^(where\s+(?:is|are|did\s+i\s+put|can\s+i\s+find)\s+(?:the|my|a|an)?\s*)/i, '')
-    .trim();
+// =========================================================================
+// LAST-SEEN CONFIDENCE & STALENESS ENGINE
+// "If an item hasn't been confirmed in say 3 months, show a gentle
+// 'last confirmed in March' label. Honesty about staleness builds trust."
+// =========================================================================
+function getVerificationConfidence(item) {
+  if (!item.lastVerifiedAt) {
+    return {
+      status: 'unverified',
+      badgeClass: 'bg-stone-100 text-stone-700 border-stone-300',
+      icon: 'clock',
+      label: 'Not yet verified',
+      shortLabel: 'Not verified',
+      isStale: false,
+      daysAgo: null,
+    };
+  }
 
-  let results = state.items.filter((item) => {
+  const verifiedDate = new Date(item.lastVerifiedAt);
+  const now = new Date();
+  const diffMs = now.getTime() - verifiedDate.getTime();
+  const diffDays = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+  const diffMonths = Math.max(1, Math.floor(diffDays / 30));
+
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  const monthName = monthNames[verifiedDate.getMonth()];
+  const year = verifiedDate.getFullYear();
+  const currentYear = now.getFullYear();
+  const monthLabel = year === currentYear ? monthName : `${monthName} ${year}`;
+
+  if (diffDays >= 90) {
+    // 3+ months old -> gentle staleness label to build user trust
+    return {
+      status: 'stale',
+      badgeClass: 'bg-amber-100 text-amber-950 border-amber-300 ring-1 ring-amber-400/40',
+      icon: 'alert-triangle',
+      label: `Last confirmed in ${monthLabel} (~${diffMonths} months ago · needs quick check)`,
+      shortLabel: `Last confirmed in ${monthLabel}`,
+      isStale: true,
+      daysAgo: diffDays,
+      monthsAgo: diffMonths,
+    };
+  } else if (diffDays <= 7) {
+    const timeText = diffDays === 0 ? 'today' : diffDays === 1 ? 'yesterday' : `${diffDays} days ago`;
+    return {
+      status: 'fresh',
+      badgeClass: 'bg-emerald-100 text-emerald-950 border-emerald-300',
+      icon: 'check-circle',
+      label: `Verified fresh (${timeText})`,
+      shortLabel: `Verified ${timeText}`,
+      isStale: false,
+      daysAgo: diffDays,
+    };
+  } else {
+    return {
+      status: 'normal',
+      badgeClass: 'bg-stone-100 text-stone-800 border-stone-200',
+      icon: 'calendar',
+      label: `Confirmed ${diffDays} days ago (${monthLabel})`,
+      shortLabel: `Confirmed in ${monthLabel}`,
+      isStale: false,
+      daysAgo: diffDays,
+    };
+  }
+}
+
+// =========================================================================
+// FORGIVING SEARCH ENGINE
+// Supports:
+// 1. Natural descriptive queries ("that thing for the TV cable" -> HDMI adapter)
+// 2. Indian & Hinglish synonyms (chabi, dawai, taar, bartan, kapde, kagaz, remort, etc.)
+// 3. Typo tolerance (Levenshtein distance: dril -> drill, pasport -> passport)
+// 4. Stop-words removal and multi-token relevance scoring
+// =========================================================================
+
+const INDIAN_SYNONYMS = {
+  // Eyewear
+  'chashma': ['glasses', 'spectacles', 'reading glasses', 'eyewear'],
+  'chashme': ['glasses', 'spectacles', 'reading glasses'],
+  'chasma': ['glasses', 'spectacles', 'reading glasses'],
+  'spectacles': ['glasses', 'chashma'],
+  'glasses': ['spectacles', 'chashma'],
+
+  // Keys & Lock
+  'chabi': ['keys', 'key', 'fob', 'car key', 'shed', 'lock'],
+  'chaabi': ['keys', 'key', 'fob', 'car key', 'shed', 'lock'],
+  'chabee': ['keys', 'key', 'fob'],
+  'chabhi': ['keys', 'key'],
+  'chabiya': ['keys', 'key'],
+  'key': ['chabi', 'fob', 'keys', 'chaabi'],
+  'keys': ['chabi', 'fob', 'key', 'chaabi'],
+  'tala': ['lock', 'padlock', 'shed', 'keys'],
+  'lock': ['padlock', 'tala', 'keys'],
+
+  // Medicine & Health
+  'dawai': ['medicine', 'first aid', 'antihistamines', 'pills', 'tablets', 'bandages'],
+  'davai': ['medicine', 'first aid', 'pills', 'dawai'],
+  'dawa': ['medicine', 'first aid', 'dawai'],
+  'dawaai': ['medicine', 'first aid', 'dawai'],
+  'goli': ['medicine', 'pills', 'tablets'],
+  'medicine': ['dawai', 'first aid', 'bandages', 'antihistamines', 'pills'],
+  'medicines': ['dawai', 'first aid', 'medicine'],
+  'pills': ['medicine', 'dawai', 'tablets'],
+  'tablets': ['medicine', 'dawai', 'pills'],
+  'bandaid': ['first aid', 'bandages'],
+  'bandage': ['first aid', 'bandages'],
+  'bandages': ['first aid', 'bandage'],
+  'allergy': ['antihistamines', 'first aid', 'medicine'],
+
+  // Cables, TV & Electronics
+  'taar': ['cable', 'wire', 'cord', 'adapter', 'charger', 'usb', 'hdmi'],
+  'tar': ['cable', 'wire', 'cord', 'taar'],
+  'wire': ['cable', 'cord', 'taar', 'adapter', 'charger', 'hdmi'],
+  'cable': ['wire', 'cord', 'taar', 'adapter', 'hdmi', 'usb-c'],
+  'cables': ['cable', 'wire', 'cord', 'adapter'],
+  'cord': ['wire', 'cable', 'taar', 'adapter'],
+  'charger': ['power', 'cable', 'batteries', 'adapter', 'usb-c'],
+  'adapter': ['hdmi', 'usb-c', 'display', 'dongle', 'converter', 'cable', 'cord', 'tv'],
+  'dongle': ['adapter', 'hdmi', 'usb-c', 'converter'],
+  'converter': ['adapter', 'hdmi', 'usb-c', 'cable'],
+  'tv': ['television', 'hdmi', 'display', 'media console', 'remote', 'cable', 'screen'],
+  'television': ['tv', 'hdmi', 'remote'],
+  'remort': ['remote', 'controller', 'tv'],
+  'rimot': ['remote', 'controller'],
+  'remote': ['controller', 'remort', 'tv'],
+  'cell': ['batteries', 'battery', 'aa', 'aaa', 'power'],
+  'battery': ['batteries', 'cell', 'aa', 'aaa', 'charger', 'power'],
+  'batteries': ['battery', 'cell', 'aa', 'aaa'],
+  'bettery': ['battery', 'batteries'],
+  'battry': ['battery', 'batteries'],
+  'wifi': ['wi-fi', 'internet', 'router', 'password'],
+  'wi-fi': ['wifi', 'internet', 'router', 'password'],
+  'internet': ['wifi', 'router', 'password'],
+  'router': ['wifi', 'internet', 'password'],
+
+  // Documents & Valuables
+  'kagaz': ['documents', 'passport', 'papers', 'records', 'certificates'],
+  'kagaaz': ['documents', 'passport', 'papers'],
+  'dastavez': ['documents', 'passport', 'papers'],
+  'passport': ['passports', 'travel', 'documents', 'id', 'kagaz'],
+  'passports': ['passport', 'travel', 'documents', 'kagaz'],
+  'pasport': ['passport', 'travel', 'documents'],
+  'passprt': ['passport'],
+  'aadhar': ['id', 'documents', 'identification'],
+  'pan': ['documents', 'id'],
+  'certificate': ['documents', 'passport', 'records'],
+  'certificates': ['documents', 'records'],
+  'visa': ['passport', 'documents', 'travel'],
+  'visas': ['passport', 'documents', 'travel'],
+
+  // Tools & Hardware
+  'drill': ['dewalt', 'hammer drill', 'hardware', 'screws', 'tools', 'bit kit'],
+  'dril': ['drill', 'tools'],
+  'auzar': ['tools', 'hardware', 'wrench', 'drill'],
+  'paana': ['wrench', 'tools'],
+  'wrench': ['tools', 'hardware'],
+  'ladder': ['telescopic', 'climbing', 'steps', 'aluminum', 'sidhi', 'seedhi'],
+  'sidhi': ['ladder', 'steps'],
+  'seedhi': ['ladder', 'steps'],
+  'tire': ['car', 'pressure', 'gauge', 'inflator', 'wheel', 'hawa', 'tyre'],
+  'tyre': ['tire', 'pressure', 'gauge', 'inflator', 'car'],
+  'hawa': ['tire', 'inflator', 'pressure', 'gauge'],
+  'inflator': ['tire', 'gauge', 'pressure', 'pump'],
+
+  // Kitchen & Household
+  'bartan': ['utensils', 'cookware', 'dishes', 'kitchen', 'pantry'],
+  'safai': ['cleaning', 'vacuum', 'dyson', 'mop'],
+  'pocha': ['mop', 'cleaning'],
+  'vacuum': ['dyson', 'cleaning', 'filter', 'attachments', 'vacum'],
+  'vacum': ['vacuum', 'cleaning'],
+  'dyson': ['vacuum', 'cleaning', 'filter'],
+
+  // Apparel & Winter
+  'kapde': ['clothes', 'apparel', 'winter', 'gloves', 'beanies'],
+  'kapda': ['clothes', 'winter', 'apparel'],
+  'bistar': ['blankets', 'bed', 'winter', 'blanket'],
+  'blanket': ['winter', 'blankets', 'covers', 'coats'],
+  'blankets': ['winter', 'blanket', 'coats'],
+  'gloves': ['winter', 'mittens', 'apparel', 'cold', 'kapde'],
+  'mittens': ['gloves', 'winter'],
+  'topi': ['beanie', 'hat', 'winter'],
+  'beanie': ['topi', 'winter', 'hat', 'gloves'],
+  'beanies': ['beanie', 'gloves', 'winter'],
+  'jootey': ['shoes', 'boots', 'footwear'],
+  'joota': ['shoes', 'footwear'],
+  'shoes': ['jootey', 'footwear'],
+
+  // Tailoring & Repair
+  'suie': ['needle', 'thread', 'sewing'],
+  'sui': ['needle', 'sewing'],
+  'dhaga': ['thread', 'sewing'],
+  'needle': ['suie', 'thread', 'sewing'],
+};
+
+// Common conversational stopwords to strip so phrases like "that thing for the TV cable" work naturally
+const SEARCH_STOPWORDS = new Set([
+  'that', 'thing', 'things', 'for', 'the', 'a', 'an', 'is', 'are', 'was', 'were',
+  'my', 'our', 'in', 'on', 'at', 'to', 'of', 'and', 'or', 'where', 'did', 'i',
+  'put', 'find', 'can', 'kaha', 'kahan', 'hai', 'wala', 'wali', 'wale', 'ka',
+  'ki', 'ke', 'me', 'mein', 'se', 'it', 'its', 'show', 'get', 'give', 'please'
+]);
+
+// Fast Levenshtein distance for typo forgiveness
+function levenshteinDist(s1, s2) {
+  if (s1 === s2) return 0;
+  if (s1.length === 0) return s2.length;
+  if (s2.length === 0) return s1.length;
+  if (Math.abs(s1.length - s2.length) > 2) return 99;
+
+  const d = [];
+  for (let i = 0; i <= s1.length; i++) d[i] = [i];
+  for (let j = 0; j <= s2.length; j++) d[0][j] = j;
+
+  for (let i = 1; i <= s1.length; i++) {
+    for (let j = 1; j <= s2.length; j++) {
+      const cost = s1[i - 1] === s2[j - 1] ? 0 : 1;
+      d[i][j] = Math.min(
+        d[i - 1][j] + 1,
+        d[i][j - 1] + 1,
+        d[i - 1][j - 1] + cost
+      );
+    }
+  }
+  return d[s1.length][s2.length];
+}
+
+// Score a candidate item against a natural language search query
+function scoreItemForForgivingSearch(item, query) {
+  const cleanQ = query.toLowerCase().trim();
+  if (!cleanQ) return { score: 1, matchReason: '' };
+
+  const itemName = item.name.toLowerCase();
+  const description = (item.description || '').toLowerCase();
+  const room = (item.location?.room || '').toLowerCase();
+  const zone = (item.location?.zone || '').toLowerCase();
+  const container = (item.location?.container || '').toLowerCase();
+  const landmark = (item.location?.landmark || '').toLowerCase();
+  const category = (item.category || '').toLowerCase();
+  const tags = (item.tags || []).map((t) => t.toLowerCase());
+
+  let score = 0;
+  const reasons = [];
+
+  // 1. Exact phrase matches
+  if (itemName === cleanQ) {
+    score += 250;
+    reasons.push('exact name match');
+  } else if (itemName.includes(cleanQ)) {
+    score += 150;
+    reasons.push(`name contains "${cleanQ}"`);
+  }
+
+  // 2. Tokenize query and remove stop-words
+  const rawTokens = cleanQ.split(/[\s,._\-+/]+/).filter(Boolean);
+  const meaningfulTokens = rawTokens.filter((t) => !SEARCH_STOPWORDS.has(t));
+  const activeTokens = meaningfulTokens.length > 0 ? meaningfulTokens : rawTokens;
+
+  // Check special descriptive phrase for TV cable / adapter
+  if (cleanQ.includes('tv') && (cleanQ.includes('cable') || cleanQ.includes('adapter') || cleanQ.includes('wire') || cleanQ.includes('thing'))) {
+    if (itemName.includes('hdmi') || itemName.includes('adapter') || tags.includes('tv cable')) {
+      score += 180;
+      reasons.push('recognized TV cable display adapter request');
+    }
+  }
+
+  for (const token of activeTokens) {
+    let tokenMatched = false;
+
+    // Direct token match in item name
+    if (itemName.includes(token)) {
+      score += 80;
+      tokenMatched = true;
+      reasons.push(`matched "${token}" in item name`);
+    }
+
+    // Direct match in tags
+    if (tags.some((t) => t === token || t.includes(token))) {
+      score += 70;
+      tokenMatched = true;
+      reasons.push(`matched tag "${token}"`);
+    }
+
+    // Match in location / room / shelf / container
+    if (room.includes(token) || zone.includes(token) || container.includes(token)) {
+      score += 45;
+      tokenMatched = true;
+      reasons.push(`location match "${token}"`);
+    }
+
+    // Match in landmark clue / description
+    if (landmark.includes(token) || description.includes(token) || category.includes(token)) {
+      score += 35;
+      tokenMatched = true;
+    }
+
+    // Indian / Hinglish synonyms expansion
+    const synonyms = INDIAN_SYNONYMS[token] || [];
+    for (const syn of synonyms) {
+      if (itemName.includes(syn) || tags.some((t) => t.includes(syn))) {
+        score += 75;
+        tokenMatched = true;
+        reasons.push(`synonym "${token}" &rarr; ${syn}`);
+        break;
+      } else if (description.includes(syn) || container.includes(syn) || zone.includes(syn)) {
+        score += 40;
+        tokenMatched = true;
+        reasons.push(`synonym "${token}" in description`);
+        break;
+      }
+    }
+
+    // Typo tolerance (Levenshtein match)
+    if (!tokenMatched && token.length >= 4) {
+      // Check against words in item name
+      const nameWords = itemName.split(/\s+/);
+      for (const nw of nameWords) {
+        if (nw.length >= 4) {
+          const maxDist = token.length >= 7 ? 2 : 1;
+          if (levenshteinDist(token, nw) <= maxDist) {
+            score += 60;
+            tokenMatched = true;
+            reasons.push(`typo fix: "${token}" &sim; ${nw}`);
+            break;
+          }
+        }
+      }
+
+      // Check against tags
+      if (!tokenMatched) {
+        for (const tag of tags) {
+          if (tag.length >= 4) {
+            const maxDist = token.length >= 7 ? 2 : 1;
+            if (levenshteinDist(token, tag) <= maxDist) {
+              score += 55;
+              tokenMatched = true;
+              reasons.push(`typo fix: "${token}" &sim; ${tag}`);
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return {
+    score,
+    matchReason: reasons.slice(0, 2).join(' · '),
+  };
+}
+
+// Filtering & Dynamic Sorting items with Forgiving Search integration
+function getFilteredItems() {
+  const query = state.searchQuery.trim();
+
+  // First pass: apply hard dropdown and status filters
+  const candidateItems = state.items.filter((item) => {
     // Dynamic Type filter
     if (state.selectedCategory !== 'All' && item.category !== state.selectedCategory) {
       return false;
@@ -568,36 +932,25 @@ function getFilteredItems() {
         (item.consumable.quantity ?? 0) <= (item.consumable.minThreshold ?? 0);
       if (!isLow) return false;
     }
-    // Guest essentials filter
-    if (state.filterGuestOnly && !item.isEssentialForGuests) {
-      return false;
-    }
-
-    if (normalizedQuery) {
-      const fullSearchHaystack = [
-        item.name,
-        item.description || '',
-        item.category,
-        item.location.room,
-        item.location.zone,
-        item.location.container || '',
-        item.location.landmark || '',
-        item.lent?.lentTo || '',
-        ...(item.tags || []),
-      ]
-        .join(' ')
-        .toLowerCase();
-
-      const words = normalizedQuery.split(/\s+/);
-      return (
-        words.every((w) => fullSearchHaystack.includes(w)) ||
-        fullSearchHaystack.includes(normalizedQuery)
-      );
-    }
     return true;
   });
 
-  // Sort items according to active sort order
+  // If a natural search query is active, score with the forgiving search engine
+  if (query) {
+    const scoredList = candidateItems
+      .map((item) => {
+        const { score, matchReason } = scoreItemForForgivingSearch(item, query);
+        return { item, score, matchReason };
+      })
+      .filter((entry) => entry.score > 0);
+
+    // Sort primarily by relevance score
+    scoredList.sort((a, b) => b.score - a.score);
+    return scoredList.map((entry) => entry.item);
+  }
+
+  // When not searching, sort according to active sort order dropdown
+  const results = [...candidateItems];
   switch (state.sortBy) {
     case 'name-asc':
       results.sort((a, b) => a.name.localeCompare(b.name));
@@ -696,7 +1049,6 @@ function renderSortFilterCard() {
   const filterAllBtn = document.getElementById('filter-btn-all');
   const filterLentBtn = document.getElementById('filter-btn-lent');
   const filterLowBtn = document.getElementById('filter-btn-low');
-  const filterGuestBtn = document.getElementById('filter-btn-guest');
   const btnActiveReset = document.getElementById('btn-active-reset');
 
   const hasActiveFilters =
@@ -704,7 +1056,6 @@ function renderSortFilterCard() {
     state.selectedRoom !== 'All' ||
     state.filterLentOnly ||
     state.filterLowStockOnly ||
-    state.filterGuestOnly ||
     Boolean(state.searchQuery.trim());
 
   if (filterAllBtn) {
@@ -750,16 +1101,6 @@ function renderSortFilterCard() {
     } else {
       filterLowBtn.className =
         'px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-amber-50 flex items-center gap-1';
-    }
-  }
-
-  if (filterGuestBtn) {
-    if (state.filterGuestOnly) {
-      filterGuestBtn.className =
-        'px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer bg-emerald-600 text-white border border-emerald-700 shadow-xs flex items-center gap-1';
-    } else {
-      filterGuestBtn.className =
-        'px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-emerald-50 flex items-center gap-1';
     }
   }
 
@@ -959,9 +1300,15 @@ window.toggleLowStockFilter = function () {
   renderApp();
 };
 
-window.toggleGuestFilter = function () {
-  state.filterGuestOnly = !state.filterGuestOnly;
+window.setQuickSearchQuery = function (queryText) {
+  state.searchQuery = queryText;
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) searchInput.value = queryText;
   renderApp();
+  const card = document.getElementById('main-content-view');
+  if (card) {
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 };
 
 window.resetAllFilters = function () {
@@ -969,7 +1316,6 @@ window.resetAllFilters = function () {
   state.selectedRoom = 'All';
   state.filterLentOnly = false;
   state.filterLowStockOnly = false;
-  state.filterGuestOnly = false;
   state.searchQuery = '';
   const searchInput = document.getElementById('search-input');
   if (searchInput) searchInput.value = '';
@@ -988,10 +1334,173 @@ window.clearSearchInput = function () {
   renderApp();
 };
 
+// =========================================================================
+// ONE-TAP "NOT THERE!" SELF-HEALING SYSTEM
+// If an item isn't where FindIt says, the user taps one button and the app asks:
+// "Was it moved, lent, or used up?"
+// Keeps the data self-healing without nagging.
+// =========================================================================
+
+let currentNotThereItemId = null;
+let currentRelocateItemId = null;
+
+window.openNotThereModal = function (itemId) {
+  const item = state.items.find((i) => i.id === itemId);
+  if (!item) return;
+
+  currentNotThereItemId = itemId;
+  const modal = document.getElementById('not-there-modal');
+  const title = document.getElementById('not-there-title');
+  const subtitle = document.getElementById('not-there-subtitle');
+
+  if (title) title.textContent = `Not where it says?`;
+  if (subtitle) {
+    subtitle.innerHTML = `Was <strong>${escapeHtml(item.name)}</strong> moved, lent, or used up? Fix FindIt's memory in 1 tap:`;
+  }
+
+  if (modal) {
+    modal.classList.remove('hidden');
+    safeCreateIcons();
+  }
+};
+
+window.closeNotThereModal = function () {
+  const modal = document.getElementById('not-there-modal');
+  if (modal) modal.classList.add('hidden');
+  currentNotThereItemId = null;
+};
+
+window.handleNotThereChoice = function (choice) {
+  if (!currentNotThereItemId) return;
+  const item = state.items.find((i) => i.id === currentNotThereItemId);
+  if (!item) {
+    closeNotThereModal();
+    return;
+  }
+
+  const itemId = currentNotThereItemId;
+  closeNotThereModal();
+
+  switch (choice) {
+    case 'moved':
+      openRelocateModal(itemId);
+      break;
+
+    case 'lent':
+      showPromptDialog({
+        title: `Who borrowed ${item.name}?`,
+        message: 'Enter borrower name to update FindIt’s tracking:',
+        defaultValue: 'Friend or Neighbor',
+        onConfirm: (borrower) => {
+          item.lent = {
+            isLent: true,
+            lentTo: (borrower || 'Someone').trim(),
+            lentDate: new Date().toISOString().slice(0, 10),
+            notes: 'Reported via Not There self-healing',
+          };
+          item.lastVerifiedAt = new Date().toISOString();
+          saveItems();
+          renderApp();
+          showToast(`Marked ${item.name} as lent to ${item.lent.lentTo}! Memory healed.`, 'success');
+        },
+      });
+      break;
+
+    case 'consumed':
+      item.consumable = {
+        isConsumable: true,
+        quantity: 0,
+        unit: item.consumable?.unit || 'items',
+        minThreshold: item.consumable?.minThreshold || 1,
+      };
+      item.description = item.description
+        ? `${item.description} (Used up on ${new Date().toLocaleDateString()})`
+        : `Used up on ${new Date().toLocaleDateString()}`;
+      item.lastVerifiedAt = new Date().toISOString();
+      saveItems();
+      renderApp();
+      showToast(`Marked ${item.name} as used up (0 in stock). Memory healed!`, 'success');
+      break;
+
+    case 'missing':
+      item.isMissing = true;
+      item.lastVerifiedAt = new Date().toISOString();
+      saveItems();
+      renderApp();
+      showToast(`Flagged ${item.name} as missing. We'll remind you on next Spot Check!`, 'warning');
+      break;
+  }
+};
+
+function openRelocateModal(itemId) {
+  const item = state.items.find((i) => i.id === itemId);
+  if (!item) return;
+
+  currentRelocateItemId = itemId;
+  const modal = document.getElementById('relocate-modal');
+  const title = document.getElementById('relocate-title');
+  const roomSelect = document.getElementById('relocate-room-select');
+  const zoneInput = document.getElementById('relocate-zone-input');
+
+  if (title) title.textContent = `Where is "${item.name}" now?`;
+
+  if (roomSelect) {
+    const rooms = state.rooms.length > 0 ? state.rooms : INITIAL_ROOMS;
+    roomSelect.innerHTML = rooms
+      .map(
+        (r) =>
+          `<option value="${escapeHtml(r.name)}" ${r.name === item.location.room ? 'selected' : ''}>${escapeHtml(r.name)}</option>`
+      )
+      .join('');
+  }
+
+  if (zoneInput) {
+    zoneInput.value = '';
+    zoneInput.placeholder = `e.g. Top shelf, Nightstand drawer (was: ${item.location.zone})`;
+  }
+
+  if (modal) {
+    modal.classList.remove('hidden');
+    safeCreateIcons();
+    if (zoneInput) zoneInput.focus();
+  }
+}
+
+window.closeRelocateModal = function () {
+  const modal = document.getElementById('relocate-modal');
+  if (modal) modal.classList.add('hidden');
+  currentRelocateItemId = null;
+};
+
+window.confirmRelocateItem = function () {
+  if (!currentRelocateItemId) return;
+  const item = state.items.find((i) => i.id === currentRelocateItemId);
+  if (!item) {
+    closeRelocateModal();
+    return;
+  }
+
+  const roomSelect = document.getElementById('relocate-room-select');
+  const zoneInput = document.getElementById('relocate-zone-input');
+
+  const newRoom = roomSelect ? roomSelect.value : item.location.room;
+  const newZone = zoneInput && zoneInput.value.trim() ? zoneInput.value.trim() : item.location.zone;
+
+  item.location.room = newRoom;
+  item.location.zone = newZone;
+  item.isMissing = false;
+  item.lastVerifiedAt = new Date().toISOString();
+
+  saveItems();
+  closeRelocateModal();
+  renderApp();
+  showToast(`Memory healed! ${item.name} moved to ${newRoom} › ${newZone}`, 'success');
+};
+
 // Persistent Bottom Bar Page Navigation Router
 window.switchPage = function (pageId) {
   state.activePage = pageId;
-  const pageList = ['home', 'add', 'streak', 'spotcheck', 'guide', 'about'];
+  const pageList = ['home', 'add', 'streak', 'spotcheck', 'about'];
 
   pageList.forEach((p) => {
     const pageEl = document.getElementById(`view-${p}`);
@@ -1036,8 +1545,6 @@ window.switchPage = function (pageId) {
     renderEngagementStatus();
   } else if (pageId === 'spotcheck') {
     initSpotCheckPage();
-  } else if (pageId === 'guide') {
-    initGuidePage();
   }
 
   window.scrollTo(0, 0);
@@ -1097,7 +1604,166 @@ function renderMainView() {
   }
 }
 
+// =========================================================================
+// DIRECT ANSWER CARD FOR SEARCH RESULTS
+// "Answer, don't list. Search should return a direct answer card:
+// 'Passport: Master Bedroom, closet, top shelf, gray box, behind winter coats',
+// not ten results to scroll."
+// =========================================================================
+function renderDirectAnswerCard(item, confidence, matchReason) {
+  const theme = CATEGORY_THEMES[item.category] || CATEGORY_THEMES['Other'];
+  const isLent = item.lent && item.lent.isLent;
+
+  // Build the direct answer sentence in plain English:
+  // "Passport: Master Bedroom, closet top shelf, gray box, behind winter coats"
+  const locationParts = [
+    item.location.room,
+    item.location.zone,
+    item.location.container ? `in ${item.location.container}` : '',
+    item.location.landmark ? `${item.location.landmark}` : '',
+  ].filter(Boolean);
+
+  return `
+    <div class="w-full ${theme.themeClass} ${theme.bg} ${theme.border} rounded-3xl border-2 p-5 sm:p-7 shadow-elevated relative overflow-hidden text-center space-y-4 ring-2 ring-amber-400/60 max-w-2xl mx-auto">
+      
+      <!-- Direct Answer Sparkle Header -->
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-stone-300/60 pb-3">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-900 text-amber-300 font-black text-xs uppercase tracking-wider shadow-xs">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-300"></i>
+          <span>Direct Answer</span>
+        </div>
+
+        <!-- Last-seen confidence pill -->
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border shadow-xs ${confidence.badgeClass}">
+          <i data-lucide="${confidence.icon}" class="w-3.5 h-3.5"></i>
+          <span>${confidence.label}</span>
+        </div>
+      </div>
+
+      <!-- Item Title & Category Badges -->
+      <div class="space-y-1">
+        <div class="flex flex-wrap items-center justify-center gap-1.5">
+          <span class="text-xs font-extrabold px-3 py-1 rounded-full border shadow-xs ${theme.badge}">
+            <i data-lucide="${theme.icon || 'tag'}" class="w-3 h-3 inline mr-1"></i>
+            ${escapeHtml(item.category)}
+          </span>
+          ${
+            isLent
+              ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-rose-200 text-rose-950 border border-rose-300">
+                  🤝 Lent to ${escapeHtml(item.lent.lentTo || 'Someone')}
+                </span>`
+              : ''
+          }
+          ${
+            item.isMissing
+              ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-red-200 text-red-950 border border-red-300">
+                  ⚠️ Flagged Missing
+                </span>`
+              : ''
+          }
+        </div>
+        <h3 class="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight break-words">
+          ${escapeHtml(item.name)}
+        </h3>
+        ${
+          matchReason
+            ? `<p class="text-[11px] text-stone-600 font-medium">Found via: <span class="font-bold text-stone-800">${escapeHtml(matchReason)}</span></p>`
+            : ''
+        }
+      </div>
+
+      <!-- Direct Plain-English Answer Sentence (Highlighted Box) -->
+      <div class="bg-white/95 backdrop-blur-xs rounded-2xl p-4 sm:p-5 border-2 border-amber-300/90 shadow-soft space-y-3 text-center">
+        <div class="text-stone-500 text-[11px] font-black uppercase tracking-wider">
+          📍 Exact Location
+        </div>
+        <div class="text-base sm:text-xl font-black text-stone-900 leading-snug break-words">
+          &ldquo;<span class="text-amber-800">${escapeHtml(item.name)}:</span> ${escapeHtml(locationParts.join(', '))}&rdquo;
+        </div>
+
+        <!-- Structured Visual Breadcrumb Path -->
+        <div class="flex flex-wrap items-center justify-center gap-1.5 pt-2 text-xs font-bold text-stone-800">
+          <span class="px-3 py-1 bg-amber-50 border border-amber-200 rounded-xl flex items-center gap-1 shadow-xs">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-600"></i>
+            <span>${escapeHtml(item.location.room)}</span>
+          </span>
+          <span class="text-stone-400 font-normal">&rsaquo;</span>
+          <span class="px-3 py-1 bg-amber-50 border border-amber-200 rounded-xl shadow-xs">
+            ${escapeHtml(item.location.zone)}
+          </span>
+          ${
+            item.location.container
+              ? `<span class="text-stone-400 font-normal">&rsaquo;</span>
+                 <span class="px-3 py-1 bg-stone-100 border border-stone-200 rounded-xl shadow-xs text-stone-800">
+                   ${escapeHtml(item.location.container)}
+                 </span>`
+              : ''
+          }
+        </div>
+
+        ${
+          item.location.landmark
+            ? `<div class="text-xs text-amber-950 bg-amber-50/90 px-3.5 py-2 rounded-xl border border-amber-200 italic max-w-md mx-auto">
+                💡 Landmark clue: &ldquo;${escapeHtml(item.location.landmark)}&rdquo;
+              </div>`
+            : ''
+        }
+      </div>
+
+      ${
+        item.description
+          ? `<p class="text-xs sm:text-sm text-stone-700 max-w-md mx-auto leading-relaxed">${escapeHtml(item.description)}</p>`
+          : ''
+      }
+
+      ${
+        item.photoUrl
+          ? `<div class="w-full max-w-xs mx-auto rounded-2xl overflow-hidden border-2 border-white shadow-soft">
+              <img src="${item.photoUrl}" alt="${escapeHtml(item.name)}" class="w-full h-40 object-cover" />
+            </div>`
+          : ''
+      }
+
+      <!-- Direct Answer Action Buttons: One-Tap "Not there!", "Still here", "Edit" -->
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-2.5 w-full max-w-md mx-auto">
+        <!-- One-Tap "Not there!" Button -->
+        <button
+          type="button"
+          onclick="openNotThereModal('${item.id}')"
+          class="flex-1 min-w-[130px] py-3 px-4 bg-amber-100 hover:bg-amber-200 active:opacity-85 border-2 border-amber-300 text-amber-950 font-extrabold text-xs sm:text-sm rounded-xl cursor-pointer flex items-center justify-center gap-2 shadow-xs touch-manipulation transition-colors"
+          title="Not where it says? Was it moved, lent, or used up?"
+        >
+          <i data-lucide="help-circle" class="w-4 h-4 text-amber-700"></i>
+          <span>Not there!</span>
+        </button>
+
+        <!-- Still Here (Confirm Location) -->
+        <button
+          type="button"
+          onclick="verifyLocation('${item.id}')"
+          class="flex-1 min-w-[130px] py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:opacity-85 text-white font-extrabold text-xs sm:text-sm rounded-xl cursor-pointer flex items-center justify-center gap-2 shadow-soft touch-manipulation transition-colors"
+          title="Confirm item is still in this spot"
+        >
+          <i data-lucide="check" class="w-4 h-4 text-emerald-200"></i>
+          <span>Still here</span>
+        </button>
+
+        <!-- Edit / Update -->
+        <button
+          type="button"
+          onclick="editItem('${item.id}')"
+          class="py-3 px-3.5 bg-white hover:bg-stone-50 active:opacity-85 border border-stone-300 text-stone-700 font-bold text-xs rounded-xl cursor-pointer shadow-xs touch-manipulation transition-colors"
+          title="Edit Item"
+        >
+          <i data-lucide="pencil" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  `;
+}
+
 function renderGridView(container) {
+  const isSearchActive = Boolean(state.searchQuery.trim());
   const filtered = getFilteredItems();
 
   if (filtered.length === 0) {
@@ -1110,19 +1776,19 @@ function renderGridView(container) {
         <p class="text-xs sm:text-sm text-stone-500 max-w-sm mx-auto text-center">
           ${
             state.searchQuery
-              ? `No matches for "${escapeHtml(state.searchQuery)}". Check spelling or add it now.`
+              ? `No items match "${escapeHtml(state.searchQuery)}". Try searching by function (e.g. "TV cable", "cord", "tool") or Indian names like "chabi", "dawai", "kapde".`
               : 'No items match your active category or filters.'
           }
         </p>
         <div class="flex flex-wrap items-center justify-center gap-2 pt-2">
           ${
-            state.searchQuery || state.selectedCategory !== 'All' || state.filterGuestOnly || state.filterLowStockOnly
-              ? `<button onclick="clearAllFilters()" class="px-4 py-2 text-xs font-semibold border border-stone-200 rounded-xl text-stone-600 hover:bg-stone-50 cursor-pointer">Clear filters</button>`
+            state.searchQuery || state.selectedCategory !== 'All' || state.filterLowStockOnly
+              ? `<button onclick="clearAllFilters()" class="px-4 py-2 text-xs font-semibold border border-stone-200 rounded-xl text-stone-600 hover:bg-stone-50 cursor-pointer touch-manipulation">Clear filters</button>`
               : ''
           }
           <button
-            onclick="openQuickAddModal()"
-            class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-stone-900 text-white rounded-xl text-xs sm:text-sm font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft"
+            onclick="switchPage('add')"
+            class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-stone-900 text-white rounded-xl text-xs sm:text-sm font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft touch-manipulation"
           >
             <i data-lucide="plus" class="w-4 h-4 text-amber-400"></i>
             <span>Add this item now</span>
@@ -1133,12 +1799,62 @@ function renderGridView(container) {
     return;
   }
 
+  // Answer, don't list: If the user is searching, return a Direct Answer Card at the top!
+  if (isSearchActive) {
+    const topItem = filtered[0];
+    const topConfidence = getVerificationConfidence(topItem);
+    const { matchReason } = scoreItemForForgivingSearch(topItem, state.searchQuery);
+    const otherMatches = filtered.slice(1);
+
+    const directAnswerHtml = renderDirectAnswerCard(topItem, topConfidence, matchReason);
+    const otherMatchesHtml =
+      otherMatches.length > 0
+        ? `
+        <div class="w-full pt-4 space-y-4">
+          <div class="w-full flex items-center justify-between border-b border-stone-200/80 pb-2 px-1">
+            <span class="text-xs font-bold text-stone-600">
+              Other related items (${otherMatches.length})
+            </span>
+            <span class="text-[11px] text-stone-400">
+              Top match shown above
+            </span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+            ${otherMatches.map((item) => renderItemCardHtml(item)).join('')}
+          </div>
+        </div>
+      `
+        : '';
+
+    container.innerHTML = `
+      <div class="space-y-6 w-full flex flex-col items-center">
+        <!-- Direct Answer Card -->
+        ${directAnswerHtml}
+
+        <!-- Other matches if any -->
+        ${otherMatchesHtml}
+
+        <!-- Back to all items link -->
+        <div class="pt-2 text-center">
+          <button
+            onclick="clearSearchInput()"
+            class="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition-colors cursor-pointer touch-manipulation"
+          >
+            Clear Search &bull; View All Items (${state.items.length})
+          </button>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // When not searching: render standard browse grid with unique pastel color codification guide
   const itemsHtml = filtered.map((item) => renderItemCardHtml(item)).join('');
 
   container.innerHTML = `
     <div class="space-y-5 w-full flex flex-col items-center">
       
-      <!-- List Meta & Category Color Legend - Centered -->
+      <!-- List Meta & Category Color Legend - Distinct & Unique subtle pastel colors -->
       <div class="w-full flex flex-col items-center justify-center gap-3 text-xs sm:text-sm text-stone-500 px-2 text-center">
         <div class="flex items-center justify-center gap-2">
           <span>Showing <strong>${filtered.length}</strong> of <strong>${state.items.length}</strong> total items</span>
@@ -1146,17 +1862,17 @@ function renderGridView(container) {
           <span class="text-amber-800 font-medium">Scroll down to explore all</span>
         </div>
 
-        <!-- Color Codification Guide showing the whole card colors -->
+        <!-- Color Codification Guide: Health (Rose) and Household (Mint) are completely distinct! -->
         <div class="w-full flex flex-wrap items-center justify-center gap-1.5 text-[11px] font-semibold text-stone-600 px-3 py-2 bg-white/75 backdrop-blur-xs rounded-2xl border border-stone-200/90 shadow-xs text-center">
-          <span class="text-stone-400 font-bold uppercase tracking-wider text-[10px] mr-1">🎨 Entire Card Color:</span>
+          <span class="text-stone-400 font-bold uppercase tracking-wider text-[10px] mr-1">🎨 Card Colors:</span>
           <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-amber-100 text-amber-950 border border-amber-300">🧰 Tools</span>
           <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-indigo-100 text-indigo-950 border border-indigo-300">⚡ Tech</span>
           <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-yellow-100 text-yellow-950 border border-yellow-300">📄 Docs</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-emerald-100 text-emerald-950 border border-emerald-300">🩹 Health</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-teal-100 text-teal-950 border border-teal-300">🧼 Household</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-pink-100 text-pink-950 border border-pink-300">🧣 Seasonal</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-rose-100 text-rose-950 border border-rose-300">🩹 Health (Rose)</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-emerald-100 text-emerald-950 border border-emerald-300">🧼 Household (Mint)</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-950 border border-purple-300">🧣 Seasonal</span>
           <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-sky-100 text-sky-950 border border-sky-300">💻 Office</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-950 border border-purple-300">📦 Other</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-stone-100 text-stone-900 border border-stone-300">📦 Other</span>
         </div>
       </div>
 
@@ -1169,7 +1885,7 @@ function renderGridView(container) {
       <div class="w-full pt-6 flex flex-col items-center justify-center text-center space-y-2">
         <button
           onclick="scrollToTopView()"
-          class="px-5 py-2.5 bg-white hover:bg-stone-50 border border-stone-200 text-stone-700 hover:text-stone-900 rounded-2xl text-xs sm:text-sm font-semibold shadow-soft flex items-center justify-center gap-2 cursor-pointer transition-all"
+          class="px-5 py-2.5 bg-white hover:bg-stone-50 border border-stone-200 text-stone-700 hover:text-stone-900 rounded-2xl text-xs sm:text-sm font-semibold shadow-soft flex items-center justify-center gap-2 cursor-pointer transition-all touch-manipulation"
         >
           <i data-lucide="arrow-up" class="w-4 h-4 text-stone-500"></i>
           <span>You have reached the end &bull; Back to Top</span>
@@ -1187,6 +1903,7 @@ function renderItemCardHtml(item) {
     (item.consumable.quantity ?? 0) <= (item.consumable.minThreshold ?? 0);
 
   const theme = CATEGORY_THEMES[item.category] || CATEGORY_THEMES['Other'];
+  const confidence = getVerificationConfidence(item);
 
   return `
     <div class="${theme.themeClass} ${theme.bg} ${theme.border} rounded-3xl border-2 p-5 sm:p-6 flex flex-col items-center justify-between card-hover shadow-soft relative group max-w-full text-center transition-all ${
@@ -1196,29 +1913,26 @@ function renderItemCardHtml(item) {
       <!-- Card Top Content - Centered Horizontally & Vertically -->
       <div class="space-y-4 w-full flex flex-col items-center justify-center text-center">
         
-        <!-- Room & Category Pills Row - Centered -->
-        <div class="flex flex-wrap items-center justify-center gap-2 w-full">
-          <span class="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-stone-800 bg-white/95 border border-stone-200/90 px-3 py-1 rounded-full shadow-xs">
-            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+        <!-- Room, Category & Confidence Pills Row - Centered -->
+        <div class="flex flex-wrap items-center justify-center gap-1.5 w-full">
+          <span class="inline-flex items-center justify-center gap-1 text-xs font-bold text-stone-800 bg-white/95 border border-stone-200/90 px-2.5 py-0.5 rounded-full shadow-xs">
+            <i data-lucide="map-pin" class="w-3 h-3 text-amber-500 shrink-0"></i>
             <span>${escapeHtml(item.location.room)}</span>
           </span>
 
-          <span class="inline-flex items-center justify-center gap-1.5 text-xs font-extrabold px-3 py-1 rounded-full border shadow-xs ${theme.badge}">
-            <i data-lucide="${theme.icon || 'tag'}" class="w-3.5 h-3.5 shrink-0"></i>
+          <span class="inline-flex items-center justify-center gap-1 text-xs font-extrabold px-2.5 py-0.5 rounded-full border shadow-xs ${theme.badge}">
+            <i data-lucide="${theme.icon || 'tag'}" class="w-3 h-3 shrink-0"></i>
             <span>${escapeHtml(item.category)}</span>
           </span>
 
-          ${
-            item.isEssentialForGuests
-              ? `<span class="text-[11px] font-bold text-emerald-950 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full flex items-center justify-center gap-1 shadow-xs" title="Included in House Guide">
-                  <i data-lucide="home" class="w-3 h-3 text-emerald-700 shrink-0"></i>
-                  <span>Guest Guide</span>
-                </span>`
-              : ''
-          }
+          <!-- Last-seen confidence pill -->
+          <span class="inline-flex items-center justify-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full border shadow-xs ${confidence.badgeClass}" title="${confidence.label}">
+            <i data-lucide="${confidence.icon}" class="w-3 h-3 shrink-0"></i>
+            <span>${confidence.shortLabel}</span>
+          </span>
         </div>
 
-        <!-- Big Item Title (Significantly Increased Font Size & Centered) -->
+        <!-- Big Item Title -->
         <div class="w-full text-center space-y-1">
           <h4 class="text-xl sm:text-2xl font-black text-stone-900 tracking-tight leading-snug break-words text-center">
             ${escapeHtml(item.name)}
@@ -1262,14 +1976,14 @@ function renderItemCardHtml(item) {
           }
         </div>
 
-        <!-- Notes if provided - Centered -->
+        <!-- Notes if provided -->
         ${
           item.description
             ? `<p class="text-xs sm:text-sm text-stone-700 text-center max-w-sm mx-auto leading-relaxed break-words">${escapeHtml(item.description)}</p>`
             : ''
         }
 
-        <!-- Lent Banner if currently borrowed - Centered & Colorful Soft Rose Accent -->
+        <!-- Lent Banner if currently borrowed -->
         ${
           isLent
             ? `<div class="w-full bg-rose-50 border border-rose-300 rounded-2xl p-3 text-xs flex flex-col sm:flex-row items-center justify-center gap-2.5 text-rose-950 text-center">
@@ -1279,7 +1993,7 @@ function renderItemCardHtml(item) {
                 </div>
                 <button
                   onclick="returnLentItem('${item.id}')"
-                  class="text-xs bg-white border border-rose-300 px-3.5 py-1 rounded-xl font-bold text-rose-900 hover:bg-rose-100 transition-colors cursor-pointer shadow-xs text-center"
+                  class="text-xs bg-white border border-rose-300 px-3.5 py-1 rounded-xl font-bold text-rose-900 hover:bg-rose-100 transition-colors cursor-pointer shadow-xs text-center touch-manipulation"
                 >
                   Mark Returned
                 </button>
@@ -1287,7 +2001,7 @@ function renderItemCardHtml(item) {
             : ''
         }
 
-        <!-- Stock tracker if consumable - Centered -->
+        <!-- Stock tracker if consumable -->
         ${
           item.consumable?.isConsumable
             ? `<div class="flex flex-wrap items-center justify-center gap-3 bg-white/85 rounded-2xl px-4 py-2 border ${theme.border} text-xs shadow-xs text-center">
@@ -1305,14 +2019,14 @@ function renderItemCardHtml(item) {
                 <div class="flex items-center justify-center gap-1.5">
                   <button
                     onclick="changeItemQuantity('${item.id}', -1)"
-                    class="w-7 h-7 rounded-lg bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-800 cursor-pointer"
+                    class="w-7 h-7 rounded-lg bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-800 cursor-pointer touch-manipulation"
                     title="Decrease count"
                   >
                     -
                   </button>
                   <button
                     onclick="changeItemQuantity('${item.id}', 1)"
-                    class="w-7 h-7 rounded-lg bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-800 cursor-pointer"
+                    class="w-7 h-7 rounded-lg bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-800 cursor-pointer touch-manipulation"
                     title="Increase count"
                   >
                     +
@@ -1323,23 +2037,33 @@ function renderItemCardHtml(item) {
         }
       </div>
 
-      <!-- Card Bottom Actions - Centered Horizontally & Vertically -->
+      <!-- Card Bottom Actions - Includes Still here, One-Tap "Not there!", Lend, Edit, Delete -->
       <div class="w-full mt-5 pt-4 border-t ${theme.border} flex flex-wrap items-center justify-center gap-2 text-xs">
         
-        <!-- Still Here (Verification) Button - Centered -->
+        <!-- Still Here (Verification) Button -->
         <button
           onclick="verifyLocation('${item.id}')"
-          class="text-xs font-bold text-emerald-950 bg-emerald-100/90 hover:bg-emerald-200 border border-emerald-300 cursor-pointer px-3.5 py-1.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-xs text-center"
+          class="text-xs font-bold text-emerald-950 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 cursor-pointer px-3.5 py-1.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-xs text-center touch-manipulation"
           title="Confirm item is still in this spot"
         >
           <i data-lucide="check" class="w-4 h-4 text-emerald-700 shrink-0"></i>
           <span>Still here</span>
         </button>
 
+        <!-- One-Tap "Not there!" Button -->
+        <button
+          onclick="openNotThereModal('${item.id}')"
+          class="text-xs font-bold text-amber-950 bg-amber-100 hover:bg-amber-200 border border-amber-300 cursor-pointer px-3 py-1.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-xs text-center touch-manipulation"
+          title="Not where it says? Was it moved, lent, or used up?"
+        >
+          <i data-lucide="help-circle" class="w-3.5 h-3.5 text-amber-700 shrink-0"></i>
+          <span>Not there!</span>
+        </button>
+
         <!-- Lend / Return Button -->
         <button
           onclick="toggleLentStatus('${item.id}')"
-          class="text-xs font-semibold text-stone-700 hover:text-stone-900 bg-white/90 hover:bg-white border border-stone-300 cursor-pointer px-3 py-1.5 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-xs text-center"
+          class="text-xs font-semibold text-stone-700 hover:text-stone-900 bg-white/90 hover:bg-white border border-stone-300 cursor-pointer px-3 py-1.5 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-xs text-center touch-manipulation"
         >
           <i data-lucide="${isLent ? 'corner-down-left' : 'share-2'}" class="w-3.5 h-3.5 text-stone-500 shrink-0"></i>
           <span>${isLent ? 'Returned' : 'Lend'}</span>
@@ -1348,8 +2072,8 @@ function renderItemCardHtml(item) {
         <!-- Edit Button -->
         <button
           onclick="editItem('${item.id}')"
-          class="text-stone-600 hover:text-stone-900 bg-white/90 hover:bg-white border border-stone-300 cursor-pointer p-2 rounded-xl transition-colors shadow-xs"
-          title="Edit Item (All fields open)"
+          class="text-stone-600 hover:text-stone-900 bg-white/90 hover:bg-white border border-stone-300 cursor-pointer p-2 rounded-xl transition-colors shadow-xs touch-manipulation"
+          title="Edit Item"
         >
           <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
         </button>
@@ -1357,7 +2081,7 @@ function renderItemCardHtml(item) {
         <!-- Delete Button -->
         <button
           onclick="deleteItem('${item.id}')"
-          class="text-stone-400 hover:text-red-700 bg-white hover:bg-red-50 border border-stone-300 hover:border-red-300 cursor-pointer p-2 rounded-xl transition-colors shadow-xs"
+          class="text-stone-400 hover:text-red-700 bg-white hover:bg-red-50 border border-stone-300 hover:border-red-300 cursor-pointer p-2 rounded-xl transition-colors shadow-xs touch-manipulation"
           title="Delete Item"
         >
           <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
@@ -1553,17 +2277,11 @@ window.clearAllFilters = function () {
   if (searchInput) searchInput.value = '';
   state.selectedCategory = 'All';
   state.filterLowStockOnly = false;
-  state.filterGuestOnly = false;
   renderApp();
 };
 
 window.toggleLowStockFilter = function () {
   state.filterLowStockOnly = !state.filterLowStockOnly;
-  renderApp();
-};
-
-window.toggleGuestFilter = function () {
-  state.filterGuestOnly = !state.filterGuestOnly;
   renderApp();
 };
 
@@ -2064,7 +2782,6 @@ window.confirmNlpCapture = function () {
     description: '',
     tags: [currentParsedNlp.name.toLowerCase(), currentParsedNlp.room.toLowerCase()],
     lent: { isLent: false },
-    isEssentialForGuests: false,
     lastVerifiedAt: now,
     createdAt: now,
   };
@@ -2185,7 +2902,6 @@ window.savePhotoClueItem = function () {
     description: 'Visual shelf / box memory clue.',
     tags: ['photo', 'clue', room.toLowerCase()],
     lent: { isLent: false },
-    isEssentialForGuests: false,
     lastVerifiedAt: now,
     createdAt: now,
   };
@@ -2334,7 +3050,6 @@ window.saveBulkTourItems = function () {
       description: `Batch cataloged in ${room}`,
       tags: [cleaned.toLowerCase(), room.toLowerCase()],
       lent: { isLent: false },
-      isEssentialForGuests: false,
       lastVerifiedAt: now,
       createdAt: now,
     };
@@ -2431,7 +3146,6 @@ function populateDetailedAddForm(editingItem) {
     document.getElementById('add-item-landmark').value = editingItem.location.landmark || '';
     document.getElementById('add-item-desc').value = editingItem.description || '';
     document.getElementById('add-item-tags').value = (editingItem.tags || []).join(', ');
-    document.getElementById('add-item-guest').checked = !!editingItem.isEssentialForGuests;
 
     const isConsumable = !!editingItem.consumable?.isConsumable;
     document.getElementById('add-item-consumable-toggle').checked = isConsumable;
@@ -2503,7 +3217,6 @@ window.handleSaveItemSubmit = function (e) {
   const landmark = document.getElementById('add-item-landmark').value.trim();
   const description = document.getElementById('add-item-desc').value.trim();
   const tagsStr = document.getElementById('add-item-tags').value;
-  const isEssentialForGuests = document.getElementById('add-item-guest').checked;
   const isConsumable = document.getElementById('add-item-consumable-toggle').checked;
   const isLent = document.getElementById('add-item-lent-toggle').checked;
 
@@ -2548,7 +3261,6 @@ window.handleSaveItemSubmit = function (e) {
           location: { room, zone, container, landmark },
           description,
           tags,
-          isEssentialForGuests,
           consumable: consumableData,
           lent: lentData,
           lastVerifiedAt: now,
@@ -2567,7 +3279,6 @@ window.handleSaveItemSubmit = function (e) {
       description,
       tags,
       lent: lentData,
-      isEssentialForGuests,
       consumable: consumableData,
       lastVerifiedAt: now,
       createdAt: now,
@@ -2771,58 +3482,6 @@ window.confirmSpotCheckItem = function (id) {
 window.relocateSpotCheckItem = function (id) {
   editItem(id);
 };
-
-// =========================================================================
-// GUIDE VIEW (HOW TO USE FINDIT & GUEST HOUSE GUIDE)
-// =========================================================================
-
-function initGuidePage() {
-  const guestItems = state.items.filter((i) => i.isEssentialForGuests);
-  const container = document.getElementById('guide-guest-list');
-  if (!container) return;
-
-  if (guestItems.length === 0) {
-    container.innerHTML = `
-      <div class="p-4 bg-stone-50 border border-stone-200 rounded-2xl text-xs text-stone-500 text-center">
-        No items tagged as "Guest Essential" yet. When saving items, check "Include in House Guide" to show keys, emergency kits, or Wi-Fi info here for visitors!
-      </div>
-    `;
-    return;
-  }
-
-  container.innerHTML = guestItems
-    .map(
-      (item) => `
-    <div class="bg-white border border-stone-200/90 rounded-2xl p-3.5 space-y-1.5 text-center flex flex-col items-center shadow-xs">
-      <div class="flex flex-wrap items-center justify-center gap-1.5">
-        <span class="text-sm font-black text-stone-900">${escapeHtml(item.name)}</span>
-        <span class="text-[10px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 px-2 py-0.2 rounded-full">Guest Guide</span>
-      </div>
-      <div class="text-xs text-stone-800 flex items-center justify-center gap-1.5 font-semibold">
-        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500"></i>
-        <span>${escapeHtml(item.location.room)} &rsaquo; ${escapeHtml(item.location.zone)}</span>
-      </div>
-      ${
-        item.location.container
-          ? `<div class="text-xs text-stone-600">In: <strong>${escapeHtml(item.location.container)}</strong></div>`
-          : ''
-      }
-      ${
-        item.location.landmark
-          ? `<div class="text-xs text-stone-500 italic">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</div>`
-          : ''
-      }
-      ${
-        item.description
-          ? `<div class="text-xs text-stone-600 bg-stone-50 p-2 rounded-xl border border-stone-200 mt-1 max-w-sm text-center">${escapeHtml(item.description)}</div>`
-          : ''
-      }
-    </div>
-  `
-    )
-    .join('');
-  safeCreateIcons();
-}
 
 // Quick trigger from top header
 window.startQuickVoiceFromHeader = function () {

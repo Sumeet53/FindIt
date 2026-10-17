@@ -2666,7 +2666,8 @@ window.setAddCaptureMode = function (mode) {
 
 let voiceRecognitionInstance = null;
 let voiceSilenceTimer = null;
-let voiceBaseTranscript = '';
+let voiceFinalBuffer = '';
+let voiceManualStop = false;
 
 window.toggleVoiceRecognition = function () {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -2679,92 +2680,120 @@ window.toggleVoiceRecognition = function () {
 
   const btn = document.getElementById('btn-voice-record');
   const label = document.getElementById('voice-record-label');
+  const input = document.getElementById('voice-nlp-input');
 
-  const clearSilenceTimeout = () => {
+  const clearSilenceTimer = () => {
     if (voiceSilenceTimer) {
       clearTimeout(voiceSilenceTimer);
       voiceSilenceTimer = null;
     }
   };
 
-  const stopRecordingSession = () => {
-    clearSilenceTimeout();
+  const stopVoiceSession = () => {
+    voiceManualStop = true;
+    clearSilenceTimer();
+    state.isRecordingVoice = false;
+
     if (voiceRecognitionInstance) {
       try {
         voiceRecognitionInstance.stop();
       } catch (err) {}
     }
-    state.isRecordingVoice = false;
+
     if (btn) btn.classList.remove('recording-pulse');
     if (label) label.textContent = 'Tap microphone to speak';
+
+    // Commit final accumulated text into the buffer
+    if (input && input.value.trim()) {
+      voiceFinalBuffer = input.value.trim();
+    }
   };
 
-  if (state.isRecordingVoice && voiceRecognitionInstance) {
-    stopRecordingSession();
+  // If already recording, manual tap stops it immediately
+  if (state.isRecordingVoice) {
+    stopVoiceSession();
     return;
   }
 
-  try {
-    const input = document.getElementById('voice-nlp-input');
-    // Preserve existing text so subsequent speech appends without overwriting
-    voiceBaseTranscript = input && input.value.trim() ? input.value.trim() + ' ' : '';
+  voiceManualStop = false;
 
-    voiceRecognitionInstance = new SpeechRecognition();
-    voiceRecognitionInstance.continuous = true;
-    voiceRecognitionInstance.interimResults = true;
-    voiceRecognitionInstance.lang = 'en-US';
+  // Preserve whatever text is already inside the input box as the baseline
+  voiceFinalBuffer = input && input.value.trim() ? input.value.trim() : '';
 
-    const restartSilenceTimeout = () => {
-      clearSilenceTimeout();
-      voiceSilenceTimer = setTimeout(() => {
-        stopRecordingSession();
-      }, 3000); // Wait for 3 seconds of complete silence before closing mic
-    };
+  const resetSilenceCountdown = () => {
+    clearSilenceTimer();
+    voiceSilenceTimer = setTimeout(() => {
+      // Trigger stop only after a full 3 seconds of continuous silence
+      stopVoiceSession();
+    }, 3000);
+  };
 
-    voiceRecognitionInstance.onstart = function () {
+  const initRecognition = () => {
+    const recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = function () {
       state.isRecordingVoice = true;
       if (btn) btn.classList.add('recording-pulse');
-      if (label) label.textContent = 'Listening... Speak what you stored!';
-      restartSilenceTimeout();
+      if (label) label.textContent = 'Listening... (waits 3s silence)';
+      resetSilenceCountdown();
     };
 
-    voiceRecognitionInstance.onresult = function (event) {
-      restartSilenceTimeout();
-      let currentSessionTranscript = '';
-      for (let i = 0; i < event.results.length; i++) {
-        currentSessionTranscript += event.results[i][0].transcript;
+    recognition.onresult = function (event) {
+      // Reset the 3-second silence timer on any detected sound/word
+      resetSilenceCountdown();
+
+      let interimChunk = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const text = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          voiceFinalBuffer = voiceFinalBuffer ? `${voiceFinalBuffer} ${text.trim()}` : text.trim();
+        } else {
+          interimChunk += text;
+        }
       }
-      const combined = (voiceBaseTranscript + currentSessionTranscript).trim();
+
+      const fullSpokenText = [voiceFinalBuffer, interimChunk.trim()].filter(Boolean).join(' ');
       if (input) {
-        input.value = combined;
-        handleNlpInputChange(combined);
+        input.value = fullSpokenText;
+        handleNlpInputChange(fullSpokenText);
       }
     };
 
-    voiceRecognitionInstance.onerror = function (e) {
-      console.warn('Voice speech error:', e);
-      clearSilenceTimeout();
-      state.isRecordingVoice = false;
-      if (btn) btn.classList.remove('recording-pulse');
-      if (label) label.textContent = 'Tap microphone to speak';
-      if (e.error !== 'no-speech') {
-        showToast('Microphone notice: You can also type directly below.');
+    recognition.onerror = function (e) {
+      console.warn('Voice recognition event:', e.error);
+      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+        stopVoiceSession();
+        showToast('Microphone access denied. Please grant permission.');
       }
     };
 
-    voiceRecognitionInstance.onend = function () {
-      clearSilenceTimeout();
-      state.isRecordingVoice = false;
-      if (btn) btn.classList.remove('recording-pulse');
-      if (label) label.textContent = 'Tap microphone to speak';
+    recognition.onend = function () {
+      // If browser cut off early but the 3-second timer has NOT elapsed, keep listening
+      if (!voiceManualStop && state.isRecordingVoice) {
+        try {
+          recognition.start();
+        } catch (e) {
+          // If restart fails, clean up
+          stopVoiceSession();
+        }
+      } else {
+        stopVoiceSession();
+      }
     };
 
+    return recognition;
+  };
+
+  try {
+    voiceRecognitionInstance = initRecognition();
     voiceRecognitionInstance.start();
   } catch (err) {
     console.error('Voice start error:', err);
-    clearSilenceTimeout();
-    state.isRecordingVoice = false;
-    showToast('Microphone error. You can type your sentence directly.');
+    stopVoiceSession();
+    showToast('Microphone error. You can type directly below.');
   }
 };
 let currentParsedNlp = null;

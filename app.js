@@ -59,12 +59,12 @@ const INITIAL_ITEMS = [
       room: 'Master Bedroom',
       zone: 'Closet Top Shelf',
       container: 'Gray Fireproof Box',
-      landmark: 'Behind winter coats on the far left corner',
+      landmark: 'Behind winter coats on far left corner',
     },
     description: 'Family blue passports, visas, birth certificates, and travel files.',
     tags: ['passport', 'travel', 'id', 'documents', 'identification', 'kagaz', 'kagaaz', 'visas', 'passports', 'papers'],
     lent: { isLent: false },
-    lastVerifiedAt: '2026-06-12T10:15:00.000Z', // > 3 months ago (Honesty about staleness builds trust!)
+    lastVerifiedAt: '2026-06-12T10:15:00.000Z',
     createdAt: '2026-05-10T08:00:00.000Z',
   },
   {
@@ -75,7 +75,7 @@ const INITIAL_ITEMS = [
       room: 'Hallway Closet',
       zone: 'Middle Wire Rack',
       container: 'Clear Divided Bin #3',
-      landmark: 'Next to the lightbulb box, labeled "Batteries & Chargers"',
+      landmark: 'Next to lightbulb box, labeled Batteries',
     },
     description: 'Pre-charged batteries plus 4-slot smart wall charger.',
     tags: ['batteries', 'aa', 'aaa', 'power', 'remotes', 'toys', 'cell', 'battery', 'charger', 'bettery', 'battry'],
@@ -86,7 +86,7 @@ const INITIAL_ITEMS = [
       unit: 'batteries',
       minThreshold: 4,
     },
-    lastVerifiedAt: '2026-10-15T07:22:00.000Z', // Fresh
+    lastVerifiedAt: '2026-10-15T07:22:00.000Z',
     createdAt: '2026-08-12T09:30:00.000Z',
   },
   {
@@ -97,7 +97,7 @@ const INITIAL_ITEMS = [
       room: 'Garage & Workshop',
       zone: 'Work Bench Pegboard',
       container: 'Yellow Hard Shell Case',
-      landmark: 'Middle shelf under the main pegboard workbench',
+      landmark: 'Middle shelf under pegboard workbench',
     },
     description: 'Brushless hammer drill with two batteries and charger.',
     tags: ['drill', 'dewalt', 'tools', 'screws', 'hardware', 'dril', 'auzar', 'bit kit'],
@@ -119,7 +119,7 @@ const INITIAL_ITEMS = [
       room: 'Kitchen & Pantry',
       zone: 'Pantry Top Shelf',
       container: 'Red Cross Zippered Soft Bag',
-      landmark: 'Eye level on the right wall of the pantry, next to cereal boxes',
+      landmark: 'Eye level on right wall of pantry',
     },
     description: 'Sterile bandages, antiseptic spray, burn gel, and allergy medicine.',
     tags: ['first aid', 'bandages', 'medicine', 'emergency', 'allergy', 'dawai', 'davai', 'dawa', 'pills', 'tablets'],
@@ -130,7 +130,7 @@ const INITIAL_ITEMS = [
       unit: 'kit',
       minThreshold: 1,
     },
-    lastVerifiedAt: '2026-10-15T08:30:00.000Z', // Fresh
+    lastVerifiedAt: '2026-10-15T08:30:00.000Z',
     createdAt: '2026-06-15T12:00:00.000Z',
   },
   {
@@ -141,13 +141,13 @@ const INITIAL_ITEMS = [
       room: 'Garage & Workshop',
       zone: 'Tool Chest Drawer 3',
       container: 'Black Padded Zipper Sleeve',
-      landmark: 'Third drawer down of the red Craftsman tool chest',
+      landmark: 'Third drawer down of Craftsman tool chest',
     },
     description: 'Backlit tire gauge reading up to 150 PSI.',
     tags: ['car', 'tires', 'gauge', 'pressure', 'automotive', 'tyre', 'hawa', 'pump', 'inflator'],
     lent: { isLent: false },
     isMissing: true,
-    lastVerifiedAt: '2026-07-10T17:45:00.000Z', // ~3 months ago - Not verified today
+    lastVerifiedAt: '2026-07-10T17:45:00.000Z',
     createdAt: '2026-06-01T15:20:00.000Z',
   },
   {
@@ -158,7 +158,7 @@ const INITIAL_ITEMS = [
       room: 'Home Office',
       zone: 'Desk Right Drawer',
       container: 'Mesh Zipper Travel Pouch',
-      landmark: 'Top front organizer tray alongside spare flash drives',
+      landmark: 'Top front organizer tray with spare drives',
     },
     description: 'Multiport hub with 4K HDMI, Gigabit LAN, and charging for TV cable or external monitor.',
     tags: [
@@ -176,7 +176,7 @@ const INITIAL_ITEMS = [
       'that thing for the tv cable',
     ],
     lent: { isLent: false },
-    lastVerifiedAt: '2026-10-13T09:10:00.000Z', // Fresh
+    lastVerifiedAt: '2026-10-13T09:10:00.000Z',
     createdAt: '2026-08-20T10:00:00.000Z',
   },
   {
@@ -187,12 +187,12 @@ const INITIAL_ITEMS = [
       room: 'Living Room',
       zone: 'Entryway Catchall Bowl',
       container: 'Small Leather Key Pouch',
-      landmark: 'Ceramic key bowl directly next to the front door entrance mirror',
+      landmark: 'Key bowl next to front entrance mirror',
     },
     description: 'Includes Subaru spare fob and brass shed padlock key.',
     tags: ['keys', 'car', 'fob', 'shed', 'valuable', 'chabi', 'chaabi', 'chabee', 'tala', 'lock'],
     lent: { isLent: false },
-    lastVerifiedAt: '2026-10-15T06:00:00.000Z', // Fresh
+    lastVerifiedAt: '2026-10-15T06:00:00.000Z',
     createdAt: '2026-05-10T14:00:00.000Z',
   },
   {
@@ -203,12 +203,12 @@ const INITIAL_ITEMS = [
       room: 'Hallway Closet',
       zone: 'Floor Storage',
       container: 'Clear Plastic Tote with Lid',
-      landmark: 'Right underneath the hanging coats on closet floor',
+      landmark: 'Underneath hanging coats on closet floor',
     },
     description: 'Crevice tool, dusting brush, and clean spare HEPA filter.',
     tags: ['vacuum', 'dyson', 'cleaning', 'filter', 'attachments', 'safai', 'pocha', 'vacum'],
     lent: { isLent: false },
-    lastVerifiedAt: '2026-10-12T11:00:00.000Z', // Fresh
+    lastVerifiedAt: '2026-10-12T11:00:00.000Z',
     createdAt: '2026-07-20T16:00:00.000Z',
   },
   {
@@ -219,12 +219,12 @@ const INITIAL_ITEMS = [
       room: 'Garage & Workshop',
       zone: 'Overhead Bins',
       container: 'Clear 30L Camping Tub',
-      landmark: 'Front left corner of the top rack overhead shelving',
+      landmark: 'Front left corner of overhead rack',
     },
     description: '350 lumen USB-rechargeable headlamp with red night light mode.',
     tags: ['headlamp', 'camping', 'flashlight', 'light', 'outdoors', 'torch'],
     lent: { isLent: false },
-    lastVerifiedAt: '2026-05-15T18:00:00.000Z', // ~5 months ago (Stale)
+    lastVerifiedAt: '2026-05-15T18:00:00.000Z',
     createdAt: '2026-04-01T12:00:00.000Z',
   },
   {
@@ -235,12 +235,12 @@ const INITIAL_ITEMS = [
       room: 'Hallway Closet',
       zone: 'Top Shelf',
       container: 'Fabric Storage Cube #1',
-      landmark: 'Far left fabric cube marked "Winter Accessories"',
+      landmark: 'Far left fabric cube marked Winter Accessories',
     },
     description: 'Ski mittens, 2 merino wool beanies, and neck gaiter.',
     tags: ['gloves', 'winter', 'beanie', 'cold', 'snow', 'clothes', 'kapde', 'topi', 'bistar', 'mittens'],
     lent: { isLent: false },
-    lastVerifiedAt: '2026-04-01T13:00:00.000Z', // > 6 months ago (Stale)
+    lastVerifiedAt: '2026-04-01T13:00:00.000Z',
     createdAt: '2026-03-15T10:00:00.000Z',
   },
   {
@@ -251,7 +251,7 @@ const INITIAL_ITEMS = [
       room: 'Living Room',
       zone: 'TV Media Console',
       container: 'Cable Management Tray',
-      landmark: 'Laminated card taped to the underside of the main router shelf',
+      landmark: 'Taped to underside of main router shelf',
     },
     description: 'Home Wi-Fi backup credentials and recovery keys.',
     tags: ['wifi', 'internet', 'router', 'password', 'tech', 'network', 'code'],
@@ -267,12 +267,12 @@ const INITIAL_ITEMS = [
       room: 'Garage & Workshop',
       zone: 'Metal Rack Shelf 2',
       container: 'Folded upright against wall',
-      landmark: 'Secured with black bungee cord to the side of the metal rack',
+      landmark: 'Secured with bungee cord to metal rack',
     },
     description: 'Compact collapsible ladder for painting and ceiling fixtures.',
     tags: ['ladder', 'tools', 'climbing', 'painting', 'garage', 'sidhi', 'seedhi'],
     lent: { isLent: false },
-    lastVerifiedAt: '2026-07-05T10:00:00.000Z', // ~3 months ago
+    lastVerifiedAt: '2026-07-05T10:00:00.000Z',
     createdAt: '2026-06-15T14:00:00.000Z',
   },
 ];
@@ -289,18 +289,13 @@ const CATEGORIES = [
   'Other',
 ];
 
-// Subtle & Distinct Pastel Themes for Visual Codification & Categorization (Applied to Entire Card)
-// Distinct, unique pastel colors for each category (Health = Soft Rose, Household = Fresh Mint, etc.)
 const CATEGORY_THEMES = {
   'Tools & Hardware': {
     themeClass: 'cat-theme-tools',
     bg: 'bg-amber-100',
     border: 'border-amber-300',
     badge: 'bg-amber-200 text-amber-950 border-amber-400',
-    innerBox: 'bg-white/75 border-amber-200/90',
-    pillActive: 'bg-amber-500 text-stone-950 border-amber-600 shadow-sm font-bold',
-    pillInactive: 'bg-amber-100 text-amber-900 border-amber-300 hover:bg-amber-200 font-semibold',
-    colorName: 'Warm Amber',
+    innerBox: 'bg-white/80 border-amber-200',
     icon: 'wrench',
   },
   'Electronics & Cables': {
@@ -308,10 +303,7 @@ const CATEGORY_THEMES = {
     bg: 'bg-indigo-100',
     border: 'border-indigo-300',
     badge: 'bg-indigo-200 text-indigo-950 border-indigo-400',
-    innerBox: 'bg-white/75 border-indigo-200/90',
-    pillActive: 'bg-indigo-600 text-white border-indigo-700 shadow-sm font-bold',
-    pillInactive: 'bg-indigo-100 text-indigo-900 border-indigo-300 hover:bg-indigo-200 font-semibold',
-    colorName: 'Soft Indigo',
+    innerBox: 'bg-white/80 border-indigo-200',
     icon: 'cpu',
   },
   'Documents & Valuables': {
@@ -319,10 +311,7 @@ const CATEGORY_THEMES = {
     bg: 'bg-yellow-100',
     border: 'border-yellow-300',
     badge: 'bg-yellow-200 text-yellow-950 border-yellow-400',
-    innerBox: 'bg-white/75 border-yellow-200/90',
-    pillActive: 'bg-yellow-400 text-stone-950 border-yellow-500 shadow-sm font-bold',
-    pillInactive: 'bg-yellow-100 text-yellow-950 border-yellow-300 hover:bg-yellow-200 font-semibold',
-    colorName: 'Sunny Yellow',
+    innerBox: 'bg-white/80 border-yellow-200',
     icon: 'file-text',
   },
   'Health & Medication': {
@@ -330,10 +319,7 @@ const CATEGORY_THEMES = {
     bg: 'bg-rose-100',
     border: 'border-rose-300',
     badge: 'bg-rose-200 text-rose-950 border-rose-400',
-    innerBox: 'bg-white/75 border-rose-200/90',
-    pillActive: 'bg-rose-600 text-white border-rose-700 shadow-sm font-bold',
-    pillInactive: 'bg-rose-100 text-rose-900 border-rose-300 hover:bg-rose-200 font-semibold',
-    colorName: 'Soft Rose',
+    innerBox: 'bg-white/80 border-rose-200',
     icon: 'shield-plus',
   },
   'Household & Cleaning': {
@@ -341,10 +327,7 @@ const CATEGORY_THEMES = {
     bg: 'bg-emerald-100',
     border: 'border-emerald-300',
     badge: 'bg-emerald-200 text-emerald-950 border-emerald-400',
-    innerBox: 'bg-white/75 border-emerald-200/90',
-    pillActive: 'bg-emerald-600 text-white border-emerald-700 shadow-sm font-bold',
-    pillInactive: 'bg-emerald-100 text-emerald-900 border-emerald-300 hover:bg-emerald-200 font-semibold',
-    colorName: 'Fresh Mint',
+    innerBox: 'bg-white/80 border-emerald-200',
     icon: 'sparkles',
   },
   'Seasonal & Apparel': {
@@ -352,10 +335,7 @@ const CATEGORY_THEMES = {
     bg: 'bg-purple-100',
     border: 'border-purple-300',
     badge: 'bg-purple-200 text-purple-950 border-purple-400',
-    innerBox: 'bg-white/75 border-purple-200/90',
-    pillActive: 'bg-purple-600 text-white border-purple-700 shadow-sm font-bold',
-    pillInactive: 'bg-purple-100 text-purple-900 border-purple-300 hover:bg-purple-200 font-semibold',
-    colorName: 'Soft Lavender',
+    innerBox: 'bg-white/80 border-purple-200',
     icon: 'sun',
   },
   'Office & Tech': {
@@ -363,10 +343,7 @@ const CATEGORY_THEMES = {
     bg: 'bg-sky-100',
     border: 'border-sky-300',
     badge: 'bg-sky-200 text-sky-950 border-sky-400',
-    innerBox: 'bg-white/75 border-sky-200/90',
-    pillActive: 'bg-sky-600 text-white border-sky-700 shadow-sm font-bold',
-    pillInactive: 'bg-sky-100 text-sky-900 border-sky-300 hover:bg-sky-200 font-semibold',
-    colorName: 'Sky Blue',
+    innerBox: 'bg-white/80 border-sky-200',
     icon: 'briefcase',
   },
   'Other': {
@@ -374,10 +351,7 @@ const CATEGORY_THEMES = {
     bg: 'bg-stone-100',
     border: 'border-stone-300',
     badge: 'bg-stone-200 text-stone-900 border-stone-400',
-    innerBox: 'bg-white/75 border-stone-200/90',
-    pillActive: 'bg-stone-800 text-white border-stone-900 shadow-sm font-bold',
-    pillInactive: 'bg-stone-100 text-stone-800 border-stone-300 hover:bg-stone-200 font-semibold',
-    colorName: 'Warm Pebble',
+    innerBox: 'bg-white/80 border-stone-200',
     icon: 'package',
   },
 };
@@ -396,13 +370,13 @@ const state = {
   searchQuery: '',
   selectedCategory: 'All',
   selectedRoom: 'All',
-  sortBy: 'recent', // 'recent' | 'name-asc' | 'name-desc' | 'room-asc' | 'category' | 'verified'
+  sortBy: 'recent',
   filterLentOnly: false,
   filterLowStockOnly: false,
   filterMissingOnly: false,
-  viewMode: 'grid', // 'grid' | 'rooms' | 'lending'
-  activePage: 'home', // 'home' | 'add' | 'streak' | 'spotcheck' | 'about'
-  addCaptureMode: 'voice', // 'voice' | 'photo' | 'tour' | 'form'
+  viewMode: 'grid',
+  activePage: 'home',
+  addCaptureMode: 'voice',
   activeTourItems: [],
   isRecordingVoice: false,
   isRecordingTour: false,
@@ -426,16 +400,14 @@ function loadData() {
       localStorage.setItem('findit_v3_forgiving_search_migrated', 'true');
     } else {
       state.items = JSON.parse(rawItems);
-      // Clean up legacy guest properties if present
       state.items.forEach((item) => {
         delete item.isEssentialForGuests;
       });
-      // Ensure missing item exists for quick verification
       if (!state.items.some((i) => i.isMissing)) {
         const item5 = state.items.find((i) => i.id === 'item-5') || state.items[0];
         if (item5) {
           item5.isMissing = true;
-          item5.lastVerifiedAt = '2026-07-10T17:45:00.000Z'; // Not verified today
+          delete item5.lastVerifiedAt;
         }
       }
     }
@@ -475,7 +447,7 @@ function saveEngagement() {
   }
 }
 
-// Safe Icon Creator (guarantees no uncaught errors on slow mobile networks or latency)
+// Safe Icon Creator
 function safeCreateIcons() {
   if (typeof lucide !== 'undefined' && lucide && typeof lucide.createIcons === 'function') {
     try {
@@ -495,6 +467,18 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+// Utility: Standardize date to "DD-Mon-YYYY" (e.g. 10-Sep-2026)
+function formatStandardDate(dateInput) {
+  if (!dateInput) return '';
+  const d = new Date(dateInput);
+  if (isNaN(d.getTime())) return String(dateInput);
+  const day = String(d.getDate()).padStart(2, '0');
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const month = monthNames[d.getMonth()];
+  const year = d.getFullYear();
+  return `${day}-${month}-${year}`;
 }
 
 // Utility: Toast notification (Centered at top)
@@ -523,7 +507,7 @@ function showToast(message) {
   }, 2800);
 }
 
-// DYNAMIC TYPES (Categories) derived dynamically from user entered items
+// Dynamic Categories
 function getDynamicTypes() {
   const counts = {};
   state.items.forEach((item) => {
@@ -540,7 +524,7 @@ function getDynamicTypes() {
   return list;
 }
 
-// DYNAMIC LOCATIONS (Rooms) derived dynamically from user entered items & rooms
+// Dynamic Rooms
 function getDynamicLocations() {
   const counts = {};
   state.items.forEach((item) => {
@@ -548,7 +532,6 @@ function getDynamicLocations() {
     counts[rm] = (counts[rm] || 0) + 1;
   });
 
-  // Also include rooms from state.rooms if not already present
   state.rooms.forEach((r) => {
     if (!counts[r.name]) {
       counts[r.name] = 0;
@@ -564,11 +547,7 @@ function getDynamicLocations() {
   return list;
 }
 
-// =========================================================================
-// LAST-SEEN CONFIDENCE & STALENESS ENGINE
-// "If an item hasn't been confirmed in say 3 months, show a gentle
-// 'last confirmed in March' label. Honesty about staleness builds trust."
-// =========================================================================
+// Confidence & Staleness
 function getVerificationConfidence(item) {
   if (item.isMissing) {
     return {
@@ -599,36 +578,27 @@ function getVerificationConfidence(item) {
   const diffMs = now.getTime() - verifiedDate.getTime();
   const diffDays = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
   const diffMonths = Math.max(1, Math.floor(diffDays / 30));
-
-  const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-  const monthName = monthNames[verifiedDate.getMonth()];
-  const year = verifiedDate.getFullYear();
-  const currentYear = now.getFullYear();
-  const monthLabel = year === currentYear ? monthName : `${monthName} ${year}`;
+  const dateFormatted = formatStandardDate(verifiedDate);
 
   if (diffDays >= 90) {
-    // 3+ months old -> gentle staleness label to build user trust
     return {
       status: 'stale',
       badgeClass: 'bg-amber-100 text-amber-950 border-amber-300 ring-1 ring-amber-400/40',
       icon: 'alert-triangle',
-      label: `Last confirmed in ${monthLabel} (~${diffMonths} months ago · needs quick check)`,
-      shortLabel: `Last confirmed in ${monthLabel}`,
+      label: `Last confirmed on ${dateFormatted} (~${diffMonths} mos ago · check spot)`,
+      shortLabel: `Confirmed ${dateFormatted}`,
       isStale: true,
       daysAgo: diffDays,
       monthsAgo: diffMonths,
     };
   } else if (diffDays <= 7) {
-    const timeText = diffDays === 0 ? 'today' : diffDays === 1 ? 'yesterday' : `${diffDays} days ago`;
+    const timeText = diffDays === 0 ? 'today' : diffDays === 1 ? 'yesterday' : `${diffDays}d ago`;
     return {
       status: 'fresh',
       badgeClass: 'bg-emerald-100 text-emerald-950 border-emerald-300',
       icon: 'check-circle',
-      label: `Verified fresh (${timeText})`,
-      shortLabel: `Verified ${timeText}`,
+      label: `Verified fresh (${dateFormatted} · ${timeText})`,
+      shortLabel: `Verified ${dateFormatted}`,
       isStale: false,
       daysAgo: diffDays,
     };
@@ -637,32 +607,21 @@ function getVerificationConfidence(item) {
       status: 'normal',
       badgeClass: 'bg-stone-100 text-stone-800 border-stone-200',
       icon: 'calendar',
-      label: `Confirmed ${diffDays} days ago (${monthLabel})`,
-      shortLabel: `Confirmed in ${monthLabel}`,
+      label: `Confirmed on ${dateFormatted} (${diffDays} days ago)`,
+      shortLabel: `Confirmed ${dateFormatted}`,
       isStale: false,
       daysAgo: diffDays,
     };
   }
 }
 
-// =========================================================================
-// FORGIVING SEARCH ENGINE
-// Supports:
-// 1. Natural descriptive queries ("that thing for the TV cable" -> HDMI adapter)
-// 2. Indian & Hinglish synonyms (chabi, dawai, taar, bartan, kapde, kagaz, remort, etc.)
-// 3. Typo tolerance (Levenshtein distance: dril -> drill, pasport -> passport)
-// 4. Stop-words removal and multi-token relevance scoring
-// =========================================================================
-
+// Forgiving Search Engine
 const INDIAN_SYNONYMS = {
-  // Eyewear
   'chashma': ['glasses', 'spectacles', 'reading glasses', 'eyewear'],
   'chashme': ['glasses', 'spectacles', 'reading glasses'],
   'chasma': ['glasses', 'spectacles', 'reading glasses'],
   'spectacles': ['glasses', 'chashma'],
   'glasses': ['spectacles', 'chashma'],
-
-  // Keys & Lock
   'chabi': ['keys', 'key', 'fob', 'car key', 'shed', 'lock'],
   'chaabi': ['keys', 'key', 'fob', 'car key', 'shed', 'lock'],
   'chabee': ['keys', 'key', 'fob'],
@@ -672,8 +631,6 @@ const INDIAN_SYNONYMS = {
   'keys': ['chabi', 'fob', 'key', 'chaabi'],
   'tala': ['lock', 'padlock', 'shed', 'keys'],
   'lock': ['padlock', 'tala', 'keys'],
-
-  // Medicine & Health
   'dawai': ['medicine', 'first aid', 'antihistamines', 'pills', 'tablets', 'bandages'],
   'davai': ['medicine', 'first aid', 'pills', 'dawai'],
   'dawa': ['medicine', 'first aid', 'dawai'],
@@ -687,8 +644,6 @@ const INDIAN_SYNONYMS = {
   'bandage': ['first aid', 'bandages'],
   'bandages': ['first aid', 'bandage'],
   'allergy': ['antihistamines', 'first aid', 'medicine'],
-
-  // Cables, TV & Electronics
   'taar': ['cable', 'wire', 'cord', 'adapter', 'charger', 'usb', 'hdmi'],
   'tar': ['cable', 'wire', 'cord', 'taar'],
   'wire': ['cable', 'cord', 'taar', 'adapter', 'charger', 'hdmi'],
@@ -713,8 +668,6 @@ const INDIAN_SYNONYMS = {
   'wi-fi': ['wifi', 'internet', 'router', 'password'],
   'internet': ['wifi', 'router', 'password'],
   'router': ['wifi', 'internet', 'password'],
-
-  // Documents & Valuables
   'kagaz': ['documents', 'passport', 'papers', 'records', 'certificates'],
   'kagaaz': ['documents', 'passport', 'papers'],
   'dastavez': ['documents', 'passport', 'papers'],
@@ -722,14 +675,10 @@ const INDIAN_SYNONYMS = {
   'passports': ['passport', 'travel', 'documents', 'kagaz'],
   'pasport': ['passport', 'travel', 'documents'],
   'passprt': ['passport'],
-  'aadhar': ['id', 'documents', 'identification'],
-  'pan': ['documents', 'id'],
   'certificate': ['documents', 'passport', 'records'],
   'certificates': ['documents', 'records'],
   'visa': ['passport', 'documents', 'travel'],
   'visas': ['passport', 'documents', 'travel'],
-
-  // Tools & Hardware
   'drill': ['dewalt', 'hammer drill', 'hardware', 'screws', 'tools', 'bit kit'],
   'dril': ['drill', 'tools'],
   'auzar': ['tools', 'hardware', 'wrench', 'drill'],
@@ -742,16 +691,12 @@ const INDIAN_SYNONYMS = {
   'tyre': ['tire', 'pressure', 'gauge', 'inflator', 'car'],
   'hawa': ['tire', 'inflator', 'pressure', 'gauge'],
   'inflator': ['tire', 'gauge', 'pressure', 'pump'],
-
-  // Kitchen & Household
   'bartan': ['utensils', 'cookware', 'dishes', 'kitchen', 'pantry'],
   'safai': ['cleaning', 'vacuum', 'dyson', 'mop'],
   'pocha': ['mop', 'cleaning'],
   'vacuum': ['dyson', 'cleaning', 'filter', 'attachments', 'vacum'],
   'vacum': ['vacuum', 'cleaning'],
   'dyson': ['vacuum', 'cleaning', 'filter'],
-
-  // Apparel & Winter
   'kapde': ['clothes', 'apparel', 'winter', 'gloves', 'beanies'],
   'kapda': ['clothes', 'winter', 'apparel'],
   'bistar': ['blankets', 'bed', 'winter', 'blanket'],
@@ -765,15 +710,12 @@ const INDIAN_SYNONYMS = {
   'jootey': ['shoes', 'boots', 'footwear'],
   'joota': ['shoes', 'footwear'],
   'shoes': ['jootey', 'footwear'],
-
-  // Tailoring & Repair
   'suie': ['needle', 'thread', 'sewing'],
   'sui': ['needle', 'sewing'],
   'dhaga': ['thread', 'sewing'],
   'needle': ['suie', 'thread', 'sewing'],
 };
 
-// Common conversational stopwords to strip so phrases like "that thing for the TV cable" work naturally
 const SEARCH_STOPWORDS = new Set([
   'that', 'thing', 'things', 'for', 'the', 'a', 'an', 'is', 'are', 'was', 'were',
   'my', 'our', 'in', 'on', 'at', 'to', 'of', 'and', 'or', 'where', 'did', 'i',
@@ -781,7 +723,6 @@ const SEARCH_STOPWORDS = new Set([
   'ki', 'ke', 'me', 'mein', 'se', 'it', 'its', 'show', 'get', 'give', 'please'
 ]);
 
-// Fast Levenshtein distance for typo forgiveness
 function levenshteinDist(s1, s2) {
   if (s1 === s2) return 0;
   if (s1.length === 0) return s2.length;
@@ -805,7 +746,6 @@ function levenshteinDist(s1, s2) {
   return d[s1.length][s2.length];
 }
 
-// Score a candidate item against a natural language search query
 function scoreItemForForgivingSearch(item, query) {
   const cleanQ = query.toLowerCase().trim();
   if (!cleanQ) return { score: 1, matchReason: '' };
@@ -822,7 +762,6 @@ function scoreItemForForgivingSearch(item, query) {
   let score = 0;
   const reasons = [];
 
-  // 1. Exact phrase matches
   if (itemName === cleanQ) {
     score += 250;
     reasons.push('exact name match');
@@ -831,12 +770,10 @@ function scoreItemForForgivingSearch(item, query) {
     reasons.push(`name contains "${cleanQ}"`);
   }
 
-  // 2. Tokenize query and remove stop-words
   const rawTokens = cleanQ.split(/[\s,._\-+/]+/).filter(Boolean);
   const meaningfulTokens = rawTokens.filter((t) => !SEARCH_STOPWORDS.has(t));
   const activeTokens = meaningfulTokens.length > 0 ? meaningfulTokens : rawTokens;
 
-  // Check special descriptive phrase for TV cable / adapter
   if (cleanQ.includes('tv') && (cleanQ.includes('cable') || cleanQ.includes('adapter') || cleanQ.includes('wire') || cleanQ.includes('thing'))) {
     if (itemName.includes('hdmi') || itemName.includes('adapter') || tags.includes('tv cable')) {
       score += 180;
@@ -847,40 +784,35 @@ function scoreItemForForgivingSearch(item, query) {
   for (const token of activeTokens) {
     let tokenMatched = false;
 
-    // Direct token match in item name
     if (itemName.includes(token)) {
       score += 80;
       tokenMatched = true;
       reasons.push(`matched "${token}" in item name`);
     }
 
-    // Direct match in tags
     if (tags.some((t) => t === token || t.includes(token))) {
       score += 70;
       tokenMatched = true;
       reasons.push(`matched tag "${token}"`);
     }
 
-    // Match in location / room / shelf / container
     if (room.includes(token) || zone.includes(token) || container.includes(token)) {
       score += 45;
       tokenMatched = true;
       reasons.push(`location match "${token}"`);
     }
 
-    // Match in landmark clue / description
     if (landmark.includes(token) || description.includes(token) || category.includes(token)) {
       score += 35;
       tokenMatched = true;
     }
 
-    // Indian / Hinglish synonyms expansion
     const synonyms = INDIAN_SYNONYMS[token] || [];
     for (const syn of synonyms) {
       if (itemName.includes(syn) || tags.some((t) => t.includes(syn))) {
         score += 75;
         tokenMatched = true;
-        reasons.push(`synonym "${token}" &rarr; ${syn}`);
+        reasons.push(`synonym "${token}" → ${syn}`);
         break;
       } else if (description.includes(syn) || container.includes(syn) || zone.includes(syn)) {
         score += 40;
@@ -890,9 +822,7 @@ function scoreItemForForgivingSearch(item, query) {
       }
     }
 
-    // Typo tolerance (Levenshtein match)
     if (!tokenMatched && token.length >= 4) {
-      // Check against words in item name
       const nameWords = itemName.split(/\s+/);
       for (const nw of nameWords) {
         if (nw.length >= 4) {
@@ -900,13 +830,12 @@ function scoreItemForForgivingSearch(item, query) {
           if (levenshteinDist(token, nw) <= maxDist) {
             score += 60;
             tokenMatched = true;
-            reasons.push(`typo fix: "${token}" &sim; ${nw}`);
+            reasons.push(`typo fix: "${token}" ~ ${nw}`);
             break;
           }
         }
       }
 
-      // Check against tags
       if (!tokenMatched) {
         for (const tag of tags) {
           if (tag.length >= 4) {
@@ -914,7 +843,7 @@ function scoreItemForForgivingSearch(item, query) {
             if (levenshteinDist(token, tag) <= maxDist) {
               score += 55;
               tokenMatched = true;
-              reasons.push(`typo fix: "${token}" &sim; ${tag}`);
+              reasons.push(`typo fix: "${token}" ~ ${tag}`);
               break;
             }
           }
@@ -929,39 +858,31 @@ function scoreItemForForgivingSearch(item, query) {
   };
 }
 
-// Filtering & Dynamic Sorting items with Forgiving Search integration
 function getFilteredItems() {
   const query = state.searchQuery.trim();
 
-  // First pass: apply hard dropdown and status filters
   const candidateItems = state.items.filter((item) => {
-    // Dynamic Type filter
     if (state.selectedCategory !== 'All' && item.category !== state.selectedCategory) {
       return false;
     }
-    // Dynamic Location filter
     if (state.selectedRoom !== 'All' && item.location.room !== state.selectedRoom) {
       return false;
     }
-    // Lent out filter
     if (state.filterLentOnly && (!item.lent || !item.lent.isLent)) {
       return false;
     }
-    // Low stock filter
     if (state.filterLowStockOnly) {
       const isLow =
         item.consumable?.isConsumable &&
         (item.consumable.quantity ?? 0) <= (item.consumable.minThreshold ?? 0);
       if (!isLow) return false;
     }
-    // Missing items filter
     if (state.filterMissingOnly && !item.isMissing) {
       return false;
     }
     return true;
   });
 
-  // If a natural search query is active, score with the forgiving search engine
   if (query) {
     const scoredList = candidateItems
       .map((item) => {
@@ -970,12 +891,10 @@ function getFilteredItems() {
       })
       .filter((entry) => entry.score > 0);
 
-    // Sort primarily by relevance score
     scoredList.sort((a, b) => b.score - a.score);
     return scoredList.map((entry) => entry.item);
   }
 
-  // When not searching, sort according to active sort order dropdown
   const results = [...candidateItems];
   switch (state.sortBy) {
     case 'name-asc':
@@ -1018,7 +937,6 @@ function getFilteredItems() {
   return results;
 }
 
-// Render Functions
 function renderApp() {
   renderSortFilterCard();
   renderEngagementStatus();
@@ -1026,12 +944,10 @@ function renderApp() {
   safeCreateIcons();
 }
 
-// Render Sort & Filter Card (Dynamic as per user entered data)
 function renderSortFilterCard() {
   const dynamicTypes = getDynamicTypes();
   const dynamicLocations = getDynamicLocations();
 
-  // Populate dynamic types select
   const typeSelect = document.getElementById('filter-type-select');
   if (typeSelect) {
     const totalCount = state.items.length;
@@ -1044,7 +960,6 @@ function renderSortFilterCard() {
     typeSelect.value = state.selectedCategory;
   }
 
-  // Populate dynamic locations select
   const locSelect = document.getElementById('filter-location-select');
   if (locSelect) {
     const uniqueRoomsCount = dynamicLocations.length;
@@ -1057,21 +972,17 @@ function renderSortFilterCard() {
     locSelect.value = state.selectedRoom;
   }
 
-  // Set sort order select
   const sortSelect = document.getElementById('sort-order-select');
   if (sortSelect) {
     sortSelect.value = state.sortBy || 'recent';
   }
 
-  // Total items in pill
   const totalItemsEl = document.getElementById('stat-total-items');
   if (totalItemsEl) totalItemsEl.textContent = state.items.length;
 
-  // Header streak pill
   const headerStreak = document.getElementById('header-streak-badge');
   if (headerStreak) headerStreak.textContent = `${state.engagement.streak || 1} Days`;
 
-  // Quick filter buttons active status
   const filterAllBtn = document.getElementById('filter-btn-all');
   const filterLentBtn = document.getElementById('filter-btn-lent');
   const filterLowBtn = document.getElementById('filter-btn-low');
@@ -1165,14 +1076,12 @@ function renderSortFilterCard() {
     }
   }
 
-  // Clear search input 'x' button
   const clearSearchBtn = document.getElementById('btn-clear-search');
   if (clearSearchBtn) {
     clearSearchBtn.style.display = state.searchQuery ? 'block' : 'none';
   }
 }
 
-// Daily Engagement & Habit Retention Rendering
 function renderEngagementStatus() {
   const streakBadge = document.getElementById('streak-counter-badge');
   const healthBadge = document.getElementById('health-score-badge');
@@ -1186,7 +1095,6 @@ function renderEngagementStatus() {
     streakBadge.textContent = `${streak}-Day Organizing Streak`;
   }
 
-  // Calculate home clarity (percentage of items verified within last 14 days)
   const nowMs = Date.now();
   const twoWeeksMs = 14 * 24 * 60 * 60 * 1000;
   const verifiedCount = state.items.filter((item) => {
@@ -1200,7 +1108,6 @@ function renderEngagementStatus() {
     healthBadge.textContent = `Home Clarity: ${clarityScore}%`;
   }
 
-  // Check if checked in today
   const todayStr = new Date().toISOString().slice(0, 10);
   const isCheckedInToday = state.engagement.lastCheckInDate === todayStr;
   if (checkinBtn) {
@@ -1215,7 +1122,6 @@ function renderEngagementStatus() {
     }
   }
 
-  // Notification status
   const notifGranted = typeof Notification !== 'undefined' && Notification.permission === 'granted';
   if (notifBtnLabel) {
     if (notifGranted) {
@@ -1242,7 +1148,6 @@ function renderEngagementStatus() {
   }
 }
 
-// Daily Check-In Action
 window.handleDailyCheckIn = function () {
   const todayStr = new Date().toISOString().slice(0, 10);
   if (state.engagement.lastCheckInDate === todayStr) {
@@ -1258,7 +1163,6 @@ window.handleDailyCheckIn = function () {
 
   showToast(`🎉 Streak increased to ${state.engagement.streak} days! Keeping home organized.`);
 
-  // If notifications enabled, trigger a celebratory reminder confirmation
   if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
     try {
       new Notification('FindIt: Check-In Complete! 🔥', {
@@ -1271,7 +1175,6 @@ window.handleDailyCheckIn = function () {
   }
 };
 
-// Web Notification Handling
 window.toggleDailyNotifications = async function () {
   if (typeof Notification === 'undefined') {
     showToast('Notifications are not supported on this browser.');
@@ -1327,7 +1230,6 @@ window.sendTestNotification = function () {
   }
 };
 
-// Dynamic Filter & Sort Event Handlers
 window.handleTypeFilterChange = function (val) {
   state.selectedCategory = val;
   renderApp();
@@ -1397,13 +1299,7 @@ window.clearSearchInput = function () {
   renderApp();
 };
 
-// =========================================================================
-// ONE-TAP "NOT THERE!" SELF-HEALING SYSTEM
-// If an item isn't where FindIt says, the user taps one button and the app asks:
-// "Was it moved, lent, or used up?"
-// Keeps the data self-healing without nagging.
-// =========================================================================
-
+// One-Tap Self-Healing System
 let currentNotThereItemId = null;
 let currentRelocateItemId = null;
 
@@ -1477,8 +1373,8 @@ window.handleNotThereChoice = function (choice) {
         minThreshold: item.consumable?.minThreshold || 1,
       };
       item.description = item.description
-        ? `${item.description} (Used up on ${new Date().toLocaleDateString()})`
-        : `Used up on ${new Date().toLocaleDateString()}`;
+        ? `${item.description} (Used up on ${formatStandardDate(new Date())})`
+        : `Used up on ${formatStandardDate(new Date())}`;
       item.lastVerifiedAt = new Date().toISOString();
       saveItems();
       renderApp();
@@ -1487,7 +1383,6 @@ window.handleNotThereChoice = function (choice) {
 
     case 'missing':
       item.isMissing = true;
-      // Completely clear verification so it is never verified today
       delete item.lastVerifiedAt;
       saveItems();
       renderApp();
@@ -1561,7 +1456,6 @@ window.confirmRelocateItem = function () {
   showToast(`Memory healed! ${item.name} moved to ${newRoom} › ${newZone}`, 'success');
 };
 
-// Persistent Bottom Bar Page Navigation Router
 window.switchPage = function (pageId) {
   state.activePage = pageId;
   const pageList = ['home', 'add', 'streak', 'spotcheck', 'about'];
@@ -1600,7 +1494,6 @@ window.switchPage = function (pageId) {
     }
   });
 
-  // Page-specific initializers
   if (pageId === 'home') {
     renderApp();
   } else if (pageId === 'add') {
@@ -1627,15 +1520,10 @@ window.openHabitsModal = function () {
   switchPage('streak');
 };
 
-function itemQuantity(item) {
-  return item.consumable?.quantity ?? 0;
-}
-
 function renderMainView() {
   const container = document.getElementById('main-content-view');
   if (!container) return;
 
-  // View switch tab styles (Centered)
   const btnGrid = document.getElementById('view-tab-grid');
   const btnRooms = document.getElementById('view-tab-rooms');
   const btnLending = document.getElementById('view-tab-lending');
@@ -1668,18 +1556,11 @@ function renderMainView() {
   }
 }
 
-// =========================================================================
-// DIRECT ANSWER CARD FOR SEARCH RESULTS
-// "Answer, don't list. Search should return a direct answer card:
-// 'Passport: Master Bedroom, closet, top shelf, gray box, behind winter coats',
-// not ten results to scroll."
-// =========================================================================
+// Compact Direct Answer Card
 function renderDirectAnswerCard(item, confidence, matchReason) {
   const theme = CATEGORY_THEMES[item.category] || CATEGORY_THEMES['Other'];
   const isLent = item.lent && item.lent.isLent;
 
-  // Build the direct answer sentence in plain English:
-  // "Passport: Master Bedroom, closet top shelf, gray box, behind winter coats"
   const locationParts = [
     item.location.room,
     item.location.zone,
@@ -1688,162 +1569,111 @@ function renderDirectAnswerCard(item, confidence, matchReason) {
   ].filter(Boolean);
 
   return `
-    <div class="w-full ${theme.themeClass} ${item.isMissing ? 'bg-red-50/95 border-red-500 ring-4 ring-red-400' : `${theme.bg} ${theme.border} ring-2 ring-amber-400/60`} rounded-3xl border-2 p-5 sm:p-7 shadow-elevated relative overflow-hidden text-center space-y-4 max-w-2xl mx-auto">
+    <div class="w-full ${theme.themeClass} ${item.isMissing ? 'bg-red-50/95 border-red-500 ring-4 ring-red-400' : `${theme.bg} ${theme.border} ring-2 ring-amber-400/60`} rounded-2xl border-2 p-4 sm:p-5 shadow-elevated relative overflow-hidden text-center space-y-3 max-w-xl mx-auto">
       
-      <!-- Direct Answer Sparkle Header -->
-      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-stone-300/60 pb-3">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-900 text-amber-300 font-black text-xs uppercase tracking-wider shadow-xs">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-300"></i>
+      <!-- Sparkle Header -->
+      <div class="flex items-center justify-between gap-1.5 border-b border-stone-300/60 pb-2">
+        <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-stone-900 text-amber-300 font-black text-[10px] uppercase tracking-wider shadow-xs">
+          <i data-lucide="sparkles" class="w-3 h-3 text-amber-300"></i>
           <span>Direct Answer</span>
         </div>
 
-        <!-- Last-seen confidence pill (hidden if missing to prevent duplicate tag) -->
         ${
           !item.isMissing
-            ? `<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border shadow-xs ${confidence.badgeClass}">
-                <i data-lucide="${confidence.icon}" class="w-3.5 h-3.5"></i>
+            ? `<div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold border shadow-xs ${confidence.badgeClass}">
+                <i data-lucide="${confidence.icon}" class="w-3 h-3"></i>
                 <span>${confidence.label}</span>
               </div>`
             : ''
         }
       </div>
 
-      <!-- Item Title & Category Badges -->
-      <div class="space-y-1">
-        <div class="flex flex-wrap items-center justify-center gap-1.5">
+      <!-- Title & Pills -->
+      <div class="space-y-0.5">
+        <div class="flex flex-wrap items-center justify-center gap-1">
           ${
             item.isMissing
-              ? `<span class="inline-flex items-center gap-1 text-xs font-black px-3 py-1 rounded-full bg-red-600 text-white border border-red-700 shadow-xs animate-pulse">
-                  <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-white"></i>
+              ? `<span class="inline-flex items-center gap-1 text-[11px] font-black px-2.5 py-0.5 rounded-full bg-red-600 text-white border border-red-700 shadow-xs animate-pulse">
+                  <i data-lucide="alert-triangle" class="w-3 h-3 text-white"></i>
                   <span>Missing</span>
                 </span>`
               : ''
           }
-          <span class="text-xs font-extrabold px-3 py-1 rounded-full border shadow-xs ${theme.badge}">
-            <i data-lucide="${theme.icon || 'tag'}" class="w-3 h-3 inline mr-1"></i>
+          <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full border shadow-xs ${theme.badge}">
+            <i data-lucide="${theme.icon || 'tag'}" class="w-2.5 h-2.5 inline mr-1"></i>
             ${escapeHtml(item.category)}
           </span>
           ${
             isLent
-              ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-rose-200 text-rose-950 border border-rose-300">
+              ? `<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-200 text-rose-950 border border-rose-300">
                   🤝 Lent to ${escapeHtml(item.lent.lentTo || 'Someone')}
                 </span>`
               : ''
           }
         </div>
-        <h3 class="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight break-words">
+        <h3 class="text-xl sm:text-2xl font-black text-stone-900 tracking-tight break-words">
           ${escapeHtml(item.name)}
         </h3>
         ${
           matchReason
-            ? `<p class="text-[11px] text-stone-600 font-medium">Found via: <span class="font-bold text-stone-800">${escapeHtml(matchReason)}</span></p>`
+            ? `<p class="text-[10px] text-stone-600 font-medium">Found via: <span class="font-bold text-stone-800">${escapeHtml(matchReason)}</span></p>`
             : ''
         }
       </div>
 
-      <!-- Direct Plain-English Answer Sentence (Highlighted Box) -->
-      <div class="bg-white/95 backdrop-blur-xs rounded-2xl p-4 sm:p-5 border-2 border-amber-300/90 shadow-soft space-y-3 text-center">
-        <div class="text-stone-500 text-[11px] font-black uppercase tracking-wider">
-          📍 Exact Location
-        </div>
-        <div class="text-base sm:text-xl font-black text-stone-900 leading-snug break-words">
+      <!-- Compact Location -->
+      <div class="bg-white/95 rounded-xl p-3 border border-amber-300/90 shadow-soft space-y-1.5 text-center">
+        <div class="text-sm sm:text-base font-black text-stone-900 leading-snug break-words">
           &ldquo;<span class="text-amber-800">${escapeHtml(item.name)}:</span> ${escapeHtml(locationParts.join(', '))}&rdquo;
         </div>
 
-        <!-- Structured Visual Breadcrumb Path -->
-        <div class="flex flex-wrap items-center justify-center gap-1.5 pt-2 text-xs font-bold text-stone-800">
-          <span class="px-3 py-1 bg-amber-50 border border-amber-200 rounded-xl flex items-center gap-1 shadow-xs">
-            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-600"></i>
+        <div class="flex flex-wrap items-center justify-center gap-1 pt-0.5 text-[11px] font-bold text-stone-800">
+          <span class="px-2 py-0.5 bg-amber-50 border border-amber-200 rounded-lg flex items-center gap-1 shadow-xs">
+            <i data-lucide="map-pin" class="w-3 h-3 text-amber-600"></i>
             <span>${escapeHtml(item.location.room)}</span>
           </span>
-          <span class="text-stone-400 font-normal">&rsaquo;</span>
-          <span class="px-3 py-1 bg-amber-50 border border-amber-200 rounded-xl shadow-xs">
+          <span class="text-stone-400 font-normal">›</span>
+          <span class="px-2 py-0.5 bg-amber-50 border border-amber-200 rounded-lg shadow-xs">
             ${escapeHtml(item.location.zone)}
           </span>
           ${
             item.location.container
-              ? `<span class="text-stone-400 font-normal">&rsaquo;</span>
-                 <span class="px-3 py-1 bg-stone-100 border border-stone-200 rounded-xl shadow-xs text-stone-800">
+              ? `<span class="text-stone-400 font-normal">›</span>
+                 <span class="px-2 py-0.5 bg-stone-100 border border-stone-200 rounded-lg shadow-xs text-stone-800">
                    ${escapeHtml(item.location.container)}
                  </span>`
               : ''
           }
         </div>
-
-        ${
-          item.location.landmark
-            ? `<div class="text-xs text-amber-950 bg-amber-50/90 px-3.5 py-2 rounded-xl border border-amber-200 italic max-w-md mx-auto">
-                💡 Landmark clue: &ldquo;${escapeHtml(item.location.landmark)}&rdquo;
-              </div>`
-            : ''
-        }
       </div>
 
-      ${
-        item.description
-          ? `<p class="text-xs sm:text-sm text-stone-700 max-w-md mx-auto leading-relaxed">${escapeHtml(item.description)}</p>`
-          : ''
-      }
-
-      ${
-        item.photoUrl
-          ? `<div class="w-full max-w-xs mx-auto rounded-2xl overflow-hidden border-2 border-white shadow-soft">
-              <img src="${item.photoUrl}" alt="${escapeHtml(item.name)}" class="w-full h-40 object-cover" />
-            </div>`
-          : ''
-      }
-
-      <!-- Missing Banner in Red with I Found It action -->
-      ${
-        item.isMissing
-          ? `<div class="w-full bg-red-100/95 border-2 border-red-400 rounded-2xl p-3.5 text-xs flex flex-col sm:flex-row items-center justify-between gap-2.5 text-red-950 text-center font-bold shadow-xs">
-              <div class="flex items-center justify-center text-red-900">
-                <span>Item flagged as <strong>Missing</strong> &bull; Not verified today</span>
-              </div>
-              <button
-                type="button"
-                onclick="markItemFound('${item.id}')"
-                class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black shadow-xs cursor-pointer transition-colors flex items-center justify-center gap-1 shrink-0"
-              >
-                <i data-lucide="check" class="w-3.5 h-3.5 text-white"></i>
-                <span>I Found It!</span>
-              </button>
-            </div>`
-          : ''
-      }
-
-      <!-- Direct Answer Action Buttons: One-Tap "Not there!", "Still here", "Edit" -->
-      <div class="pt-2 flex flex-wrap items-center justify-center gap-2.5 w-full max-w-md mx-auto">
-        <!-- One-Tap "Not there!" Button -->
+      <!-- Action Buttons -->
+      <div class="pt-1 flex items-center justify-center gap-2 w-full max-w-sm mx-auto">
         <button
           type="button"
           onclick="openNotThereModal('${item.id}')"
-          class="flex-1 min-w-[130px] py-3 px-4 bg-amber-100 hover:bg-amber-200 active:opacity-85 border-2 border-amber-300 text-amber-950 font-extrabold text-xs sm:text-sm rounded-xl cursor-pointer flex items-center justify-center gap-2 shadow-xs touch-manipulation transition-colors"
-          title="Not where it says? Was it moved, lent, or used up?"
+          class="flex-1 py-2 px-3 bg-amber-100 hover:bg-amber-200 active:opacity-85 border border-amber-300 text-amber-950 font-bold text-xs rounded-xl cursor-pointer flex items-center justify-center gap-1.5 shadow-xs transition-colors"
         >
-          <i data-lucide="help-circle" class="w-4 h-4 text-amber-700"></i>
+          <i data-lucide="help-circle" class="w-3.5 h-3.5 text-amber-700"></i>
           <span>Not there!</span>
         </button>
 
-        <!-- Still Here (Confirm Location) -->
         <button
           type="button"
           onclick="verifyLocation('${item.id}')"
-          class="flex-1 min-w-[130px] py-3 px-4 ${item.isMissing ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-600 hover:bg-emerald-700'} active:opacity-85 text-white font-extrabold text-xs sm:text-sm rounded-xl cursor-pointer flex items-center justify-center gap-2 shadow-soft touch-manipulation transition-colors"
-          title="${item.isMissing ? 'I found it! Reset missing status' : 'Confirm item is still in this spot'}"
+          class="flex-1 py-2 px-3 ${item.isMissing ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-600 hover:bg-emerald-700'} active:opacity-85 text-white font-bold text-xs rounded-xl cursor-pointer flex items-center justify-center gap-1.5 shadow-soft transition-colors"
         >
-          <i data-lucide="check" class="w-4 h-4 text-white"></i>
+          <i data-lucide="check" class="w-3.5 h-3.5 text-white"></i>
           <span>${item.isMissing ? 'I Found It!' : 'Still here'}</span>
         </button>
 
-        <!-- Edit / Update -->
         <button
           type="button"
           onclick="editItem('${item.id}')"
-          class="py-3 px-3.5 bg-white hover:bg-stone-50 active:opacity-85 border border-stone-300 text-stone-700 font-bold text-xs rounded-xl cursor-pointer shadow-xs touch-manipulation transition-colors"
-          title="Edit Item"
+          class="py-2 px-2.5 bg-white hover:bg-stone-50 active:opacity-85 border border-stone-300 text-stone-700 font-bold text-xs rounded-xl cursor-pointer shadow-xs transition-colors"
+          title="Edit"
         >
-          <i data-lucide="pencil" class="w-4 h-4"></i>
+          <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
         </button>
       </div>
     </div>
@@ -1856,30 +1686,30 @@ function renderGridView(container) {
 
   if (filtered.length === 0) {
     container.innerHTML = `
-      <div class="p-12 text-center bg-white/95 rounded-3xl border border-stone-200 space-y-4 shadow-soft w-full max-w-xl mx-auto flex flex-col items-center justify-center">
-        <div class="w-14 h-14 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-700 mx-auto">
-          <i data-lucide="search" class="w-7 h-7"></i>
+      <div class="p-8 text-center bg-white/95 rounded-2xl border border-stone-200 space-y-3 shadow-soft w-full max-w-md mx-auto flex flex-col items-center justify-center">
+        <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-700 mx-auto">
+          <i data-lucide="search" class="w-6 h-6"></i>
         </div>
-        <h3 class="text-lg font-bold text-stone-900">No items found</h3>
-        <p class="text-xs sm:text-sm text-stone-500 max-w-sm mx-auto text-center">
+        <h3 class="text-base font-bold text-stone-900">No items found</h3>
+        <p class="text-xs text-stone-500 max-w-xs mx-auto text-center">
           ${
             state.searchQuery
-              ? `No items match "${escapeHtml(state.searchQuery)}". Try searching by function (e.g. "TV cable", "cord", "tool") or Indian names like "chabi", "dawai", "kapde".`
+              ? `No items match "${escapeHtml(state.searchQuery)}". Try searching by function or Hinglish.`
               : 'No items match your active category or filters.'
           }
         </p>
-        <div class="flex flex-wrap items-center justify-center gap-2 pt-2">
+        <div class="flex flex-wrap items-center justify-center gap-2 pt-1">
           ${
             state.searchQuery || state.selectedCategory !== 'All' || state.filterLowStockOnly
-              ? `<button onclick="clearAllFilters()" class="px-4 py-2 text-xs font-semibold border border-stone-200 rounded-xl text-stone-600 hover:bg-stone-50 cursor-pointer touch-manipulation">Clear filters</button>`
+              ? `<button onclick="clearAllFilters()" class="px-3 py-1.5 text-xs font-semibold border border-stone-200 rounded-xl text-stone-600 hover:bg-stone-50 cursor-pointer">Clear filters</button>`
               : ''
           }
           <button
             onclick="switchPage('add')"
-            class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-stone-900 text-white rounded-xl text-xs sm:text-sm font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft touch-manipulation"
+            class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft"
           >
-            <i data-lucide="plus" class="w-4 h-4 text-amber-400"></i>
-            <span>Add this item now</span>
+            <i data-lucide="plus" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Add item now</span>
           </button>
         </div>
       </div>
@@ -1887,7 +1717,6 @@ function renderGridView(container) {
     return;
   }
 
-  // Answer, don't list: If the user is searching, return a Direct Answer Card at the top!
   if (isSearchActive) {
     const topItem = filtered[0];
     const topConfidence = getVerificationConfidence(topItem);
@@ -1898,16 +1727,16 @@ function renderGridView(container) {
     const otherMatchesHtml =
       otherMatches.length > 0
         ? `
-        <div class="w-full pt-4 space-y-4">
-          <div class="w-full flex items-center justify-between border-b border-stone-200/80 pb-2 px-1">
+        <div class="w-full pt-3 space-y-3">
+          <div class="w-full flex items-center justify-between border-b border-stone-200/80 pb-1 px-1">
             <span class="text-xs font-bold text-stone-600">
               Other related items (${otherMatches.length})
             </span>
-            <span class="text-[11px] text-stone-400">
-              Top match shown above
+            <span class="text-[10px] text-stone-400">
+              Top match above
             </span>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 w-full">
             ${otherMatches.map((item) => renderItemCardHtml(item)).join('')}
           </div>
         </div>
@@ -1915,20 +1744,15 @@ function renderGridView(container) {
         : '';
 
     container.innerHTML = `
-      <div class="space-y-6 w-full flex flex-col items-center">
-        <!-- Direct Answer Card -->
+      <div class="space-y-4 w-full flex flex-col items-center">
         ${directAnswerHtml}
-
-        <!-- Other matches if any -->
         ${otherMatchesHtml}
-
-        <!-- Back to all items link -->
-        <div class="pt-2 text-center">
+        <div class="pt-1 text-center">
           <button
             onclick="clearSearchInput()"
-            class="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition-colors cursor-pointer touch-manipulation"
+            class="px-3.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
           >
-            Clear Search &bull; View All Items (${state.items.length})
+            Clear Search • View All (${state.items.length})
           </button>
         </div>
       </div>
@@ -1936,54 +1760,33 @@ function renderGridView(container) {
     return;
   }
 
-  // When not searching: render standard browse grid with unique pastel color codification guide
   const itemsHtml = filtered.map((item) => renderItemCardHtml(item)).join('');
 
   container.innerHTML = `
-    <div class="space-y-5 w-full flex flex-col items-center">
-      
-      <!-- List Meta & Category Color Legend - Distinct & Unique subtle pastel colors -->
-      <div class="w-full flex flex-col items-center justify-center gap-3 text-xs sm:text-sm text-stone-500 px-2 text-center">
-        <div class="flex items-center justify-center gap-2">
-          <span>Showing <strong>${filtered.length}</strong> of <strong>${state.items.length}</strong> total items</span>
-          <span>&bull;</span>
-          <span class="text-amber-800 font-medium">Scroll down to explore all</span>
-        </div>
-
-        <!-- Color Codification Guide: Health (Rose) and Household (Mint) are completely distinct! -->
-        <div class="w-full flex flex-wrap items-center justify-center gap-1.5 text-[11px] font-semibold text-stone-600 px-3 py-2 bg-white/75 backdrop-blur-xs rounded-2xl border border-stone-200/90 shadow-xs text-center">
-          <span class="text-stone-400 font-bold uppercase tracking-wider text-[10px] mr-1">🎨 Card Colors:</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-amber-100 text-amber-950 border border-amber-300">🧰 Tools</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-indigo-100 text-indigo-950 border border-indigo-300">⚡ Tech</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-yellow-100 text-yellow-950 border border-yellow-300">📄 Docs</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-rose-100 text-rose-950 border border-rose-300">🩹 Health (Rose)</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-emerald-100 text-emerald-950 border border-emerald-300">🧼 Household (Mint)</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-purple-100 text-purple-950 border border-purple-300">🧣 Seasonal</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-sky-100 text-sky-950 border border-sky-300">💻 Office</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-stone-100 text-stone-900 border border-stone-300">📦 Other</span>
-        </div>
+    <div class="space-y-3.5 w-full flex flex-col items-center">
+      <div class="w-full flex items-center justify-between text-xs text-stone-500 px-1 text-center">
+        <span>Showing <strong>${filtered.length}</strong> of <strong>${state.items.length}</strong> items</span>
+        <span class="text-amber-800 font-semibold text-[11px]">Compact view active</span>
       </div>
 
-      <!-- Items Grid: 1 col on mobile, 2 cols on tablet/desktop - Centered items -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 w-full">
         ${itemsHtml}
       </div>
 
-      <!-- Scroll Back to Top Button - Centered -->
-      <div class="w-full pt-6 flex flex-col items-center justify-center text-center space-y-2">
+      <div class="w-full pt-4 flex flex-col items-center justify-center text-center">
         <button
           onclick="scrollToTopView()"
-          class="px-5 py-2.5 bg-white hover:bg-stone-50 border border-stone-200 text-stone-700 hover:text-stone-900 rounded-2xl text-xs sm:text-sm font-semibold shadow-soft flex items-center justify-center gap-2 cursor-pointer transition-all touch-manipulation"
+          class="px-4 py-2 bg-white hover:bg-stone-50 border border-stone-200 text-stone-700 rounded-xl text-xs font-semibold shadow-soft flex items-center justify-center gap-1.5 cursor-pointer transition-all"
         >
-          <i data-lucide="arrow-up" class="w-4 h-4 text-stone-500"></i>
-          <span>You have reached the end &bull; Back to Top</span>
+          <i data-lucide="arrow-up" class="w-3.5 h-3.5 text-stone-500"></i>
+          <span>Back to Top</span>
         </button>
       </div>
     </div>
   `;
 }
 
-// Render Item Card - Color Codification Applied Across the ENTIRE Card
+// Compact Item Card: 35% Height Reduction
 function renderItemCardHtml(item) {
   const isLent = item.lent && item.lent.isLent;
   const isLowConsumable =
@@ -1994,39 +1797,38 @@ function renderItemCardHtml(item) {
   const confidence = getVerificationConfidence(item);
 
   return `
-    <div class="${theme.themeClass} ${item.isMissing ? 'bg-red-50/90 border-red-500 ring-4 ring-red-400 shadow-elevated' : `${theme.bg} ${theme.border}`} rounded-3xl border-2 p-5 sm:p-6 flex flex-col items-center justify-between card-hover shadow-soft relative group max-w-full text-center transition-all ${
-      isLent ? 'ring-4 ring-rose-400 border-rose-400' : ''
+    <div class="${theme.themeClass} ${item.isMissing ? 'bg-red-50/90 border-red-500 ring-2 ring-red-400' : `${theme.bg} ${theme.border}`} rounded-2xl border-2 p-3.5 sm:p-4 flex flex-col justify-between card-hover shadow-soft relative group max-w-full text-center transition-all ${
+      isLent ? 'ring-2 ring-rose-400 border-rose-400' : ''
     }">
       
-      <!-- Card Top Content - Centered Horizontally & Vertically -->
-      <div class="space-y-4 w-full flex flex-col items-center justify-center text-center">
+      <!-- Top Content -->
+      <div class="space-y-2 w-full flex flex-col items-center text-center">
         
-        <!-- Room, Category & Confidence Pills Row - Centered -->
-        <div class="flex flex-wrap items-center justify-center gap-1.5 w-full">
-         ${
+        <!-- Pills Row -->
+        <div class="flex flex-wrap items-center justify-center gap-1 w-full">
+          ${
             item.isMissing
-              ? `<span class="inline-flex items-center justify-center gap-1 text-xs font-black px-3 py-0.5 rounded-full bg-red-600 text-white border border-red-700 shadow-xs animate-pulse">
-                  <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-white shrink-0"></i>
+              ? `<span class="inline-flex items-center gap-1 text-[11px] font-black px-2 py-0.5 rounded-full bg-red-600 text-white border border-red-700 shadow-xs animate-pulse">
+                  <i data-lucide="alert-triangle" class="w-3 h-3 text-white shrink-0"></i>
                   <span>Missing</span>
                 </span>`
               : ''
           }
 
-          <span class="inline-flex items-center justify-center gap-1 text-xs font-bold text-stone-800 bg-white/95 border border-stone-200/90 px-2.5 py-0.5 rounded-full shadow-xs">
-            <i data-lucide="map-pin" class="w-3 h-3 text-amber-500 shrink-0"></i>
+          <span class="inline-flex items-center gap-1 text-[11px] font-bold text-stone-800 bg-white/95 border border-stone-200 px-2 py-0.5 rounded-full shadow-xs">
+            <i data-lucide="map-pin" class="w-2.5 h-2.5 text-amber-500 shrink-0"></i>
             <span>${escapeHtml(item.location.room)}</span>
           </span>
 
-          <span class="inline-flex items-center justify-center gap-1 text-xs font-extrabold px-2.5 py-0.5 rounded-full border shadow-xs ${theme.badge}">
-            <i data-lucide="${theme.icon || 'tag'}" class="w-3 h-3 shrink-0"></i>
+          <span class="inline-flex items-center gap-1 text-[11px] font-extrabold px-2 py-0.5 rounded-full border shadow-xs ${theme.badge}">
+            <i data-lucide="${theme.icon || 'tag'}" class="w-2.5 h-2.5 shrink-0"></i>
             <span>${escapeHtml(item.category)}</span>
           </span>
 
-          <!-- Last-seen confidence pill (hidden if missing to prevent duplicate tag) -->
           ${
             !item.isMissing
-              ? `<span class="inline-flex items-center justify-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full border shadow-xs ${confidence.badgeClass}" title="${confidence.label}">
-                  <i data-lucide="${confidence.icon}" class="w-3 h-3 shrink-0"></i>
+              ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border shadow-xs ${confidence.badgeClass}" title="${confidence.label}">
+                  <i data-lucide="${confidence.icon}" class="w-2.5 h-2.5 shrink-0"></i>
                   <span>${confidence.shortLabel}</span>
                 </span>`
               : ''
@@ -2034,43 +1836,28 @@ function renderItemCardHtml(item) {
         </div>
 
         <!-- Big Item Title -->
-        <div class="w-full text-center space-y-1">
-          <h4 class="text-xl sm:text-2xl font-black text-stone-900 tracking-tight leading-snug break-words text-center">
-            ${escapeHtml(item.name)}
-          </h4>
-        </div>
+        <h4 class="text-base sm:text-lg font-black text-stone-900 tracking-tight leading-snug break-words">
+          ${escapeHtml(item.name)}
+        </h4>
 
         ${
           item.photoUrl
-            ? `<div class="w-full max-w-sm mx-auto rounded-2xl overflow-hidden border-2 border-white/80 shadow-soft">
-                <img src="${item.photoUrl}" alt="Photo Memory Clue for ${escapeHtml(item.name)}" class="w-full h-44 object-cover" />
+            ? `<div class="w-full max-w-xs mx-auto rounded-xl overflow-hidden border border-white shadow-soft">
+                <img src="${item.photoUrl}" alt="Photo Clue" class="w-full h-28 object-cover" />
               </div>`
             : ''
         }
 
-        <!-- Spot & Exact Location Box - Translucent so Whole Card Pastel Radiates Through -->
-        <div class="w-full ${theme.innerBox || 'bg-white/75 border-amber-200/90'} backdrop-blur-xs rounded-2xl p-4 border shadow-xs flex flex-col items-center justify-center text-center space-y-2">
-          
-          <!-- Spot / Shelf -->
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-1.5 text-center">
-            <span class="text-xs uppercase tracking-wider font-extrabold text-stone-500">Spot:</span>
-            <span class="text-sm sm:text-base font-bold text-stone-900 break-words">${escapeHtml(item.location.zone)}</span>
+        <!-- Compact Spatial Location Line -->
+        <div class="w-full ${theme.innerBox || 'bg-white/80 border-amber-200'} rounded-xl px-3 py-1.5 border shadow-xs text-center flex flex-col items-center justify-center gap-0.5">
+          <div class="text-xs font-bold text-stone-900 break-words flex items-center justify-center gap-1">
+            <span class="text-stone-500 font-semibold text-[11px]">Spot:</span>
+            <span>${escapeHtml(item.location.zone)}</span>
+            ${item.location.container ? `<span class="text-stone-600 font-medium text-[11px]">(${escapeHtml(item.location.container)})</span>` : ''}
           </div>
-
-          <!-- Container -->
-          ${
-            item.location.container
-              ? `<div class="text-xs font-medium text-stone-700 flex items-center justify-center gap-1.5 text-center">
-                  <span class="text-stone-500 font-normal">Inside:</span>
-                  <span class="font-bold break-words">${escapeHtml(item.location.container)}</span>
-                </div>`
-              : ''
-          }
-
-          <!-- Visual Clue -->
           ${
             item.location.landmark
-              ? `<div class="text-xs text-amber-950 bg-amber-50/90 px-3.5 py-1.5 rounded-xl border border-amber-200/90 italic text-center max-w-full break-words">
+              ? `<div class="text-[11px] text-amber-950 italic truncate max-w-full">
                   💡 &ldquo;${escapeHtml(item.location.landmark)}&rdquo;
                 </div>`
               : ''
@@ -2080,185 +1867,129 @@ function renderItemCardHtml(item) {
         <!-- Notes if provided -->
         ${
           item.description
-            ? `<p class="text-xs sm:text-sm text-stone-700 text-center max-w-sm mx-auto leading-relaxed break-words">${escapeHtml(item.description)}</p>`
+            ? `<p class="text-[11px] text-stone-600 text-center max-w-sm mx-auto line-clamp-2 leading-tight">${escapeHtml(item.description)}</p>`
             : ''
         }
 
-        <!-- Missing Banner in Red with I Found It action (Single clean banner without duplicate alert icon) -->
-        ${
-          item.isMissing
-            ? `<div class="w-full bg-red-100/95 border-2 border-red-400 rounded-2xl p-3.5 text-xs flex flex-col sm:flex-row items-center justify-between gap-2.5 text-red-950 text-center font-bold shadow-xs">
-                <div class="flex items-center justify-center text-red-900">
-                  <span>Item flagged as <strong>Missing</strong> &bull; Not verified today</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <button
-                    onclick="markItemFound('${item.id}')"
-                    class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl font-black transition-all cursor-pointer shadow-xs flex items-center gap-1"
-                  >
-                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
-                    <span>I Found It!</span>
-                  </button>
-                  <button
-                    onclick="openRelocateModal('${item.id}')"
-                    class="text-xs bg-white border border-red-300 px-2.5 py-1.5 rounded-xl font-bold text-red-900 hover:bg-red-50 transition-colors cursor-pointer shadow-xs"
-                  >
-                    Relocate
-                  </button>
-                </div>
-              </div>`
-            : ''
-        }
-
-        <!-- Lent Banner if currently borrowed -->
+        <!-- Compact Lent Banner -->
         ${
           isLent
-            ? `<div class="w-full bg-rose-50 border border-rose-300 rounded-2xl p-3 text-xs flex flex-col sm:flex-row items-center justify-center gap-2.5 text-rose-950 text-center">
-                <div class="flex items-center justify-center gap-1.5">
-                  <i data-lucide="share-2" class="w-4 h-4 text-rose-600 shrink-0"></i>
-                  <span>Lent to <strong>${escapeHtml(item.lent.lentTo || 'Someone')}</strong></span>
-                </div>
+            ? `<div class="w-full bg-rose-50 border border-rose-300 rounded-xl px-2.5 py-1 text-[11px] flex items-center justify-between gap-1 text-rose-950 font-medium">
+                <span class="truncate">🤝 Lent to <strong>${escapeHtml(item.lent.lentTo || 'Someone')}</strong> (${formatStandardDate(item.lent.lentDate)})</span>
                 <button
                   onclick="returnLentItem('${item.id}')"
-                  class="text-xs bg-white border border-rose-300 px-3.5 py-1 rounded-xl font-bold text-rose-900 hover:bg-rose-100 transition-colors cursor-pointer shadow-xs text-center touch-manipulation"
+                  class="text-[10px] bg-white border border-rose-300 px-2 py-0.5 rounded-lg font-bold text-rose-900 hover:bg-rose-100 transition-colors shrink-0"
                 >
-                  Mark Returned
+                  Return
                 </button>
               </div>`
             : ''
         }
 
-        <!-- Stock tracker if consumable -->
+        <!-- Compact Stock Counter -->
         ${
           item.consumable?.isConsumable
-            ? `<div class="flex flex-wrap items-center justify-center gap-3 bg-white/85 rounded-2xl px-4 py-2 border ${theme.border} text-xs shadow-xs text-center">
-                <div class="flex items-center justify-center gap-1.5">
-                  <span class="text-stone-500">In Stock:</span>
-                  <strong class="${isLowConsumable ? 'text-red-600 font-extrabold' : 'text-stone-900 font-bold'} text-sm">
-                    ${item.consumable.quantity} ${escapeHtml(item.consumable.unit || 'items')}
-                  </strong>
-                  ${
-                    isLowConsumable
-                      ? `<span class="bg-red-100 text-red-700 text-[10px] font-black px-2 py-0.5 rounded-full uppercase">Low</span>`
-                      : ''
-                  }
-                </div>
-                <div class="flex items-center justify-center gap-1.5">
-                  <button
-                    onclick="changeItemQuantity('${item.id}', -1)"
-                    class="w-7 h-7 rounded-lg bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-800 cursor-pointer touch-manipulation"
-                    title="Decrease count"
-                  >
-                    -
-                  </button>
-                  <button
-                    onclick="changeItemQuantity('${item.id}', 1)"
-                    class="w-7 h-7 rounded-lg bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-800 cursor-pointer touch-manipulation"
-                    title="Increase count"
-                  >
-                    +
-                  </button>
+            ? `<div class="inline-flex items-center gap-2 bg-white/90 rounded-lg px-2.5 py-0.5 border ${theme.border} text-[11px] shadow-xs">
+                <span class="text-stone-500">Stock:</span>
+                <strong class="${isLowConsumable ? 'text-red-600 font-extrabold' : 'text-stone-900 font-bold'}">
+                  ${item.consumable.quantity} ${escapeHtml(item.consumable.unit || 'items')}
+                </strong>
+                <div class="flex items-center gap-1 ml-1">
+                  <button onclick="changeItemQuantity('${item.id}', -1)" class="w-5 h-5 rounded bg-stone-100 hover:bg-stone-200 font-bold leading-none">-</button>
+                  <button onclick="changeItemQuantity('${item.id}', 1)" class="w-5 h-5 rounded bg-stone-100 hover:bg-stone-200 font-bold leading-none">+</button>
                 </div>
               </div>`
             : ''
         }
       </div>
 
-      <!-- Card Bottom Actions - Includes Still here, One-Tap "Not there!", Lend, Edit, Delete -->
-      <div class="w-full mt-5 pt-4 border-t ${theme.border} flex flex-wrap items-center justify-center gap-2 text-xs">
+      <!-- Action Row: Primary buttons + compact tool buttons on 1 line -->
+      <div class="w-full mt-3 pt-2.5 border-t ${theme.border} flex items-center justify-between gap-1.5 text-xs">
         
-        <!-- Still Here (Verification) Button -->
+        <!-- Primary 1: Still Here -->
         <button
           onclick="verifyLocation('${item.id}')"
-          class="text-xs font-bold text-emerald-950 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 cursor-pointer px-3.5 py-1.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-xs text-center touch-manipulation"
-          title="Confirm item is still in this spot"
+          class="flex-1 py-1.5 px-2 font-bold text-emerald-950 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 rounded-xl transition-all flex items-center justify-center gap-1 shadow-xs text-center"
+          title="Confirm spot"
         >
-          <i data-lucide="check" class="w-4 h-4 text-emerald-700 shrink-0"></i>
-          <span>Still here</span>
+          <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-700 shrink-0"></i>
+          <span class="text-[11px]">Still here</span>
         </button>
 
-        <!-- One-Tap "Not there!" Button -->
+        <!-- Primary 2: Not There! -->
         <button
           onclick="openNotThereModal('${item.id}')"
-          class="text-xs font-bold text-amber-950 bg-amber-100 hover:bg-amber-200 border border-amber-300 cursor-pointer px-3 py-1.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-xs text-center touch-manipulation"
-          title="Not where it says? Was it moved, lent, or used up?"
+          class="flex-1 py-1.5 px-2 font-bold text-amber-950 bg-amber-100 hover:bg-amber-200 border border-amber-300 rounded-xl transition-all flex items-center justify-center gap-1 shadow-xs text-center"
+          title="Not in spot"
         >
           <i data-lucide="help-circle" class="w-3.5 h-3.5 text-amber-700 shrink-0"></i>
-          <span>Not there!</span>
+          <span class="text-[11px]">Not there!</span>
         </button>
 
-        <!-- Lend / Return Button -->
-        <button
-          onclick="toggleLentStatus('${item.id}')"
-          class="text-xs font-semibold text-stone-700 hover:text-stone-900 bg-white/90 hover:bg-white border border-stone-300 cursor-pointer px-3 py-1.5 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-xs text-center touch-manipulation"
-        >
-          <i data-lucide="${isLent ? 'corner-down-left' : 'share-2'}" class="w-3.5 h-3.5 text-stone-500 shrink-0"></i>
-          <span>${isLent ? 'Returned' : 'Lend'}</span>
-        </button>
+        <!-- Secondary Actions Group -->
+        <div class="flex items-center gap-1 shrink-0">
+          <button
+            onclick="toggleLentStatus('${item.id}')"
+            class="p-1.5 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 transition-colors shadow-xs"
+            title="${isLent ? 'Mark Returned' : 'Lend out'}"
+          >
+            <i data-lucide="${isLent ? 'corner-down-left' : 'share-2'}" class="w-3.5 h-3.5"></i>
+          </button>
 
-        <!-- Edit Button -->
-        <button
-          onclick="editItem('${item.id}')"
-          class="text-stone-600 hover:text-stone-900 bg-white/90 hover:bg-white border border-stone-300 cursor-pointer p-2 rounded-xl transition-colors shadow-xs touch-manipulation"
-          title="Edit Item"
-        >
-          <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
-        </button>
+          <button
+            onclick="editItem('${item.id}')"
+            class="p-1.5 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 transition-colors shadow-xs"
+            title="Edit"
+          >
+            <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+          </button>
 
-        <!-- Delete Button -->
-        <button
-          onclick="deleteItem('${item.id}')"
-          class="text-stone-400 hover:text-red-700 bg-white hover:bg-red-50 border border-stone-300 hover:border-red-300 cursor-pointer p-2 rounded-xl transition-colors shadow-xs touch-manipulation"
-          title="Delete Item"
-        >
-          <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-        </button>
+          <button
+            onclick="deleteItem('${item.id}')"
+            class="p-1.5 rounded-xl border border-stone-300 bg-white hover:bg-red-50 text-stone-400 hover:text-red-700 transition-colors shadow-xs"
+            title="Delete"
+          >
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
       </div>
     </div>
   `;
 }
 
-// Rooms Explorer View - Centered
 function renderRoomsView(container) {
   const roomsHtml = state.rooms.map((room) => {
     const roomItems = state.items.filter((i) => i.location.room === room.name);
     return `
-      <div class="bg-white/95 rounded-3xl border border-stone-200/90 p-5 space-y-4 shadow-soft flex flex-col items-center justify-between text-center">
-        
-        <div class="flex flex-col items-center justify-center text-center space-y-2">
-          <div class="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-stone-800 shadow-xs mx-auto">
-            <i data-lucide="${escapeHtml(room.icon || 'archive')}" class="w-6 h-6 text-amber-600"></i>
+      <div class="bg-white/95 rounded-2xl border border-stone-200/90 p-4 space-y-3 shadow-soft flex flex-col items-center justify-between text-center">
+        <div class="flex flex-col items-center justify-center text-center space-y-1.5">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-stone-800 shadow-xs mx-auto">
+            <i data-lucide="${escapeHtml(room.icon || 'archive')}" class="w-5 h-5 text-amber-600"></i>
           </div>
           <div>
-            <h3 class="text-base font-extrabold text-stone-900">${escapeHtml(room.name)}</h3>
-            <p class="text-xs text-stone-500">${escapeHtml(room.description || '')}</p>
+            <h3 class="text-sm font-extrabold text-stone-900">${escapeHtml(room.name)}</h3>
+            <p class="text-[11px] text-stone-500">${escapeHtml(room.description || '')}</p>
           </div>
-          <span class="text-xs font-bold px-3 py-1 rounded-full bg-stone-100 text-stone-700 border border-stone-200">
-            ${roomItems.length} items stored
+          <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 border border-stone-200">
+            ${roomItems.length} items
           </span>
         </div>
 
-        <!-- Items located inside this room -->
-        <div class="border-t border-stone-100 pt-3 space-y-2 w-full text-center">
-          <span class="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">Items in this room:</span>
+        <div class="border-t border-stone-100 pt-2 space-y-1.5 w-full text-center">
           ${
             roomItems.length === 0
-              ? `<p class="text-xs text-stone-400 italic py-2 text-center">No items listed in this room yet.</p>`
-              : `<div class="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+              ? `<p class="text-xs text-stone-400 italic py-1 text-center">No items listed yet.</p>`
+              : `<div class="space-y-1 max-h-40 overflow-y-auto pr-1">
                   ${roomItems
                     .map(
                       (item) => `
-                    <div class="flex items-center justify-between text-xs bg-stone-50 p-2.5 rounded-xl border border-stone-200/70 hover:bg-stone-100/70 transition-colors">
-                      <div class="text-left pr-2">
-                        <span class="font-bold text-stone-900">${escapeHtml(item.name)}</span>
-                        <div class="text-[11px] text-stone-500">${escapeHtml(item.location.zone)} ${item.location.container ? `· ${escapeHtml(item.location.container)}` : ''}</div>
+                    <div class="flex items-center justify-between text-xs bg-stone-50 p-2 rounded-xl border border-stone-200/70">
+                      <div class="text-left pr-1 truncate">
+                        <span class="font-bold text-stone-900 text-xs">${escapeHtml(item.name)}</span>
+                        <div class="text-[10px] text-stone-500 truncate">${escapeHtml(item.location.zone)}</div>
                       </div>
-                      <button
-                        onclick="editItem('${item.id}')"
-                        class="text-stone-400 hover:text-stone-800 cursor-pointer p-1.5 rounded-lg"
-                        title="Edit Item"
-                      >
-                        <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                      <button onclick="editItem('${item.id}')" class="text-stone-400 hover:text-stone-800 p-1">
+                        <i data-lucide="pencil" class="w-3 h-3"></i>
                       </button>
                     </div>
                   `
@@ -2270,100 +2001,76 @@ function renderRoomsView(container) {
 
         <button
           onclick="openQuickAddModalWithRoom('${escapeHtml(room.name)}')"
-          class="w-full py-2.5 px-3 bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-700 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer text-center"
+          class="w-full py-2 px-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-700 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition-colors cursor-pointer"
         >
-          <i data-lucide="plus" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
-          <span>Add item to ${escapeHtml(room.name)}</span>
+          <i data-lucide="plus" class="w-3.5 h-3.5 text-amber-500"></i>
+          <span>Add to ${escapeHtml(room.name)}</span>
         </button>
       </div>
     `;
   }).join('');
 
   container.innerHTML = `
-    <div class="space-y-5 w-full flex flex-col items-center">
-      <div class="text-center text-xs sm:text-sm text-stone-500">
-        Organized across <strong>${state.rooms.length}</strong> household rooms &amp; spaces
+    <div class="space-y-4 w-full flex flex-col items-center">
+      <div class="text-center text-xs text-stone-500">
+        Organized across <strong>${state.rooms.length}</strong> household spaces
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
         ${roomsHtml}
       </div>
     </div>
   `;
 }
 
-// Lending View - Centered & Soft Coral Codification
 function renderLendingView(container) {
   const lentItems = state.items.filter((i) => i.lent && i.lent.isLent);
 
   container.innerHTML = `
-    <div class="space-y-5 w-full flex flex-col items-center">
-      <div class="bg-white/95 border border-stone-200 rounded-3xl p-6 sm:p-7 space-y-4 shadow-soft w-full flex flex-col items-center justify-center text-center">
+    <div class="space-y-4 w-full flex flex-col items-center">
+      <div class="bg-white/95 border border-stone-200 rounded-2xl p-5 space-y-3 shadow-soft w-full flex flex-col items-center justify-center text-center">
         <div class="text-center space-y-1">
-          <h3 class="text-lg sm:text-xl font-extrabold text-stone-900">Lent Out Belongings</h3>
-          <p class="text-xs sm:text-sm text-stone-500 max-w-md mx-auto">
-            Know exactly who borrowed your tools, books, and gear so they always make it back home.
+          <h3 class="text-base font-extrabold text-stone-900">Lent Out Belongings</h3>
+          <p class="text-xs text-stone-500 max-w-sm mx-auto">
+            Know exactly who borrowed your tools, books, and gear.
           </p>
         </div>
 
         <button
           onclick="openRecordLoanModal()"
-          class="px-5 py-2.5 bg-stone-900 text-white rounded-xl text-xs sm:text-sm font-bold hover:bg-stone-800 transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-soft text-center"
+          class="px-4 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-soft"
         >
-          <i data-lucide="plus" class="w-4 h-4 text-amber-400"></i>
+          <i data-lucide="plus" class="w-3.5 h-3.5 text-amber-400"></i>
           <span>Record a Loan</span>
         </button>
 
         ${
           lentItems.length === 0
-            ? `<div class="p-8 text-center bg-emerald-50/60 rounded-2xl border border-emerald-200/80 space-y-2 w-full max-w-md mx-auto">
-                <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mx-auto">
-                  <i data-lucide="check" class="w-6 h-6"></i>
-                </div>
-                <h4 class="text-sm font-bold text-stone-800">Everything is at Home</h4>
-                <p class="text-xs text-stone-500">You haven't marked any items as borrowed. When you lend something to a friend or neighbor, log it here!</p>
+            ? `<div class="p-6 text-center bg-emerald-50/60 rounded-xl border border-emerald-200/80 space-y-1 w-full max-w-sm mx-auto">
+                <i data-lucide="check" class="w-5 h-5 text-emerald-600 mx-auto"></i>
+                <h4 class="text-xs font-bold text-stone-800">Everything is at Home</h4>
               </div>`
-            : `<div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full pt-2">
+            : `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full pt-1">
                 ${lentItems
                   .map(
                     (item) => `
-                  <div class="bg-rose-100 border-2 border-rose-300 rounded-2xl p-5 flex flex-col items-center justify-between space-y-3 text-center shadow-soft">
-                    <div class="space-y-2 w-full flex flex-col items-center">
-                      <div class="flex items-center justify-center gap-2">
-                        <span class="text-sm font-black text-stone-900">${escapeHtml(item.name)}</span>
-                        <span class="text-[10px] font-bold bg-rose-200 text-rose-950 border border-rose-400 px-2.5 py-0.5 rounded-full uppercase">Lent Out</span>
+                  <div class="bg-rose-100 border-2 border-rose-300 rounded-xl p-3.5 flex flex-col items-center justify-between space-y-2 text-center shadow-soft">
+                    <div class="space-y-1 w-full flex flex-col items-center text-center">
+                      <div class="flex items-center justify-center gap-1.5">
+                        <span class="text-xs font-black text-stone-900">${escapeHtml(item.name)}</span>
+                        <span class="text-[9px] font-bold bg-rose-200 text-rose-950 border border-rose-400 px-2 py-0.2 rounded-full uppercase">Lent</span>
                       </div>
-                      
-                      <div class="text-xs text-stone-800 flex items-center justify-center gap-1.5 font-medium">
-                        <i data-lucide="user" class="w-4 h-4 text-rose-500"></i>
-                        <span>Borrower: <strong>${escapeHtml(item.lent.lentTo || 'Someone')}</strong></span>
-                      </div>
-
-                      ${
-                        item.lent.lentDate
-                          ? `<div class="text-xs text-stone-500">Lent on: ${escapeHtml(item.lent.lentDate)}</div>`
-                          : ''
-                      }
-                      ${
-                        item.lent.expectedReturn
-                          ? `<div class="text-xs text-rose-700 font-semibold">Expected return: ${escapeHtml(item.lent.expectedReturn)}</div>`
-                          : ''
-                      }
-                      ${
-                        item.lent.notes
-                          ? `<div class="text-xs text-stone-600 italic bg-white p-2.5 rounded-xl border border-rose-100 max-w-sm text-center">
-                              &ldquo;${escapeHtml(item.lent.notes)}&rdquo;
-                            </div>`
-                          : ''
-                      }
+                      <div class="text-[11px] text-stone-800">Borrower: <strong>${escapeHtml(item.lent.lentTo || 'Someone')}</strong></div>
+                      ${item.lent.lentDate ? `<div class="text-[10px] text-stone-500">Lent on: ${escapeHtml(formatStandardDate(item.lent.lentDate))}</div>` : ''}
+                      ${item.lent.expectedReturn ? `<div class="text-[10px] text-rose-700 font-semibold">Expected: ${escapeHtml(formatStandardDate(item.lent.expectedReturn))}</div>` : ''}
                     </div>
 
-                    <div class="pt-3 border-t border-rose-200/80 flex flex-col sm:flex-row items-center justify-center gap-2 text-xs w-full">
-                      <span class="text-stone-500">Home: ${escapeHtml(item.location.room)}</span>
+                    <div class="pt-2 border-t border-rose-200/80 flex items-center justify-between gap-1 text-[11px] w-full">
+                      <span class="text-stone-500">${escapeHtml(item.location.room)}</span>
                       <button
                         onclick="returnLentItem('${item.id}')"
-                        class="px-4 py-2 bg-white hover:bg-stone-50 border border-rose-300 rounded-xl font-bold text-rose-900 transition-colors cursor-pointer shadow-soft text-center"
+                        class="px-2.5 py-1 bg-white hover:bg-stone-50 border border-rose-300 rounded-lg font-bold text-rose-900 transition-colors shadow-soft"
                       >
-                        Mark as Returned
+                        Returned
                       </button>
                     </div>
                   </div>
@@ -2377,7 +2084,6 @@ function renderLendingView(container) {
   `;
 }
 
-// User Actions
 window.selectCategory = function (category) {
   state.selectedCategory = category;
   renderApp();
@@ -2385,16 +2091,6 @@ window.selectCategory = function (category) {
 
 window.setViewMode = function (mode) {
   state.viewMode = mode;
-  renderApp();
-};
-
-window.clearSearchInput = function () {
-  state.searchQuery = '';
-  const searchInput = document.getElementById('search-input');
-  if (searchInput) {
-    searchInput.value = '';
-    searchInput.focus();
-  }
   renderApp();
 };
 
@@ -2461,7 +2157,6 @@ window.returnLentItem = function (id) {
   showToast(`"${item.name}" returned home to ${item.location.room}`);
 };
 
-// Generic In-App Dialog Helpers (Replaces blocking window.alert/confirm/prompt for iframe & mobile safety)
 function showConfirmDialog({ title, message, confirmText = 'Confirm', confirmClass = 'bg-rose-600 hover:bg-rose-700 text-white', onConfirm }) {
   const modal = document.getElementById('app-dialog-modal');
   if (!modal) {
@@ -2614,10 +2309,6 @@ window.deleteItem = function (id) {
   });
 };
 
-// =========================================================================
-// EFFORTLESS QUICK CAPTURE & ADD VIEW CONTROLLERS
-// =========================================================================
-
 window.openQuickAddModal = function () {
   state.editingItemId = null;
   switchPage('add');
@@ -2639,7 +2330,7 @@ window.closeQuickAddModal = function () {
 
 function initAddView() {
   populateTourSelect();
-  populateDetailedAddForm(state.editingItemId ? state.items.find(i => i.id === state.editingItemId) : null);
+  populateDetailedAddForm(state.editingItemId ? state.items.find((i) => i.id === state.editingItemId) : null);
   if (!state.editingItemId) {
     clearPhotoPreview();
     const voiceInput = document.getElementById('voice-nlp-input');
@@ -2649,7 +2340,6 @@ function initAddView() {
     const notice = document.getElementById('voice-autofill-notice');
     if (notice) notice.classList.add('hidden');
   }
-  // Ensure the detailed form section is visible at once alongside voice & camera
   const formSection = document.getElementById('add-panel-form');
   if (formSection) formSection.classList.remove('hidden');
   safeCreateIcons();
@@ -2660,10 +2350,7 @@ window.setAddCaptureMode = function (mode) {
   safeCreateIcons();
 };
 
-// -------------------------------------------------------------------------
-// 1. VOICE & NATURAL LANGUAGE CAPTURE (CONFIRM, DON'T CORRECT)
-// -------------------------------------------------------------------------
-
+// Resilient Continuous Voice Engine
 let voiceRecognitionInstance = null;
 let voiceSilenceTimer = null;
 let voiceFinalBuffer = '';
@@ -2703,27 +2390,22 @@ window.toggleVoiceRecognition = function () {
     if (btn) btn.classList.remove('recording-pulse');
     if (label) label.textContent = 'Tap microphone to speak';
 
-    // Commit final accumulated text into the buffer
     if (input && input.value.trim()) {
       voiceFinalBuffer = input.value.trim();
     }
   };
 
-  // If already recording, manual tap stops it immediately
   if (state.isRecordingVoice) {
     stopVoiceSession();
     return;
   }
 
   voiceManualStop = false;
-
-  // Preserve whatever text is already inside the input box as the baseline
   voiceFinalBuffer = input && input.value.trim() ? input.value.trim() : '';
 
   const resetSilenceCountdown = () => {
     clearSilenceTimer();
     voiceSilenceTimer = setTimeout(() => {
-      // Trigger stop only after a full 3 seconds of continuous silence
       stopVoiceSession();
     }, 3000);
   };
@@ -2742,7 +2424,6 @@ window.toggleVoiceRecognition = function () {
     };
 
     recognition.onresult = function (event) {
-      // Reset the 3-second silence timer on any detected sound/word
       resetSilenceCountdown();
 
       let interimChunk = '';
@@ -2771,12 +2452,10 @@ window.toggleVoiceRecognition = function () {
     };
 
     recognition.onend = function () {
-      // If browser cut off early but the 3-second timer has NOT elapsed, keep listening
       if (!voiceManualStop && state.isRecordingVoice) {
         try {
           recognition.start();
         } catch (e) {
-          // If restart fails, clean up
           stopVoiceSession();
         }
       } else {
@@ -2796,13 +2475,13 @@ window.toggleVoiceRecognition = function () {
     showToast('Microphone error. You can type directly below.');
   }
 };
+
 let currentParsedNlp = null;
 
 function parseSentence(raw) {
   if (!raw || !raw.trim()) return null;
   let text = raw.trim();
 
-  // Strip leading conversational phrases
   text = text.replace(/^(?:i\s+(?:just\s+)?(?:put|placed|stored|kept|left|moved)\s+(?:the|my|a|an)?\s*)/i, '');
   text = text.replace(/^(?:put|place|store|keep|leave)\s+(?:the|my|a|an)?\s*/i, '');
 
@@ -2818,7 +2497,6 @@ function parseSentence(raw) {
     { match: /attic/i, name: 'Attic' },
   ];
 
-  // Match any custom rooms
   state.rooms.forEach((r) => {
     const escaped = r.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     roomKeywords.unshift({ match: new RegExp(escaped, 'i'), name: r.name });
@@ -2863,7 +2541,6 @@ function parseSentence(raw) {
   itemName = itemName.charAt(0).toUpperCase() + itemName.slice(1);
   detectedZone = detectedZone.charAt(0).toUpperCase() + detectedZone.slice(1);
 
-  // Infer category automatically
   let category = 'Other';
   const lowerItem = itemName.toLowerCase();
   if (lowerItem.match(/passport|document|paper|tax|deed|certificate|card|cash|will|receipt|id|ticket/)) {
@@ -2909,7 +2586,6 @@ window.handleNlpInputChange = function (val) {
   currentParsedNlp = parsed;
 
   if (parsed) {
-    // Populate directly into the detailed form so user can review and edit immediately
     const nameInput = document.getElementById('add-item-name');
     const roomSelect = document.getElementById('add-item-room');
     const zoneInput = document.getElementById('add-item-zone');
@@ -2937,7 +2613,7 @@ window.handleNlpInputChange = function (val) {
     const noticeText = document.getElementById('voice-autofill-text');
     if (notice && noticeText) {
       notice.classList.remove('hidden');
-      noticeText.innerHTML = `Heard: <strong>&ldquo;${escapeHtml(val)}&rdquo;</strong> &rarr; Form filled below! You can review or edit any field.`;
+      noticeText.innerHTML = `Heard: <strong>&ldquo;${escapeHtml(val)}&rdquo;</strong> → Form filled below! Review or edit any field.`;
     }
   }
 };
@@ -2995,11 +2671,8 @@ window.confirmNlpCapture = function () {
 
   state.items = [newItem, ...state.items];
   saveItems();
-
-  // Boost streak check-in
   handleDailyCheckIn();
 
-  // Reset inputs
   const nlpInput = document.getElementById('voice-nlp-input');
   if (nlpInput) nlpInput.value = '';
   const clearBtn = document.getElementById('btn-voice-input-clear');
@@ -3011,10 +2684,7 @@ window.confirmNlpCapture = function () {
   switchPage('home');
 };
 
-// -------------------------------------------------------------------------
-// 2. PHOTO-FIRST CLUE CAPTURE
-// -------------------------------------------------------------------------
-
+// Photo Capture
 let currentPhotoDataUrl = null;
 
 function populatePhotoSelect() {
@@ -3033,7 +2703,6 @@ window.handlePhotoUpload = function (event) {
   reader.onload = function (e) {
     const img = new Image();
     img.onload = function () {
-      // Resize & compress to max 600px
       const canvas = document.createElement('canvas');
       let width = img.width;
       let height = img.height;
@@ -3134,10 +2803,7 @@ window.savePhotoClueItem = function () {
   switchPage('home');
 };
 
-// -------------------------------------------------------------------------
-// 3. BULK "TOUR MODE" CAPTURE (Setup 50 items in 5 minutes)
-// -------------------------------------------------------------------------
-
+// Tour Mode
 let tourRecognitionInstance = null;
 
 function populateTourSelect() {
@@ -3275,7 +2941,6 @@ window.saveBulkTourItems = function () {
   saveItems();
   handleDailyCheckIn();
 
-  // Reset tour input
   const textarea = document.getElementById('tour-items-input');
   if (textarea) textarea.value = '';
   const badges = document.getElementById('tour-preview-badges');
@@ -3317,16 +2982,13 @@ function inferCategoryFromName(name) {
   if (l.match(/passport|document|paper|tax|deed|certificate|card|cash|will|receipt|id/)) return 'Documents & Valuables';
   if (l.match(/battery|cable|charger|remote|phone|laptop|hdmi|adapter|earbuds|usb|wire/)) return 'Electronics & Cables';
   if (l.match(/band\s*aid|medicine|pills|first\s*aid|antihistamine|vitamin|syrup|spray|drops/)) return 'Health & Medication';
-  if (l.match(/bulb|soap|towel|cleaner|detergent|filter|foil|bag|sponge|bleach|wipe/)) return 'Household & Utility';
+  if (l.match(/bulb|soap|towel|cleaner|detergent|filter|foil|bag|sponge|bleach|wipe/)) return 'Household & Cleaning';
   if (l.match(/coat|gloves|scarf|jacket|umbrella|boots|sweater|blanket|socks/)) return 'Seasonal & Apparel';
-  if (l.match(/pen|paper|stapler|notebook|marker|printer|envelope|folder/)) return 'Office & Workspace';
+  if (l.match(/pen|paper|stapler|notebook|marker|printer|envelope|folder/)) return 'Office & Tech';
   return 'Other';
 }
 
-// -------------------------------------------------------------------------
-// 4. DETAILED FORM (ALL OPTIONS VISIBLE AT ONE GO)
-// -------------------------------------------------------------------------
-
+// Detailed Form Management
 window.editItem = function (id) {
   state.editingItemId = id;
   switchPage('add');
@@ -3383,7 +3045,6 @@ function populateDetailedAddForm(editingItem) {
       document.getElementById('add-item-expected-return').value = '';
     }
 
-    // Photo clue handling inside detailed form
     if (editingItem.photoUrl) {
       currentPhotoDataUrl = editingItem.photoUrl;
       const previewImg = document.getElementById('photo-preview-img');
@@ -3553,7 +3214,6 @@ window.discardDetailedFormEntry = function () {
       if (label) label.textContent = 'Tap microphone to speak';
     }
 
-    // Clear tour
     const tourInput = document.getElementById('tour-items-input');
     if (tourInput) tourInput.value = '';
     const zoneInput = document.getElementById('tour-zone-input');
@@ -3591,57 +3251,11 @@ window.discardDetailedFormEntry = function () {
   }
 };
 
-window.discardDetailedFormEntry = function () {
-  try {
-    const form = document.getElementById('full-add-form');
-    if (form) form.reset();
-    state.editingItemId = null;
-    clearPhotoPreview();
-    clearVoiceInputOnly();
-    dismissVoiceNotice();
-
-    if (state.isRecordingVoice && voiceRecognitionInstance) {
-      try {
-        voiceRecognitionInstance.stop();
-      } catch (e) {}
-      state.isRecordingVoice = false;
-      const btn = document.getElementById('btn-voice-record');
-      if (btn) btn.classList.remove('recording-pulse');
-      const label = document.getElementById('voice-record-label');
-      if (label) label.textContent = 'Tap microphone to speak';
-    }
-
-    const consFields = document.getElementById('consumable-fields');
-    if (consFields) {
-      consFields.style.display = 'none';
-      consFields.classList.add('hidden');
-    }
-    const lentFields = document.getElementById('lent-fields');
-    if (lentFields) {
-      lentFields.style.display = 'none';
-      lentFields.classList.add('hidden');
-    }
-    showToast('Entry discarded');
-  } catch (err) {
-    console.warn('Discard cleanup warning:', err);
-  } finally {
-    switchPage('home');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-};
-
 window.discardAllAddEntries = function () {
   discardDetailedFormEntry();
 };
 
-window.discardTourEntry = function () {
-  discardDetailedFormEntry();
-};
-
-// =========================================================================
-// SPOT CHECK VIEW (IN-PAGE 15-SECOND MEMORY FLASHCARD)
-// =========================================================================
-
+// Spot Check
 function initSpotCheckPage() {
   const itemsSortedByAge = [...state.items].sort(
     (a, b) => new Date(a.lastVerifiedAt || 0).getTime() - new Date(b.lastVerifiedAt || 0).getTime()
@@ -3668,16 +3282,16 @@ function renderSpotCheckStep() {
   if (state.spotCheckCurrentIndex >= state.spotCheckItems.length) {
     container.innerHTML = `
       <div class="text-center py-6 space-y-3 flex flex-col items-center justify-center">
-        <div class="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mx-auto shadow-xs">
-          <i data-lucide="check" class="w-7 h-7"></i>
+        <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mx-auto shadow-xs">
+          <i data-lucide="check" class="w-6 h-6"></i>
         </div>
-        <h3 class="text-lg font-extrabold text-stone-900">All Spot Checks Completed!</h3>
-        <p class="text-xs sm:text-sm text-stone-600 max-w-sm mx-auto text-center">
-          You confirmed your items are right where they belong. Your mental map is 100% synchronized!
+        <h3 class="text-base font-extrabold text-stone-900">All Spot Checks Completed!</h3>
+        <p class="text-xs text-stone-600 max-w-xs mx-auto text-center">
+          You confirmed your items are right where they belong.
         </p>
         <button
           onclick="switchPage('home')"
-          class="px-6 py-2.5 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft text-center"
+          class="px-5 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-soft text-center"
         >
           Back to Home
         </button>
@@ -3690,44 +3304,39 @@ function renderSpotCheckStep() {
   const item = state.spotCheckItems[state.spotCheckCurrentIndex];
 
   container.innerHTML = `
-    <div class="space-y-4 w-full flex flex-col items-center justify-center text-center max-w-md">
+    <div class="space-y-3 w-full flex flex-col items-center justify-center text-center max-w-sm">
       <div class="flex items-center justify-center gap-2 text-xs text-stone-500">
         <span class="font-bold">Item ${state.spotCheckCurrentIndex + 1} of ${state.spotCheckItems.length}</span>
       </div>
 
-      <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-4 space-y-2 w-full text-center">
-        <h4 class="text-lg font-black text-stone-900">${escapeHtml(item.name)}</h4>
-        <div class="text-xs text-stone-800 flex items-center justify-center gap-1.5 font-semibold">
-          <i data-lucide="map-pin" class="w-4 h-4 text-amber-500"></i>
-          <span>${escapeHtml(item.location.room)} &rsaquo; ${escapeHtml(item.location.zone)}</span>
+      <div class="bg-amber-50/80 border border-amber-200 rounded-xl p-3.5 space-y-1.5 w-full text-center">
+        <h4 class="text-base font-black text-stone-900">${escapeHtml(item.name)}</h4>
+        <div class="text-xs text-stone-800 flex items-center justify-center gap-1 font-semibold">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500"></i>
+          <span>${escapeHtml(item.location.room)} › ${escapeHtml(item.location.zone)}</span>
         </div>
         ${
           item.location.container
             ? `<div class="text-xs text-stone-600">In: <strong>${escapeHtml(item.location.container)}</strong></div>`
             : ''
         }
-        ${
-          item.location.landmark
-            ? `<div class="text-xs text-amber-900 italic">&ldquo;${escapeHtml(item.location.landmark)}&rdquo;</div>`
-            : ''
-        }
       </div>
 
-      <p class="text-xs sm:text-sm text-stone-700 font-bold text-center">Is this still in this spot?</p>
+      <p class="text-xs text-stone-700 font-bold text-center">Is this still in this spot?</p>
 
-      <div class="grid grid-cols-2 gap-3 pt-1 w-full">
+      <div class="grid grid-cols-2 gap-2 pt-1 w-full">
         <button
           onclick="confirmSpotCheckItem('${item.id}')"
-          class="py-3 px-3 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-soft text-center"
+          class="py-2.5 px-3 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-soft text-center"
         >
-          <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+          <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
           <span>Still there</span>
         </button>
         <button
           onclick="relocateSpotCheckItem('${item.id}')"
-          class="py-3 px-3 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer text-center"
+          class="py-2.5 px-3 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition-colors cursor-pointer text-center"
         >
-          <i data-lucide="pencil" class="w-3.5 h-3.5 text-stone-500"></i>
+          <i data-lucide="pencil" class="w-3 h-3 text-stone-500"></i>
           <span>Change spot</span>
         </button>
       </div>
@@ -3746,7 +3355,6 @@ window.relocateSpotCheckItem = function (id) {
   editItem(id);
 };
 
-// Quick trigger from top header
 window.startQuickVoiceFromHeader = function () {
   switchPage('add');
   setAddCaptureMode('voice');
@@ -3755,7 +3363,6 @@ window.startQuickVoiceFromHeader = function () {
   }, 250);
 };
 
-// Reset Demo Data (Safe In-App Dialog, no blocking modal)
 window.resetData = function () {
   showConfirmDialog({
     title: 'Reset Demo Data',
@@ -3781,7 +3388,6 @@ window.resetData = function () {
   });
 };
 
-// Smooth Scrolling Navigation Helpers
 window.scrollToItemsView = function () {
   const target = document.getElementById('main-content-view');
   if (target) {
@@ -3793,7 +3399,6 @@ window.scrollToTopView = function () {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-// PWA Installation & Service Worker
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   state.deferredInstallPrompt = e;
@@ -3817,7 +3422,6 @@ window.installPWA = function () {
   });
 };
 
-// Register Service Worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch((err) => {
@@ -3826,11 +3430,9 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Initialization on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
   loadData();
 
-  // Search input listener
   const searchInput = document.getElementById('search-input');
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -3839,7 +3441,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Universal Mobile Tap & Click Resilience for iOS Safari & Android WebViews
   document.addEventListener(
     'touchend',
     (e) => {
@@ -3853,6 +3454,5 @@ document.addEventListener('DOMContentLoaded', () => {
     { passive: true }
   );
 
-  // Set initial page to home
   switchPage('home');
 });

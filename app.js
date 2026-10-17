@@ -1697,11 +1697,15 @@ function renderDirectAnswerCard(item, confidence, matchReason) {
           <span>Direct Answer</span>
         </div>
 
-        <!-- Last-seen confidence pill -->
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border shadow-xs ${confidence.badgeClass}">
-          <i data-lucide="${confidence.icon}" class="w-3.5 h-3.5"></i>
-          <span>${confidence.label}</span>
-        </div>
+        <!-- Last-seen confidence pill (hidden if missing to prevent duplicate tag) -->
+        ${
+          !item.isMissing
+            ? `<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border shadow-xs ${confidence.badgeClass}">
+                <i data-lucide="${confidence.icon}" class="w-3.5 h-3.5"></i>
+                <span>${confidence.label}</span>
+              </div>`
+            : ''
+        }
       </div>
 
       <!-- Item Title & Category Badges -->
@@ -1711,7 +1715,7 @@ function renderDirectAnswerCard(item, confidence, matchReason) {
             item.isMissing
               ? `<span class="inline-flex items-center gap-1 text-xs font-black px-3 py-1 rounded-full bg-red-600 text-white border border-red-700 shadow-xs animate-pulse">
                   <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-white"></i>
-                  <span>MISSING</span>
+                  <span>Missing</span>
                 </span>`
               : ''
           }
@@ -1999,11 +2003,11 @@ function renderItemCardHtml(item) {
         
         <!-- Room, Category & Confidence Pills Row - Centered -->
         <div class="flex flex-wrap items-center justify-center gap-1.5 w-full">
-          ${
+         ${
             item.isMissing
               ? `<span class="inline-flex items-center justify-center gap-1 text-xs font-black px-3 py-0.5 rounded-full bg-red-600 text-white border border-red-700 shadow-xs animate-pulse">
                   <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-white shrink-0"></i>
-                  <span>MISSING</span>
+                  <span>Missing</span>
                 </span>`
               : ''
           }
@@ -2018,11 +2022,15 @@ function renderItemCardHtml(item) {
             <span>${escapeHtml(item.category)}</span>
           </span>
 
-          <!-- Last-seen confidence pill -->
-          <span class="inline-flex items-center justify-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full border shadow-xs ${confidence.badgeClass}" title="${confidence.label}">
-            <i data-lucide="${confidence.icon}" class="w-3 h-3 shrink-0"></i>
-            <span>${confidence.shortLabel}</span>
-          </span>
+          <!-- Last-seen confidence pill (hidden if missing to prevent duplicate tag) -->
+          ${
+            !item.isMissing
+              ? `<span class="inline-flex items-center justify-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full border shadow-xs ${confidence.badgeClass}" title="${confidence.label}">
+                  <i data-lucide="${confidence.icon}" class="w-3 h-3 shrink-0"></i>
+                  <span>${confidence.shortLabel}</span>
+                </span>`
+              : ''
+          }
         </div>
 
         <!-- Big Item Title -->

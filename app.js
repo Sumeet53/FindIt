@@ -1139,6 +1139,10 @@ function renderSortFilterCard() {
       missingBadge.textContent = missingCount;
       missingBadge.style.display = missingCount > 0 ? 'inline-block' : 'none';
     }
+    const labelSpan = filterMissingBtn.querySelector('.missing-label-text');
+    if (labelSpan) {
+      labelSpan.textContent = `🚩 Missing ${missingCount > 0 ? missingCount : ''}`.trim();
+    }
     if (state.filterMissingOnly) {
       filterMissingBtn.className =
         'px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer bg-red-600 text-white border border-red-700 shadow-xs flex items-center gap-1';
@@ -1483,15 +1487,8 @@ window.handleNotThereChoice = function (choice) {
 
     case 'missing':
       item.isMissing = true;
-      // Requirement: When tagged as not there it should NOT be marked verified today
-      if (item.lastVerifiedAt) {
-        const vDate = new Date(item.lastVerifiedAt);
-        const now = new Date();
-        if (vDate.toDateString() === now.toDateString()) {
-          const past = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-          item.lastVerifiedAt = past.toISOString();
-        }
-      }
+      // Completely clear verification so it is never verified today
+      delete item.lastVerifiedAt;
       saveItems();
       renderApp();
       showToast(`Flagged "${item.name}" as missing in red (not verified today)`, 'warning');
@@ -2636,7 +2633,7 @@ window.closeQuickAddModal = function () {
 
 function initAddView() {
   populateTourSelect();
-  populateDetailedAddForm();
+  populateDetailedAddForm(state.editingItemId ? state.items.find(i => i.id === state.editingItemId) : null);
   if (!state.editingItemId) {
     clearPhotoPreview();
     const voiceInput = document.getElementById('voice-nlp-input');
@@ -2646,6 +2643,9 @@ function initAddView() {
     const notice = document.getElementById('voice-autofill-notice');
     if (notice) notice.classList.add('hidden');
   }
+  // Ensure the detailed form section is visible at once alongside voice & camera
+  const formSection = document.getElementById('add-panel-form');
+  if (formSection) formSection.classList.remove('hidden');
   safeCreateIcons();
 }
 
@@ -3519,13 +3519,50 @@ window.discardDetailedFormEntry = function () {
   }
 };
 
+window.discardDetailedFormEntry = function () {
+  try {
+    const form = document.getElementById('full-add-form');
+    if (form) form.reset();
+    state.editingItemId = null;
+    clearPhotoPreview();
+    clearVoiceInputOnly();
+    dismissVoiceNotice();
+
+    if (state.isRecordingVoice && voiceRecognitionInstance) {
+      try {
+        voiceRecognitionInstance.stop();
+      } catch (e) {}
+      state.isRecordingVoice = false;
+      const btn = document.getElementById('btn-voice-record');
+      if (btn) btn.classList.remove('recording-pulse');
+      const label = document.getElementById('voice-record-label');
+      if (label) label.textContent = 'Tap microphone to speak';
+    }
+
+    const consFields = document.getElementById('consumable-fields');
+    if (consFields) {
+      consFields.style.display = 'none';
+      consFields.classList.add('hidden');
+    }
+    const lentFields = document.getElementById('lent-fields');
+    if (lentFields) {
+      lentFields.style.display = 'none';
+      lentFields.classList.add('hidden');
+    }
+    showToast('Entry discarded');
+  } catch (err) {
+    console.warn('Discard cleanup warning:', err);
+  } finally {
+    switchPage('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+};
+
 window.discardAllAddEntries = function () {
   discardDetailedFormEntry();
 };
 
 window.discardTourEntry = function () {
-  discardDetailedFormEntry();
-};
   discardDetailedFormEntry();
 };
 

@@ -253,6 +253,15 @@
               <span id="badge-low-count" class="hidden text-[10px] bg-red-100 text-red-700 px-1.5 py-0.2 rounded-full font-bold">0</span>
             </button>
 
+            <button
+              id="filter-btn-missing"
+              onclick="toggleMissingFilter()"
+              class="px-3 py-1 rounded-xl text-xs font-semibold border transition-all cursor-pointer bg-white border-stone-200 text-stone-700 hover:bg-red-50 flex items-center gap-1"
+            >
+              <span>🚩 Missing</span>
+              <span id="badge-missing-count" class="hidden text-[10px] bg-red-600 text-white px-1.5 py-0.2 rounded-full font-bold">0</span>
+            </button>
+
             <!-- Active Filter Reset Indicator -->
             <button
               id="btn-active-reset"
@@ -276,320 +285,166 @@
       <div id="view-add" class="page-view w-full space-y-4 flex flex-col items-center hidden">
         <div class="w-full bg-white/95 backdrop-blur-sm border border-stone-200 rounded-3xl p-5 sm:p-6 shadow-soft space-y-5 text-center flex flex-col items-center">
           
-          <!-- Add Page Header with Discard Option -->
+          <!-- Add Page Header with Discard Option (closes form and returns home) -->
           <div class="w-full flex items-center justify-between gap-2 border-b border-stone-200/80 pb-3">
             <div class="space-y-0.5 text-left">
               <h2 id="add-view-title" class="text-lg sm:text-2xl font-extrabold text-stone-900 tracking-tight">
                 Add to Physical Memory
               </h2>
               <p class="text-xs text-stone-500">
-                Log where you placed an item &mdash; instant &amp; effortless
+                Capture image, enter by voice, or fill the form &mdash; all open at once
               </p>
             </div>
             <button
               type="button"
+              id="btn-header-discard-entry"
               onclick="discardAllAddEntries()"
-              class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl text-xs font-bold cursor-pointer transition-colors flex items-center gap-1 shadow-xs touch-manipulation"
-              title="Discard any unsaved info and exit"
+              class="px-3.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 rounded-xl text-xs font-bold cursor-pointer transition-colors flex items-center gap-1.5 shadow-xs touch-manipulation"
+              title="Discard this entry and close form"
             >
-              <i data-lucide="trash-2" class="w-3.5 h-3.5 text-rose-600"></i>
+              <i data-lucide="x" class="w-4 h-4 text-rose-600"></i>
               <span>Discard Entry</span>
             </button>
           </div>
 
-          <!-- Capture Mode Selector Tabs (Centered) -->
-          <div class="bg-stone-100 p-1.5 rounded-2xl flex flex-wrap items-center justify-center gap-1.5 shadow-inner">
-            <button
-              id="add-tab-voice"
-              onclick="setAddCaptureMode('voice')"
-              class="px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer bg-white text-stone-900 shadow-soft flex items-center gap-1.5 touch-manipulation"
-            >
-              <i data-lucide="mic" class="w-3.5 h-3.5 text-amber-600"></i>
-              <span>🎙️ Voice / Fast Log</span>
-            </button>
-            <button
-              id="add-tab-photo"
-              onclick="setAddCaptureMode('photo')"
-              class="px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5 touch-manipulation"
-            >
-              <i data-lucide="camera" class="w-3.5 h-3.5 text-indigo-600"></i>
-              <span>📸 Photo Clue</span>
-            </button>
-            <button
-              id="add-tab-tour"
-              onclick="setAddCaptureMode('tour')"
-              class="px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5 touch-manipulation"
-            >
-              <i data-lucide="footprints" class="w-3.5 h-3.5 text-emerald-600"></i>
-              <span>🚶 Bulk Tour Mode</span>
-            </button>
-            <button
-              id="add-tab-form"
-              onclick="setAddCaptureMode('form')"
-              class="px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-stone-600 hover:text-stone-900 flex items-center gap-1.5 touch-manipulation"
-            >
-              <i data-lucide="file-edit" class="w-3.5 h-3.5 text-stone-600"></i>
-              <span>📋 Detailed Form</span>
-            </button>
-          </div>
+          <!-- TOP ACTIONS: Voice & Image Capture Opened at Once Above Form -->
+          <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- OPTION 1: ENTER BY VOICE -->
+            <div class="bg-gradient-to-br from-amber-50/80 via-yellow-50/60 to-orange-50/40 p-4 sm:p-5 rounded-2xl border-2 border-amber-300/80 shadow-xs flex flex-col items-center justify-between text-center space-y-3">
+              <div class="w-full flex items-center justify-between">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-950 border border-amber-300 text-[11px] font-extrabold">
+                  <i data-lucide="mic" class="w-3.5 h-3.5 text-amber-700"></i>
+                  <span>Enter by Voice</span>
+                </span>
+                <span class="text-[11px] text-amber-900 font-bold">Auto-fills form below</span>
+              </div>
 
-          <!-- 1. VOICE / NATURAL LANGUAGE CAPTURE PANEL -->
-          <div id="add-panel-voice" class="w-full space-y-4 flex flex-col items-center">
-            <div class="w-full bg-gradient-to-br from-amber-50/70 via-yellow-50/50 to-orange-50/40 p-5 rounded-2xl border border-amber-200/80 space-y-4 text-center">
-              
-              <!-- Voice Button with live microphone status -->
-              <div class="flex flex-col items-center justify-center gap-2">
+              <!-- Voice Microphone Button -->
+              <div class="flex flex-col items-center justify-center gap-2 py-1">
                 <button
+                  type="button"
                   id="btn-voice-record"
                   onclick="toggleVoiceRecognition()"
-                  class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 text-stone-950 flex items-center justify-center shadow-elevated border-4 border-white cursor-pointer hover:opacity-90 active:opacity-80 transition-all touch-manipulation"
-                  title="Tap to speak"
+                  class="w-16 h-16 sm:w-18 sm:h-18 rounded-3xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 text-stone-950 flex items-center justify-center shadow-elevated border-4 border-white cursor-pointer hover:opacity-90 active:scale-95 transition-all touch-manipulation"
+                  title="Tap to speak your item &amp; location"
                 >
                   <i data-lucide="mic" class="w-8 h-8 text-stone-950"></i>
                 </button>
-                <span id="voice-record-label" class="text-xs font-bold text-stone-800">
+                <span id="voice-record-label" class="text-xs font-black text-stone-800">
                   Tap microphone to speak
                 </span>
-                <span class="text-[11px] text-stone-500">
-                  Example: <em>&ldquo;I put the cordless drill in garage on workbench pegboard&rdquo;</em>
-                </span>
+                <p class="text-[11px] text-stone-500 max-w-xs leading-tight">
+                  e.g. <em>&ldquo;Cordless drill in garage on workbench&rdquo;</em> or <em>&ldquo;Passports in bedroom closet top shelf&rdquo;</em>
+                </p>
               </div>
 
-              <!-- Text Input Fallback with Inline Discard Button -->
-              <div class="w-full max-w-lg mx-auto relative flex items-center">
+              <!-- Fast Sentence Typing Alternative -->
+              <div class="w-full relative flex items-center">
                 <input
                   type="text"
                   id="voice-nlp-input"
                   oninput="handleNlpInputChange(this.value)"
-                  placeholder="Or type sentence... e.g. Passports in bedroom closet top shelf"
-                  class="w-full pl-4 pr-10 py-3 bg-white border-2 border-amber-300 focus:border-amber-500 rounded-2xl text-xs sm:text-sm font-semibold text-stone-900 text-center focus:outline-none shadow-xs"
+                  placeholder="Or type sentence to auto-fill form..."
+                  class="w-full pl-3 pr-8 py-2 bg-white border border-amber-300 focus:border-amber-500 rounded-xl text-xs font-semibold text-stone-900 text-center focus:outline-none shadow-xs"
                 />
                 <button
                   type="button"
                   id="btn-voice-input-clear"
-                  onclick="discardVoiceEntry()"
-                  class="hidden absolute right-3 p-1.5 text-stone-400 hover:text-rose-600 cursor-pointer rounded-full transition-colors touch-manipulation"
-                  title="Discard / Clear entered text"
+                  onclick="clearVoiceInputOnly()"
+                  class="hidden absolute right-2 p-1 text-stone-400 hover:text-stone-700 cursor-pointer"
+                  title="Clear sentence"
                 >
-                  <i data-lucide="x" class="w-4 h-4"></i>
+                  <i data-lucide="x" class="w-3.5 h-3.5"></i>
                 </button>
               </div>
+            </div>
 
-              <!-- CONFIRM, DON'T CORRECT: Tiny 1-Tap Summary Card with Discard & Confirm Buttons -->
-              <div id="nlp-parse-preview" class="w-full max-w-md mx-auto bg-white rounded-2xl p-4 border border-amber-300 shadow-soft space-y-3 text-center hidden">
-                <div class="text-[11px] font-bold uppercase tracking-wider text-amber-800">
-                  ✨ Instant Parsed Summary
-                </div>
-                
-                <div class="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-bold text-stone-900">
-                  <span id="preview-item-name" class="px-2.5 py-1 bg-amber-100 rounded-lg text-amber-950 border border-amber-300">Item</span>
-                  <span class="text-stone-400">&rarr;</span>
-                  <span id="preview-room-name" class="px-2.5 py-1 bg-indigo-100 rounded-lg text-indigo-950 border border-indigo-300">Room</span>
-                  <span class="text-stone-400">&rarr;</span>
-                  <span id="preview-zone-name" class="px-2.5 py-1 bg-emerald-100 rounded-lg text-emerald-950 border border-emerald-300">Spot</span>
-                </div>
+            <!-- OPTION 2: CAPTURE AN IMAGE -->
+            <div class="bg-gradient-to-br from-indigo-50/80 via-sky-50/60 to-stone-50 p-4 sm:p-5 rounded-2xl border-2 border-indigo-300/80 shadow-xs flex flex-col items-center justify-between text-center space-y-3">
+              <div class="w-full flex items-center justify-between">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-950 border border-indigo-300 text-[11px] font-extrabold">
+                  <i data-lucide="camera" class="w-3.5 h-3.5 text-indigo-700"></i>
+                  <span>Capture Image</span>
+                </span>
+                <span class="text-[11px] text-indigo-900 font-bold">Photo memory clue</span>
+              </div>
 
-                <p id="preview-container-note" class="text-xs text-stone-500 italic hidden"></p>
+              <!-- Camera File Input -->
+              <input
+                type="file"
+                id="photo-file-input"
+                accept="image/*"
+                capture="environment"
+                onchange="handlePhotoUpload(event)"
+                class="hidden"
+              />
 
-                <!-- Actions: Discard Entry vs Confirm & Save -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                  <button
-                    type="button"
-                    onclick="discardVoiceEntry()"
-                    class="w-full py-2.5 px-3 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs sm:text-sm rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
-                    title="Discard this entry before saving"
-                  >
-                    <i data-lucide="trash-2" class="w-4 h-4 text-rose-600"></i>
-                    <span>Discard Entry</span>
-                  </button>
-                  <button
-                    type="button"
-                    onclick="confirmNlpCapture()"
-                    class="w-full py-2.5 px-3 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-soft transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
-                  >
-                    <i data-lucide="check" class="w-4 h-4 text-amber-400"></i>
-                    <span>Confirm &amp; Save</span>
-                  </button>
+              <label
+                for="photo-file-input"
+                class="px-4 py-4 bg-white hover:bg-stone-50 border-2 border-dashed border-indigo-300 hover:border-indigo-500 rounded-2xl flex flex-col items-center justify-center gap-2 cursor-pointer shadow-xs transition-all w-full select-none touch-manipulation group"
+              >
+                <div class="w-12 h-12 rounded-2xl bg-indigo-100 group-hover:bg-indigo-200 text-indigo-700 flex items-center justify-center transition-colors">
+                  <i data-lucide="camera" class="w-6 h-6"></i>
                 </div>
+                <span class="text-xs font-black text-indigo-950">Tap to Snap Photo or Choose Image</span>
+                <span class="text-[10px] text-stone-500 leading-tight">Visual memory: shelf, drawer, or container</span>
+              </label>
+
+              <div class="w-full text-center">
+                <span id="photo-status-indicator" class="text-[11px] text-stone-500 italic">
+                  Optional &bull; Visible in detailed form once captured
+                </span>
               </div>
             </div>
+
           </div>
 
-          <!-- 2. PHOTO-FIRST CAPTURE PANEL -->
-          <div id="add-panel-photo" class="w-full space-y-4 flex flex-col items-center hidden">
-            <div class="w-full bg-gradient-to-br from-indigo-50/70 via-sky-50/50 to-stone-50 p-5 rounded-2xl border border-indigo-200/80 space-y-4 text-center">
+          <!-- Live Voice / Speech Autofill Banner -->
+          <div id="voice-autofill-notice" class="hidden w-full max-w-xl bg-emerald-50 border border-emerald-300 text-emerald-950 rounded-2xl p-3 flex items-center justify-between gap-2 text-xs font-semibold shadow-xs">
+            <div class="flex items-center gap-2 text-left">
+              <span class="text-base">✨</span>
+              <span id="voice-autofill-text">Heard voice: Form fields filled below! You can review or edit any field.</span>
+            </div>
+            <button type="button" onclick="dismissVoiceNotice()" class="text-emerald-700 hover:text-emerald-900 cursor-pointer p-1">
+              <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- OPTION 3: DETAILED FORM (OPENED AT ONCE DIRECTLY BELOW) -->
+          <div id="add-panel-form" class="w-full space-y-4 flex flex-col items-center">
+            <form id="full-add-form" onsubmit="handleSaveItemSubmit(event)" class="w-full max-w-xl space-y-4 text-xs text-center">
               
-              <div class="space-y-1">
-                <h3 class="text-sm sm:text-base font-extrabold text-indigo-950">Snap a Photo of the Shelf or Box</h3>
-                <p class="text-xs text-stone-600 max-w-sm mx-auto">
-                  Recall locations visually! A photo of the drawer or shelf is worth 1,000 words.
-                </p>
-              </div>
-
-              <!-- Camera Trigger & Upload -->
-              <div class="flex flex-col items-center justify-center gap-3">
-                <input
-                  type="file"
-                  id="photo-file-input"
-                  accept="image/*"
-                  capture="environment"
-                  onchange="handlePhotoUpload(event)"
-                  class="hidden"
-                />
-
-                <label
-                  for="photo-file-input"
-                  class="px-6 py-4 bg-white hover:bg-stone-50 border-2 border-dashed border-indigo-300 hover:border-indigo-500 rounded-2xl flex flex-col items-center justify-center gap-2 cursor-pointer shadow-xs transition-all w-full max-w-xs text-center select-none touch-manipulation"
-                >
-                  <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center pointer-events-none">
-                    <i data-lucide="camera" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-xs font-bold text-indigo-900 pointer-events-none">Take Photo or Choose Image</span>
-                  <span class="text-[10px] text-stone-400 pointer-events-none">Camera &bull; Visual memory clue</span>
-                </label>
-
-                <!-- Photo Preview Container -->
-                <div id="photo-preview-container" class="hidden relative max-w-xs w-full rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-soft">
-                  <img id="photo-preview-img" src="" alt="Photo Clue Preview" class="w-full h-48 object-cover" />
+              <!-- Captured Image Preview inside Detailed Form (Visible ONLY if photo captured, otherwise hidden) -->
+              <div id="photo-preview-container" class="hidden w-full bg-indigo-50/70 border-2 border-indigo-300 rounded-2xl p-3.5 space-y-2 flex flex-col items-center shadow-soft">
+                <div class="w-full flex items-center justify-between text-xs font-bold text-indigo-950">
+                  <span class="flex items-center gap-1.5">
+                    <i data-lucide="image" class="w-4 h-4 text-indigo-600"></i>
+                    <span>Attached Image Preview</span>
+                  </span>
                   <button
                     type="button"
                     onclick="clearPhotoPreview()"
-                    class="absolute top-2 right-2 p-1.5 bg-stone-900/80 text-white rounded-full cursor-pointer hover:bg-stone-900"
-                    title="Remove photo"
+                    class="text-xs text-rose-700 bg-white hover:bg-rose-50 border border-rose-300 px-2.5 py-1 rounded-xl cursor-pointer font-bold flex items-center gap-1 transition-colors"
                   >
-                    <i data-lucide="x" class="w-4 h-4"></i>
+                    <i data-lucide="trash-2" class="w-3 h-3 text-rose-600"></i>
+                    <span>Remove Photo</span>
                   </button>
                 </div>
-              </div>
-
-              <!-- Quick Room & Name for Photo Clue (Optional text!) -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto text-left">
-                <div>
-                  <label class="block text-[11px] font-bold text-stone-700 mb-1">Room / Area *</label>
-                  <select
-                    id="photo-room-select"
-                    class="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs font-semibold text-stone-800"
-                  ></select>
-                </div>
-                <div>
-                  <label class="block text-[11px] font-bold text-stone-700 mb-1">Item / Spot Label (optional)</label>
-                  <input
-                    type="text"
-                    id="photo-item-name"
-                    placeholder="e.g. Winter Clothes Bin"
-                    class="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs text-stone-900"
-                  />
+                <div class="relative w-full max-w-xs rounded-xl overflow-hidden border border-indigo-200 shadow-xs">
+                  <img id="photo-preview-img" src="" alt="Captured Clue" class="w-full h-44 object-cover" />
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-md mx-auto w-full pt-1">
-                <button
-                  type="button"
-                  onclick="discardPhotoEntry()"
-                  class="w-full py-3 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs sm:text-sm rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
-                  title="Discard this entry before saving"
-                >
-                  <i data-lucide="trash-2" class="w-4 h-4 text-rose-600"></i>
-                  <span>Discard Entry</span>
-                </button>
-                <button
-                  type="button"
-                  onclick="savePhotoClueItem()"
-                  class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-soft transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
-                >
-                  <i data-lucide="save" class="w-4 h-4 text-amber-400"></i>
-                  <span>Save Photo Clue</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3. BULK TOUR MODE PANEL -->
-          <div id="add-panel-tour" class="w-full space-y-4 flex flex-col items-center hidden">
-            <div class="w-full bg-gradient-to-br from-emerald-50/70 via-teal-50/50 to-stone-50 p-5 rounded-2xl border border-emerald-200/80 space-y-4 text-center">
-              
-              <div class="space-y-1">
-                <h3 class="text-sm sm:text-base font-extrabold text-emerald-950">Bulk &ldquo;Tour Mode&rdquo;</h3>
-                <p class="text-xs text-stone-600 max-w-md mx-auto">
-                  Walk through a room, open a drawer or shelf, say everything inside out loud! Setup 50 items in 5 minutes.
-                </p>
+              <!-- Form Header / Label -->
+              <div class="w-full flex items-center justify-between border-b border-stone-200 pb-2">
+                <span class="text-xs font-extrabold text-stone-800 flex items-center gap-1.5">
+                  <i data-lucide="file-text" class="w-4 h-4 text-stone-600"></i>
+                  <span>Detailed Form (Review &amp; Edit Details)</span>
+                </span>
+                <span class="text-[11px] text-stone-500">* Required fields</span>
               </div>
 
-              <!-- Step 1: Select Room & Zone -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto text-left">
-                <div>
-                  <label class="block text-[11px] font-bold text-stone-700 mb-1">Walking In Room *</label>
-                  <select
-                    id="tour-room-select"
-                    class="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs font-semibold text-stone-800"
-                  ></select>
-                </div>
-                <div>
-                  <label class="block text-[11px] font-bold text-stone-700 mb-1">Drawer, Shelf or Spot *</label>
-                  <input
-                    type="text"
-                    id="tour-zone-input"
-                    placeholder="e.g. Middle drawer, Pegboard, Top shelf"
-                    class="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs text-stone-900"
-                  />
-                </div>
-              </div>
-
-              <!-- Step 2: Speak or Type items list -->
-              <div class="w-full max-w-md mx-auto space-y-2 text-center">
-                <div class="flex items-center justify-center gap-2">
-                  <button
-                    id="btn-tour-voice"
-                    onclick="toggleTourVoice()"
-                    class="px-4 py-2 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 text-emerald-950 text-xs font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-xs"
-                  >
-                    <span>🎙️</span>
-                    <span id="tour-voice-label">Speak items</span>
-                  </button>
-                  <span class="text-[11px] text-stone-500">or type separated by commas:</span>
-                </div>
-
-                <textarea
-                  id="tour-items-input"
-                  rows="3"
-                  oninput="handleTourInputChange(this.value)"
-                  placeholder="e.g. Hammer, screwdriver, wire cutters, tape measure, box cutter, safety goggles"
-                  class="w-full px-3.5 py-2.5 bg-white border-2 border-emerald-300 focus:border-emerald-500 rounded-2xl text-xs text-stone-900 focus:outline-none shadow-xs text-center"
-                ></textarea>
-              </div>
-
-              <!-- Items Breakdown Preview -->
-              <div id="tour-preview-badges" class="flex flex-wrap items-center justify-center gap-1.5 max-w-md mx-auto">
-                <!-- Badges populated dynamically -->
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-md mx-auto w-full pt-1">
-                <button
-                  type="button"
-                  onclick="discardTourEntry()"
-                  class="w-full py-3 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs sm:text-sm rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
-                  title="Discard this tour entry before saving"
-                >
-                  <i data-lucide="trash-2" class="w-4 h-4 text-rose-600"></i>
-                  <span>Discard Entry</span>
-                </button>
-                <button
-                  type="button"
-                  id="btn-save-tour-bulk"
-                  onclick="saveBulkTourItems()"
-                  class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-soft transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
-                >
-                  <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-400"></i>
-                  <span id="btn-save-tour-label">Add Items in Tour</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4. DETAILED FORM PANEL (All options visible at one go) -->
-          <div id="add-panel-form" class="w-full space-y-4 flex flex-col items-center hidden">
-            <form id="full-add-form" onsubmit="handleSaveItemSubmit(event)" class="w-full max-w-xl space-y-4 text-xs text-center">
-              
               <!-- Item Name -->
               <div class="space-y-1.5 text-center">
                 <label class="block font-bold text-stone-800 text-sm">Item Name *</label>
@@ -722,20 +577,24 @@
                 </div>
               </div>
 
-              <!-- Form Buttons with Discard Entry -->
-              <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <!-- Discard Entry Button (Directly Above Save Button) -->
+              <div class="w-full pt-2 flex flex-col items-center justify-center gap-2">
                 <button
                   type="button"
+                  id="btn-discard-above-save"
                   onclick="discardDetailedFormEntry()"
-                  class="px-6 py-2.5 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl font-bold text-rose-700 text-xs sm:text-sm cursor-pointer transition-colors flex items-center gap-1.5 touch-manipulation"
-                  title="Discard all changes and clear form"
+                  class="w-full sm:w-auto px-6 py-2.5 bg-rose-50 hover:bg-rose-100 border-2 border-rose-300 rounded-xl font-bold text-rose-700 text-xs sm:text-sm cursor-pointer transition-colors flex items-center justify-center gap-2 touch-manipulation shadow-xs"
+                  title="Discard this entry and close form"
                 >
                   <i data-lucide="trash-2" class="w-4 h-4 text-rose-600"></i>
                   <span>Discard Entry</span>
                 </button>
+
+                <!-- Save Item Button -->
                 <button
                   type="submit"
-                  class="px-8 py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl font-bold text-xs sm:text-sm cursor-pointer shadow-soft transition-all touch-manipulation flex items-center gap-1.5"
+                  id="btn-save-entry"
+                  class="w-full sm:w-auto px-10 py-3 bg-stone-900 hover:bg-stone-800 text-white rounded-xl font-black text-xs sm:text-sm cursor-pointer shadow-soft transition-all touch-manipulation flex items-center justify-center gap-2"
                 >
                   <i data-lucide="check" class="w-4 h-4 text-amber-400"></i>
                   <span>Save Item</span>
@@ -743,6 +602,95 @@
               </div>
             </form>
           </div>
+
+          <!-- Collapsible Bulk Tour Mode (walk room to room) -->
+          <div class="w-full pt-3 border-t border-stone-200">
+            <button
+              type="button"
+              onclick="toggleTourModeSection()"
+              class="text-xs text-stone-500 hover:text-stone-800 font-semibold transition-colors flex items-center justify-center gap-1.5 mx-auto cursor-pointer"
+            >
+              <span>🚶 Walking through a room? Open Bulk Tour Mode (10+ items)</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+            </button>
+
+            <div id="add-panel-tour" class="w-full space-y-4 flex flex-col items-center hidden mt-3">
+              <div class="w-full bg-gradient-to-br from-emerald-50/70 via-teal-50/50 to-stone-50 p-5 rounded-2xl border border-emerald-200/80 space-y-4 text-center">
+                <div class="space-y-1">
+                  <h3 class="text-sm sm:text-base font-extrabold text-emerald-950">Bulk &ldquo;Tour Mode&rdquo;</h3>
+                  <p class="text-xs text-stone-600 max-w-md mx-auto">
+                    Walk through a room, say or type everything inside out loud.
+                  </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto text-left">
+                  <div>
+                    <label class="block text-[11px] font-bold text-stone-700 mb-1">Walking In Room *</label>
+                    <select
+                      id="tour-room-select"
+                      class="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs font-semibold text-stone-800"
+                    ></select>
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold text-stone-700 mb-1">Drawer, Shelf or Spot *</label>
+                    <input
+                      type="text"
+                      id="tour-zone-input"
+                      placeholder="e.g. Middle drawer, Pegboard, Top shelf"
+                      class="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs text-stone-900"
+                    />
+                  </div>
+                </div>
+
+                <div class="w-full max-w-md mx-auto space-y-2 text-center">
+                  <div class="flex items-center justify-center gap-2">
+                    <button
+                      type="button"
+                      id="btn-tour-voice"
+                      onclick="toggleTourVoice()"
+                      class="px-4 py-2 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 text-emerald-950 text-xs font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-xs"
+                    >
+                      <span>🎙️</span>
+                      <span id="tour-voice-label">Speak items</span>
+                    </button>
+                    <span class="text-[11px] text-stone-500">or type separated by commas:</span>
+                  </div>
+
+                  <textarea
+                    id="tour-items-input"
+                    rows="2"
+                    oninput="handleTourInputChange(this.value)"
+                    placeholder="e.g. Hammer, screwdriver, wire cutters, tape measure"
+                    class="w-full px-3.5 py-2.5 bg-white border-2 border-emerald-300 focus:border-emerald-500 rounded-2xl text-xs text-stone-900 focus:outline-none shadow-xs text-center"
+                  ></textarea>
+                </div>
+
+                <div id="tour-preview-badges" class="flex flex-wrap items-center justify-center gap-1.5 max-w-md mx-auto"></div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-md mx-auto w-full pt-1">
+                  <button
+                    type="button"
+                    onclick="discardDetailedFormEntry()"
+                    class="w-full py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
+                    title="Discard entry and close"
+                  >
+                    <i data-lucide="trash-2" class="w-4 h-4 text-rose-600"></i>
+                    <span>Discard Entry</span>
+                  </button>
+                  <button
+                    type="button"
+                    id="btn-save-tour-bulk"
+                    onclick="saveBulkTourItems()"
+                    class="w-full py-2.5 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-xs rounded-xl shadow-soft transition-all cursor-pointer flex items-center justify-center gap-1.5 touch-manipulation"
+                  >
+                    <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-400"></i>
+                    <span id="btn-save-tour-label">Add Items in Tour</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -1070,14 +1018,14 @@
           <button
             type="button"
             onclick="handleNotThereChoice('missing')"
-            class="p-3 bg-stone-100 hover:bg-stone-200 border border-stone-300 rounded-2xl flex items-center gap-3 transition-colors cursor-pointer touch-manipulation text-left"
+            class="p-3 bg-red-50 hover:bg-red-100 border-2 border-red-300 rounded-2xl flex items-center gap-3 transition-colors cursor-pointer touch-manipulation text-left"
           >
-            <div class="w-9 h-9 rounded-xl bg-stone-200 text-stone-800 flex items-center justify-center shrink-0">
-              <i data-lucide="search" class="w-4 h-4 text-stone-700"></i>
+            <div class="w-9 h-9 rounded-xl bg-red-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-white"></i>
             </div>
             <div>
-              <div class="text-xs font-bold text-stone-900">Missing &bull; Can't find right now</div>
-              <div class="text-[11px] text-stone-500">Flag as missing so you remember to look</div>
+              <div class="text-xs font-black text-red-950">🚩 Missing &bull; Tag as Missing (Red Alert)</div>
+              <div class="text-[11px] text-red-700 font-semibold">Mark as missing in red &bull; Not verified today</div>
             </div>
           </button>
         </div>
